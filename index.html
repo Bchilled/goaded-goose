@@ -244,6 +244,8 @@ header{position:sticky;top:0;z-index:100;background:rgba(13,13,14,0.96);backdrop
 .stab.active{background:var(--gold-bg);color:var(--gold)}
 .pill-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
 .pill{background:var(--ink2);border:1px solid var(--line);border-radius:20px;padding:5px 13px;font-size:12px;color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap}
+.pill-new{border-color:var(--gold);color:var(--white2);background:var(--gold-bg)}
+.new-dot{background:var(--gold);color:var(--ink);font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;letter-spacing:.5px;margin-right:2px;vertical-align:middle}
 .pill:hover,.pill.active{background:var(--gold-bg);border-color:var(--gold);color:var(--gold)}
 
 @media(max-width:900px){
@@ -285,7 +287,7 @@ header{position:sticky;top:0;z-index:100;background:rgba(13,13,14,0.96);backdrop
       <div class="hero-layout">
         <div>
           <h1>MTG SINGLES<em>CANADA</em></h1>
-          <p>853 cards. 10 sets. Real stock from Toronto. Every format covered.</p>
+          <p>1,064 cards across 11 sets including the brand new Spider-Man set. Every format covered. Ships from Toronto.</p>
           <div class="hero-btns">
             <button class="btn-gold" onclick="showCatalog({})">Shop All Cards</button>
             <button class="btn-outline" onclick="scrollTo('#discoverSec')">Browse by Category</button>
@@ -329,6 +331,12 @@ header{position:sticky;top:0;z-index:100;background:rgba(13,13,14,0.96);backdrop
     <!-- DISCOVER -->
     <div class="sec" id="discoverSec">
       <div class="sec-hdr"><span class="sec-title">Find Your Cards</span></div>
+
+      <!-- New Releases highlight -->
+      <div style="margin-bottom:32px">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:12px">New Releases</div>
+        <div class="format-cards" id="newRelGrid"></div>
+      </div>
 
       <!-- By Format -->
       <div style="margin-bottom:32px">
@@ -480,7 +488,21 @@ header{position:sticky;top:0;z-index:100;background:rgba(13,13,14,0.96);backdrop
 <script>
 const DB='https://raw.githubusercontent.com/Bchilled/goaded-goose/main/database.json';
 const CAD=1.37,PAGE=48;
-const SET_NAMES={ECL:'Lorwyn Eclipsed',MH1:'Modern Horizons',MH2:'Modern Horizons 2',M15:'Magic 2015',THB:'Theros Beyond Death',TSR:'Time Spiral Remastered',VOW:'Innistrad: Crimson Vow',WAR:'War of the Spark',TMT:'The Modern Tournament',TLA:'Tarkir: Dragonstorm',LRW:'Lorwyn'};
+const SET_NAMES={
+  ECL:'Lorwyn Eclipsed',SPM:"Marvel's Spider-Man",TLA:'Tarkir: Dragonstorm',
+  LRW:'Lorwyn',WAR:'War of the Spark',THB:'Theros Beyond Death',
+  TMT:'The Modern Tournament',VOW:'Innistrad: Crimson Vow',
+  TSR:'Time Spiral Remastered',MH1:'Modern Horizons',MH2:'Modern Horizons 2',M15:'Magic 2015'
+};
+// Release dates for "recently released" ordering
+const SET_DATES={
+  SPM:'2025-09-26',ECL:'2025-09-26',TLA:'2025-04-11',
+  VOW:'2021-11-19',WAR:'2019-05-03',THB:'2020-01-24',
+  TMT:'2025-01-01',TSR:'2021-03-19',MH1:'2019-06-14',
+  LRW:'2007-10-12',M15:'2014-07-18',MH2:'2021-06-18'
+};
+// Sets released in the last 12 months (highlight as NEW)
+const NEW_SETS=['SPM','ECL','TLA'];
 const FORMAT_ORDER=['standard','pioneer','modern','legacy','vintage','commander','pauper','historic'];
 const COLOR_META={W:{name:'White',emoji:'☀',bg:'#f9e4a0',fg:'#6b5c20'},U:{name:'Blue',emoji:'💧',bg:'#3a7ab8',fg:'#fff'},B:{name:'Black',emoji:'💀',bg:'#4a3460',fg:'#d4b8f0'},R:{name:'Red',emoji:'🔥',bg:'#c04030',fg:'#fff'},G:{name:'Green',emoji:'🌿',bg:'#2e7a30',fg:'#a8f0a8'},C:{name:'Colorless',emoji:'◇',bg:'#555',fg:'#ccc'}};
 const THEMES=[
@@ -520,7 +542,7 @@ async function init(){
     const r=await fetch(DB);
     allCards=await r.json();
     buildStats();buildSpotlight();buildHighValue();buildFresh();
-    buildFormatGrid();buildColorGrid();buildTypeGrid();buildSetRow();buildThemeRow();buildRarRow();buildBudgetRow();
+    buildNewRelGrid();buildFormatGrid();buildColorGrid();buildTypeGrid();buildSetRow();buildThemeRow();buildRarRow();buildBudgetRow();
   }catch(e){console.error(e)}
 }
 
@@ -591,6 +613,21 @@ function valueCardHTML(c){
   </div>`;
 }
 
+function buildNewRelGrid(){
+  const el=document.getElementById('newRelGrid');
+  if(!el)return;
+  el.innerHTML=NEW_SETS.map(code=>{
+    const cnt=allCards.filter(c=>c.set===code).length;
+    const high=[...allCards].filter(c=>c.set===code&&c.img).sort((a,b)=>b.usd-a.usd)[0];
+    return`<div class="format-card" onclick="showCatalog({set:'${code}'})" style="position:relative">
+      <div style="position:absolute;top:8px;right:8px;background:var(--gold);color:var(--ink);font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;letter-spacing:.5px">NEW</div>
+      <div class="format-card-name">${SET_NAMES[code]||code}</div>
+      <div class="format-card-count">${cnt} cards in stock</div>
+      <div style="font-size:10px;color:var(--dim);margin-top:2px">${SET_DATES[code]||''}</div>
+    </div>`;
+  }).join('');
+}
+
 function buildFormatGrid(){
   const formats=FORMAT_ORDER;
   const el=document.getElementById('formatGrid');
@@ -629,9 +666,19 @@ function buildSetRow(){
   const counts={};
   allCards.forEach(c=>counts[c.set]=(counts[c.set]||0)+1);
   const el=document.getElementById('setRow');
-  el.innerHTML=Object.entries(counts).sort((a,b)=>b[1]-a[1]).map(([code,cnt])=>
-    `<button class="pill" onclick="showCatalog({set:'${code}'})">${code} <span style="color:var(--dim);font-size:11px">${cnt}</span></button>`
-  ).join('');
+  // Sort by release date desc (newest first)
+  const sorted=Object.entries(counts).sort((a,b)=>{
+    const da=SET_DATES[a[0]]||'2000-01-01';
+    const db=SET_DATES[b[0]]||'2000-01-01';
+    return db.localeCompare(da);
+  });
+  el.innerHTML=sorted.map(([code,cnt])=>{
+    const isNew=NEW_SETS.includes(code);
+    return`<button class="pill${isNew?' pill-new':''}" onclick="showCatalog({set:'${code}'})">
+      ${isNew?'<span class="new-dot">NEW</span> ':''}${SET_NAMES[code]||code}
+      <span style="color:var(--dim);font-size:11px;margin-left:4px">${cnt}</span>
+    </button>`;
+  }).join('');
 }
 
 function buildThemeRow(){
