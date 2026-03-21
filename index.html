@@ -3,604 +3,467 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Goaded Goose — MTG Singles</title>
+<title>The Goaded Goose — MTG Singles Canada</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;900&family=Barlow:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mana-font@latest/css/mana.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#080a0c;
-  --bg2:#0e1114;
-  --bg3:#141820;
-  --bg4:#1c2230;
-  --line:#1e2530;
-  --line2:#2a3345;
-  --txt:#e8eaf0;
-  --txt2:#8892a4;
-  --txt3:#4a5568;
-  --gold:#d4a843;
-  --gold2:#f0c866;
-  --glow:rgba(212,168,67,0.15);
-  --red:#e05252;
-  --green:#52c97a;
-  --blue:#5b9bd4;
-  --mythic:#e8874a;
-  --rare:#6b9fe8;
-  --uncommon:#7ec98a;
-  --common:#8892a4;
+  --bg:#0a0c0f;
+  --bg2:#111418;
+  --bg3:#181c22;
+  --bg4:#1f242d;
+  --line:#1e242e;
+  --line2:#272f3d;
+  --txt:#dde2ea;
+  --txt2:#7a869a;
+  --txt3:#3d4758;
+  --gold:#c8a040;
+  --gold2:#e8bc5a;
+  --glow:rgba(200,160,64,0.12);
+  --red:#c85050;
+  --green:#4ab870;
+  --blue:#4a80c8;
+  --mythic:#d4783a;
+  --rare:#5888d8;
+  --uncommon:#60b870;
+  --common:#707888;
 }
-html{scroll-behavior:smooth;height:100%}
-body{background:var(--bg);color:var(--txt);font-family:'Barlow',sans-serif;font-size:15px;line-height:1.5;min-height:100%;overflow-x:hidden}
-::-webkit-scrollbar{width:4px;height:4px}
+html{height:100%}
+body{background:var(--bg);color:var(--txt);font-family:'Barlow',sans-serif;font-size:14px;line-height:1.5;overflow-x:hidden}
+::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--line2);border-radius:2px}
 input,select,button{font-family:'Barlow',sans-serif}
 
-/* HEADER */
+/* ── HEADER ── */
 .hdr{
   position:sticky;top:0;z-index:100;
-  background:rgba(8,10,12,0.97);
+  background:rgba(10,12,15,0.97);
   border-bottom:1px solid var(--line);
-  backdrop-filter:blur(20px);
+  backdrop-filter:blur(16px);
 }
 .hdr-inner{
   max-width:1600px;margin:0 auto;
-  padding:0 20px;height:52px;
-  display:flex;align-items:center;gap:16px;
+  padding:0 18px;height:50px;
+  display:flex;align-items:center;gap:14px;
 }
-.logo{
+/* GOOSE LOGO — angry Canadian goose SVG */
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0}
+.logo-text{
   font-family:'Barlow Condensed',sans-serif;
-  font-size:20px;font-weight:900;
-  letter-spacing:2px;text-transform:uppercase;
-  color:var(--gold);text-decoration:none;
-  flex-shrink:0;white-space:nowrap;
+  font-size:18px;font-weight:900;letter-spacing:2px;
+  text-transform:uppercase;color:var(--gold);white-space:nowrap;
 }
-.logo-goose{
-  display:inline-block;width:28px;height:28px;
-  margin-right:6px;vertical-align:middle;
-  margin-top:-3px;
+.goose-svg{width:36px;height:36px;flex-shrink:0}
+.search-wrap{flex:1;max-width:560px;position:relative}
+.search-wrap input{
+  width:100%;background:var(--bg3);
+  border:1px solid var(--line2);border-radius:2px;
+  padding:7px 14px 7px 36px;color:var(--txt);font-size:13px;outline:none;
+  transition:border-color .15s;
 }
-.search-bar{
-  flex:1;max-width:600px;position:relative;
-}
-.search-bar input{
-  width:100%;
-  background:var(--bg3);
-  border:1px solid var(--line2);
-  border-radius:3px;
-  padding:8px 16px 8px 40px;
-  color:var(--txt);
-  font-size:14px;
-  outline:none;
-  transition:border-color .15s,background .15s;
-}
-.search-bar input:focus{border-color:var(--gold);background:var(--bg4)}
-.search-bar input::placeholder{color:var(--txt3)}
-.search-icon{
-  position:absolute;left:12px;top:50%;transform:translateY(-50%);
-  color:var(--txt3);font-size:16px;pointer-events:none;line-height:1;
-}
-.hdr-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
+.search-wrap input:focus{border-color:var(--gold)}
+.search-wrap input::placeholder{color:var(--txt3)}
+.s-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--txt3);font-size:15px;pointer-events:none}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:8px}
 .cart-btn{
-  display:flex;align-items:center;gap:8px;
-  background:var(--gold);color:#0a0800;
-  border:none;border-radius:3px;
-  padding:8px 16px;
+  display:flex;align-items:center;gap:7px;
+  background:var(--gold);color:#080600;
+  border:none;border-radius:2px;padding:7px 14px;
   font-family:'Barlow Condensed',sans-serif;
-  font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
-  cursor:pointer;transition:background .15s;white-space:nowrap;
+  font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  cursor:pointer;transition:background .15s;
 }
 .cart-btn:hover{background:var(--gold2)}
-.cart-n{
-  background:#0a0800;color:var(--gold);
-  border-radius:2px;padding:1px 6px;
-  font-size:11px;font-weight:700;min-width:18px;text-align:center;
-}
+.cart-n{background:#080600;color:var(--gold);border-radius:1px;padding:0 5px;font-size:10px;font-weight:700;min-width:16px;text-align:center}
 
-/* LAYOUT */
-.layout{display:flex;max-width:1600px;margin:0 auto;min-height:calc(100vh - 52px)}
+/* ── LAYOUT ── */
+.layout{display:flex;max-width:1600px;margin:0 auto}
 
-/* SIDEBAR */
+/* ── SIDEBAR ── */
 .sidebar{
-  width:220px;flex-shrink:0;
+  width:200px;flex-shrink:0;
   border-right:1px solid var(--line);
-  padding:20px 0;
-  position:sticky;top:52px;
-  height:calc(100vh - 52px);
+  padding:16px 0;
+  position:sticky;top:50px;
+  height:calc(100vh - 50px);
   overflow-y:auto;
 }
-.sb-section{margin-bottom:24px}
-.sb-label{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:11px;font-weight:700;letter-spacing:2px;
-  text-transform:uppercase;color:var(--txt3);
-  padding:0 16px;margin-bottom:8px;display:block;
-}
-.sb-item{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:6px 16px;font-size:13px;color:var(--txt2);
-  cursor:pointer;transition:all .1s;border:none;background:none;
-  width:100%;text-align:left;
-}
-.sb-item:hover{background:var(--bg3);color:var(--txt)}
-.sb-item.active{background:var(--glow);color:var(--gold);border-right:2px solid var(--gold)}
-.sb-count{font-size:11px;color:var(--txt3);font-family:'JetBrains Mono',monospace}
-.sb-item.active .sb-count{color:var(--gold);opacity:.7}
-.color-dot{width:8px;height:8px;border-radius:50%;margin-right:6px;flex-shrink:0}
-
-/* MAIN */
-.main{flex:1;min-width:0;padding:20px}
-
-/* TOP BAR */
-.topbar{
-  display:flex;align-items:center;gap:10px;
-  margin-bottom:16px;flex-wrap:wrap;
-}
-.topbar-title{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:22px;font-weight:700;letter-spacing:1px;
-  text-transform:uppercase;
-}
-.topbar-count{font-size:13px;color:var(--txt3);margin-left:4px}
-.filter-chips{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto;align-items:center}
-.chip{
-  background:var(--bg3);border:1px solid var(--line2);
-  border-radius:2px;padding:4px 12px;
-  font-size:12px;color:var(--txt2);
-  cursor:pointer;transition:all .1s;
-  font-family:'Barlow Condensed',sans-serif;
-  font-weight:600;letter-spacing:.5px;text-transform:uppercase;
-  white-space:nowrap;
-}
-.chip:hover{border-color:var(--gold);color:var(--gold)}
-.chip.active{background:var(--glow);border-color:var(--gold);color:var(--gold)}
-.sort-select{
-  background:var(--bg3);border:1px solid var(--line2);
-  border-radius:2px;padding:5px 10px;
-  color:var(--txt2);font-size:12px;outline:none;cursor:pointer;
-  font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.5px;
-}
-.sort-select:focus{border-color:var(--gold)}
-
-/* CARD GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(168px,1fr));
-  gap:8px;
-}
-
-/* CARD */
-.card{
-  background:var(--bg2);
-  border:1px solid var(--line);
-  border-radius:4px;
-  overflow:hidden;
-  cursor:pointer;
-  transition:border-color .15s,transform .1s;
-  position:relative;
-}
-.card:hover{border-color:var(--line2);transform:translateY(-2px)}
-.card.in-stock{border-color:var(--line2)}
-.card.in-stock:hover{border-color:var(--gold)}
-.card-img{
-  aspect-ratio:5/7;background:var(--bg3);
-  position:relative;overflow:hidden;
-}
-.card-img img{
-  width:100%;height:100%;object-fit:cover;
-  display:block;transition:transform .3s;
-}
-.card:hover .card-img img{transform:scale(1.04)}
-.card-img-ph{
-  width:100%;height:100%;display:flex;
-  align-items:center;justify-content:center;
-  color:var(--line2);font-size:32px;
-}
-.rar-pip{
-  position:absolute;bottom:6px;left:6px;
-  width:8px;height:8px;border-radius:50%;
-}
-.rar-mythic{background:var(--mythic)}
-.rar-rare{background:var(--rare)}
-.rar-uncommon{background:var(--uncommon)}
-.rar-common{background:var(--common)}
-.foil-tag{
-  position:absolute;top:5px;left:5px;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  color:#0a0800;font-size:8px;font-weight:700;
-  padding:1px 5px;border-radius:1px;letter-spacing:.5px;
-  font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;
-}
-.oos-overlay{
-  position:absolute;inset:0;
-  background:rgba(8,10,12,0.55);
-  display:flex;align-items:flex-end;justify-content:flex-start;
-  padding:6px;
-}
-.oos-tag{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:9px;font-weight:700;letter-spacing:1px;
-  text-transform:uppercase;color:var(--txt3);
-}
-.card-body{padding:8px 10px 10px}
-.card-set-line{
-  font-family:'JetBrains Mono',monospace;
-  font-size:9px;color:var(--txt3);margin-bottom:3px;letter-spacing:.3px;
-}
-.card-name{
-  font-size:13px;font-weight:500;
-  color:var(--txt);line-height:1.2;margin-bottom:4px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-}
-.card.out-of-stock .card-name{color:var(--txt3)}
-.card-type{font-size:10px;color:var(--txt3);margin-bottom:6px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.card-foot{display:flex;align-items:center;justify-content:space-between;gap:4px}
-.card-price{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:18px;font-weight:700;color:var(--gold);
-  line-height:1;
-}
-.card-price.oos{color:var(--txt3);font-size:13px}
-.card-price sub{font-size:10px;font-weight:400;color:var(--txt3)}
-.add-btn{
-  background:var(--bg4);border:1px solid var(--line2);
-  border-radius:2px;width:24px;height:24px;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;color:var(--txt3);font-size:14px;
-  transition:all .1s;flex-shrink:0;line-height:1;
-}
-.add-btn:hover{background:var(--gold);border-color:var(--gold);color:#0a0800}
-
-/* LOAD MORE */
-.load-more-wrap{text-align:center;padding:24px 0}
-.load-more-btn{
-  background:transparent;border:1px solid var(--line2);
-  border-radius:2px;padding:10px 32px;
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
-  color:var(--txt2);cursor:pointer;transition:all .15s;
-}
-.load-more-btn:hover{border-color:var(--gold);color:var(--gold)}
-.no-results{text-align:center;padding:60px 20px;color:var(--txt3)}
-.no-results h3{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:28px;font-weight:700;letter-spacing:1px;
-  text-transform:uppercase;color:var(--line2);margin-bottom:6px;
-}
-
-/* MODAL */
-.modal-bg{
-  position:fixed;inset:0;background:rgba(0,0,0,.88);
-  z-index:200;display:none;align-items:center;justify-content:center;padding:16px;
-}
-.modal-bg.open{display:flex}
-.modal{
-  background:var(--bg2);border:1px solid var(--line2);
-  border-radius:4px;max-width:720px;width:100%;
-  max-height:92vh;overflow-y:auto;position:relative;
-}
-.modal-x{
-  position:absolute;top:12px;right:12px;
-  background:var(--bg3);border:1px solid var(--line);
-  border-radius:2px;width:28px;height:28px;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;color:var(--txt2);font-size:14px;z-index:1;
-}
-.modal-x:hover{color:var(--txt)}
-.modal-grid{display:grid;grid-template-columns:200px 1fr}
-.modal-left{
-  background:var(--bg3);padding:16px;
-  border-right:1px solid var(--line);
-  display:flex;flex-direction:column;gap:14px;
-}
-.modal-card-img img{width:100%;border-radius:3px}
-.leg-title{
+.sb-sec{margin-bottom:20px}
+.sb-lbl{
   font-family:'Barlow Condensed',sans-serif;
   font-size:10px;font-weight:700;letter-spacing:2px;
-  text-transform:uppercase;color:var(--txt3);margin-bottom:6px;
+  text-transform:uppercase;color:var(--txt3);
+  padding:0 14px;margin-bottom:6px;display:block;
 }
-.leg-row{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:3px 0;border-bottom:1px solid var(--line);font-size:11px;
+.sb-btn{
+  display:flex;align-items:center;gap:6px;
+  padding:5px 14px;font-size:12px;color:var(--txt2);
+  cursor:pointer;transition:all .1s;border:none;background:none;
+  width:100%;text-align:left;white-space:nowrap;
 }
+.sb-btn:hover{background:var(--bg3);color:var(--txt)}
+.sb-btn.on{background:var(--glow);color:var(--gold);border-right:2px solid var(--gold)}
+.sb-n{font-size:10px;color:var(--txt3);font-family:'JetBrains Mono',monospace;margin-left:auto}
+.sb-btn.on .sb-n{color:var(--gold);opacity:.6}
+/* mana symbols in sidebar */
+.ms{width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* ── MAIN ── */
+.main{flex:1;min-width:0;padding:16px 18px}
+
+/* ── TOP BAR ── */
+.tbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.tbar-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:20px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+}
+.tbar-n{font-size:12px;color:var(--txt3)}
+.tbar-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.rar-chips{display:flex;gap:4px}
+.rchip{
+  background:var(--bg3);border:1px solid var(--line2);
+  border-radius:2px;padding:3px 9px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+  color:var(--txt3);cursor:pointer;transition:all .1s;
+}
+.rchip:hover,.rchip.on{border-color:var(--gold);color:var(--gold);background:var(--glow)}
+.sort-sel{
+  background:var(--bg3);border:1px solid var(--line2);border-radius:2px;
+  padding:4px 8px;color:var(--txt2);font-size:11px;outline:none;cursor:pointer;
+  font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.5px;
+}
+.sort-sel:focus{border-color:var(--gold)}
+
+/* ── GRID ── */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(154px,1fr));
+  gap:7px;
+}
+
+/* ── CARD ── */
+.crd{
+  background:var(--bg2);border:1px solid var(--line);
+  border-radius:3px;overflow:hidden;cursor:pointer;
+  transition:border-color .15s,transform .1s;position:relative;
+}
+.crd:hover{border-color:var(--line2);transform:translateY(-2px)}
+.crd.owned:hover{border-color:var(--gold)}
+.crd-img{aspect-ratio:5/7;background:var(--bg3);position:relative;overflow:hidden}
+.crd-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.crd:hover .crd-img img{transform:scale(1.04)}
+.crd-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--line2);font-size:28px}
+/* rarity pip bottom-left of image */
+.rpip{position:absolute;bottom:5px;left:5px;width:7px;height:7px;border-radius:50%}
+.rM{background:var(--mythic)}.rR{background:var(--rare)}.rU{background:var(--uncommon)}.rC{background:var(--common)}
+/* foil badge */
+.fbadge{
+  position:absolute;top:4px;left:4px;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:#080600;font-size:7px;font-weight:700;
+  padding:1px 4px;border-radius:1px;letter-spacing:.5px;
+  font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;
+}
+/* qty badge top-right */
+.qty-badge{
+  position:absolute;top:4px;right:4px;
+  background:rgba(10,12,15,.85);border:1px solid var(--line2);
+  color:var(--txt2);font-size:9px;font-weight:500;
+  padding:1px 5px;border-radius:1px;
+  font-family:'JetBrains Mono',monospace;
+}
+.qty-badge.many{border-color:var(--gold);color:var(--gold)}
+/* oos */
+.oos-ov{position:absolute;inset:0;background:rgba(10,12,15,.6)}
+.oos-lbl{
+  position:absolute;bottom:5px;left:0;right:0;text-align:center;
+  font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;color:var(--txt3);
+}
+/* card body */
+.crd-body{padding:7px 9px 9px}
+.crd-meta{
+  font-family:'JetBrains Mono',monospace;
+  font-size:8px;color:var(--txt3);margin-bottom:2px;letter-spacing:.2px;
+}
+.crd-name{
+  font-size:12px;font-weight:500;color:var(--txt);
+  line-height:1.2;margin-bottom:3px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.crd.oos .crd-name{color:var(--txt3)}
+.crd-type{font-size:10px;color:var(--txt3);margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crd-foot{display:flex;align-items:center;justify-content:space-between}
+.crd-price{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:17px;font-weight:700;color:var(--gold);line-height:1;
+}
+.crd-price.oos-p{font-size:11px;color:var(--txt3)}
+.crd-price sup{font-size:9px;color:var(--txt3);font-family:'Barlow',sans-serif;font-weight:400}
+.add-btn{
+  background:var(--bg4);border:1px solid var(--line2);border-radius:2px;
+  width:22px;height:22px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--txt3);font-size:14px;transition:all .1s;flex-shrink:0;
+}
+.add-btn:hover{background:var(--gold);border-color:var(--gold);color:#080600}
+
+/* ── LOAD MORE ── */
+.lm-wrap{text-align:center;padding:20px 0}
+.lm-btn{
+  background:transparent;border:1px solid var(--line2);border-radius:2px;
+  padding:8px 28px;
+  font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;color:var(--txt2);
+  cursor:pointer;transition:all .15s;
+}
+.lm-btn:hover{border-color:var(--gold);color:var(--gold)}
+.no-res{text-align:center;padding:48px 20px}
+.no-res h3{
+  font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;color:var(--line2);margin-bottom:6px;
+}
+.no-res p{font-size:12px;color:var(--txt3)}
+
+/* ── MODAL ── */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:200;display:none;align-items:center;justify-content:center;padding:16px}
+.modal-bg.open{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--line2);border-radius:3px;max-width:700px;width:100%;max-height:92vh;overflow-y:auto;position:relative}
+.mx{position:absolute;top:10px;right:10px;background:var(--bg3);border:1px solid var(--line);border-radius:2px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--txt2);font-size:13px;z-index:1}
+.mx:hover{color:var(--txt)}
+.m-grid{display:grid;grid-template-columns:190px 1fr}
+.m-left{background:var(--bg3);padding:14px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:12px}
+.m-img img{width:100%;border-radius:3px;display:block}
+.leg-hdr{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--txt3);margin-bottom:5px}
+.leg-row{display:flex;align-items:center;justify-content:space-between;padding:2px 0;border-bottom:1px solid var(--line);font-size:10px}
 .leg-row:last-child{border:none}
 .leg-fmt{color:var(--txt2)}
-.leg-legal{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:10px;font-weight:700;letter-spacing:.5px;
-  padding:1px 6px;border-radius:1px;text-transform:uppercase;
-}
-.leg-y{background:rgba(82,201,122,.15);color:var(--green)}
-.leg-n{background:rgba(74,85,104,.1);color:var(--txt3)}
-.leg-b{background:rgba(224,82,82,.15);color:var(--red)}
-.modal-right{padding:20px 22px}
-.modal-eyebrow{
-  font-family:'JetBrains Mono',monospace;
-  font-size:10px;color:var(--txt3);margin-bottom:6px;letter-spacing:.3px;
-}
-.modal-name{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:32px;font-weight:900;letter-spacing:1px;
-  text-transform:uppercase;line-height:1;margin-bottom:4px;
-}
-.modal-type{font-size:13px;color:var(--txt2);margin-bottom:16px}
-.modal-price-row{
-  display:flex;gap:20px;align-items:flex-start;
-  padding-bottom:14px;margin-bottom:14px;
-  border-bottom:1px solid var(--line);
-}
-.mprice-block label{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:10px;font-weight:600;letter-spacing:1.5px;
-  text-transform:uppercase;color:var(--txt3);display:block;margin-bottom:3px;
-}
-.mprice-num{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:36px;font-weight:700;color:var(--gold);line-height:1;
-}
-.mprice-num.dim{color:var(--txt2);font-size:24px}
-.modal-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.mmeta label{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:10px;font-weight:600;letter-spacing:1.5px;
-  text-transform:uppercase;color:var(--txt3);display:block;margin-bottom:2px;
-}
-.mmeta span{font-size:13px;color:var(--txt)}
-.modal-qty-row{display:flex;gap:8px;margin-top:4px}
-.qty-ctrl{
-  display:flex;align-items:center;
-  border:1px solid var(--line2);border-radius:2px;overflow:hidden;
-}
-.qty-ctrl button{
-  background:var(--bg3);border:none;color:var(--txt);
-  width:30px;height:36px;cursor:pointer;font-size:15px;transition:background .1s;
-}
-.qty-ctrl button:hover{background:var(--bg4)}
-.qty-ctrl span{
-  padding:0 12px;font-size:13px;min-width:36px;
-  text-align:center;display:flex;align-items:center;justify-content:center;
-}
-.modal-add{
-  flex:1;background:var(--gold);color:#0a0800;
-  border:none;border-radius:2px;
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
-  cursor:pointer;transition:background .15s;
-}
-.modal-add:hover{background:var(--gold2)}
-.modal-add:disabled{background:var(--bg4);color:var(--txt3);cursor:not-allowed}
+.leg-tag{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.5px;padding:1px 5px;border-radius:1px;text-transform:uppercase}
+.lt-y{background:rgba(74,184,112,.15);color:var(--green)}
+.lt-n{background:rgba(61,71,88,.1);color:var(--txt3)}
+.lt-b{background:rgba(200,80,80,.15);color:var(--red)}
+.m-right{padding:18px 20px}
+.m-eye{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--txt3);margin-bottom:5px}
+.m-name{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;letter-spacing:1px;text-transform:uppercase;line-height:1;margin-bottom:3px}
+.m-type{font-size:12px;color:var(--txt2);margin-bottom:14px}
+.m-prices{display:flex;gap:18px;padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid var(--line)}
+.m-pb label{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--txt3);display:block;margin-bottom:2px}
+.m-num{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:700;color:var(--gold);line-height:1}
+.m-num.dim{color:var(--txt);font-size:20px}
+.m-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.m-mi label{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--txt3);display:block;margin-bottom:2px}
+.m-mi span{font-size:12px;color:var(--txt)}
+.m-actions{display:flex;gap:7px}
+.qty-c{display:flex;align-items:center;border:1px solid var(--line2);border-radius:2px;overflow:hidden}
+.qty-c button{background:var(--bg3);border:none;color:var(--txt);width:28px;height:34px;cursor:pointer;font-size:14px;transition:background .1s}
+.qty-c button:hover{background:var(--bg4)}
+.qty-c span{padding:0 10px;font-size:12px;min-width:32px;text-align:center;display:flex;align-items:center;justify-content:center}
+.m-add{flex:1;background:var(--gold);color:#080600;border:none;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:background .15s}
+.m-add:hover{background:var(--gold2)}
+.m-add:disabled{background:var(--bg4);color:var(--txt3);cursor:not-allowed}
 
-/* CART */
-.cart-ov{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:150;display:none}
-.cart-ov.open{display:block}
-.cart-drw{
-  position:fixed;right:0;top:0;bottom:0;width:340px;
-  background:var(--bg2);border-left:1px solid var(--line);
-  z-index:151;display:flex;flex-direction:column;
-  transform:translateX(100%);transition:transform .25s;
-}
-.cart-drw.open{transform:translateX(0)}
-.cart-hdr{
-  padding:16px 18px;border-bottom:1px solid var(--line);
-  display:flex;align-items:center;justify-content:space-between;
-}
-.cart-hdr h2{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:18px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
-}
-.cart-x{background:none;border:none;color:var(--txt2);font-size:18px;cursor:pointer;padding:2px}
-.cart-x:hover{color:var(--txt)}
-.cart-body{flex:1;overflow-y:auto;padding:14px 16px}
-.cart-empty{text-align:center;padding:40px 0;color:var(--txt3);font-size:13px}
-.ci{display:flex;gap:10px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+/* ── CART ── */
+.c-ov{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:150;display:none}
+.c-ov.open{display:block}
+.c-drw{position:fixed;right:0;top:0;bottom:0;width:320px;background:var(--bg2);border-left:1px solid var(--line);z-index:151;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .25s}
+.c-drw.open{transform:translateX(0)}
+.c-hdr{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.c-hdr h2{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+.c-x{background:none;border:none;color:var(--txt2);font-size:16px;cursor:pointer}
+.c-x:hover{color:var(--txt)}
+.c-body{flex:1;overflow-y:auto;padding:12px 14px}
+.c-empty{text-align:center;padding:32px 0;color:var(--txt3);font-size:12px}
+.ci{display:flex;gap:9px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--line)}
 .ci:last-child{border:none}
-.ci-img{width:38px;height:53px;object-fit:cover;border-radius:2px;background:var(--bg3);flex-shrink:0}
+.ci-img{width:36px;height:50px;object-fit:cover;border-radius:2px;background:var(--bg3);flex-shrink:0}
 .ci-info{flex:1;min-width:0}
-.ci-name{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:1px}
-.ci-set{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--txt3);margin-bottom:5px}
+.ci-name{font-size:11px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:1px}
+.ci-set{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--txt3);margin-bottom:4px}
 .ci-row{display:flex;align-items:center;justify-content:space-between}
-.ci-price{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:15px;font-weight:700;color:var(--gold);
-}
-.ci-rm{background:none;border:none;color:var(--txt3);cursor:pointer;font-size:12px;padding:0}
+.ci-p{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;color:var(--gold)}
+.ci-rm{background:none;border:none;color:var(--txt3);cursor:pointer;font-size:11px}
 .ci-rm:hover{color:var(--red)}
-.cart-foot{padding:14px 16px;border-top:1px solid var(--line)}
-.cart-total-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
-.cart-total-lbl{font-size:12px;color:var(--txt2)}
-.cart-total-num{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:24px;font-weight:700;color:var(--gold);
-}
-.checkout-btn{
-  width:100%;background:var(--gold);color:#0a0800;border:none;border-radius:2px;
-  padding:12px;font-family:'Barlow Condensed',sans-serif;
-  font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
-  cursor:pointer;transition:background .15s;
-}
-.checkout-btn:hover{background:var(--gold2)}
+.c-foot{padding:12px 14px;border-top:1px solid var(--line)}
+.c-tot-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.c-tot-lbl{font-size:11px;color:var(--txt2)}
+.c-tot-n{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;color:var(--gold)}
+.chk-btn{width:100%;background:var(--gold);color:#080600;border:none;border-radius:2px;padding:11px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:background .15s}
+.chk-btn:hover{background:var(--gold2)}
 
-/* TOAST */
-.toast{
-  position:fixed;bottom:16px;right:16px;
-  background:var(--bg4);border:1px solid var(--gold);border-left:3px solid var(--gold);
-  border-radius:2px;padding:10px 16px;
-  font-size:13px;color:var(--txt);z-index:300;
-  transform:translateY(48px);opacity:0;transition:all .2s;pointer-events:none;
-}
+/* ── TOAST ── */
+.toast{position:fixed;bottom:14px;right:14px;background:var(--bg4);border:1px solid var(--gold);border-left:2px solid var(--gold);border-radius:2px;padding:8px 14px;font-size:12px;color:var(--txt);z-index:300;transform:translateY(40px);opacity:0;transition:all .2s;pointer-events:none}
 .toast.show{transform:translateY(0);opacity:1}
 
-/* LOADING */
-.loading-bar{
-  position:fixed;top:52px;left:0;right:0;height:2px;
-  background:var(--gold);z-index:99;
-  transform:scaleX(0);transform-origin:left;
-  transition:transform .3s;
-}
-.loading-bar.active{animation:loading 1.2s ease-in-out infinite}
-@keyframes loading{
-  0%{transform:scaleX(0) translateX(0)}
-  50%{transform:scaleX(.6) translateX(50%)}
-  100%{transform:scaleX(0) translateX(200%)}
-}
-
-@media(max-width:900px){
-  .sidebar{display:none}
-  .modal-grid{grid-template-columns:1fr}
-  .modal-left{border-right:none;border-bottom:1px solid var(--line)}
-  .cart-drw{width:100%}
-}
-@media(max-width:600px){
-  .hdr-inner{padding:0 12px;gap:10px}
-  .main{padding:12px}
-  .grid{grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:6px}
-}
+@media(max-width:860px){.sidebar{display:none}.m-grid{grid-template-columns:1fr}.m-left{border-right:none;border-bottom:1px solid var(--line)}.c-drw{width:100%}}
+@media(max-width:560px){.main{padding:10px 12px}.grid{grid-template-columns:repeat(auto-fill,minmax(138px,1fr));gap:5px}}
 </style>
 </head>
 <body>
 
-<div class="loading-bar" id="loadBar"></div>
-
 <header class="hdr">
   <div class="hdr-inner">
     <a class="logo" href="#" onclick="goHome()">
-      <svg class="logo-goose" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="14" cy="18" rx="8" ry="7" fill="#d4a843" opacity=".9"/>
-        <ellipse cx="14" cy="18" rx="5" ry="5" fill="#c49030"/>
-        <circle cx="14" cy="10" r="5" fill="#d4a843"/>
-        <ellipse cx="14" cy="13.5" rx="3" ry="2.5" fill="#c49030"/>
-        <rect x="11" y="7" width="6" height="2.5" rx="1.2" fill="#e8b84a"/>
-        <circle cx="12" cy="9.5" r="1" fill="#080a0c"/>
-        <polygon points="20,9 24,10.5 20,12" fill="#d4a843"/>
-        <polygon points="17,23 13,28 18,27" fill="#c49030"/>
+      <!-- Angry Canadian goose - white body, black head/neck, orange beak -->
+      <svg class="goose-svg" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Body white -->
+        <ellipse cx="20" cy="22" rx="12" ry="9" fill="#e8e8e0"/>
+        <ellipse cx="20" cy="22" rx="9" ry="7" fill="#d0d0c8"/>
+        <!-- Wing detail -->
+        <path d="M10 20 Q14 16 22 19 Q16 23 10 22Z" fill="#c0c0b8"/>
+        <!-- Neck black -->
+        <path d="M16 14 Q14 10 15 7 Q17 5 19 7 Q20 10 18 14Z" fill="#1a1a1a"/>
+        <!-- Head black -->
+        <ellipse cx="17" cy="7" rx="4" ry="3.5" fill="#1a1a1a"/>
+        <!-- White cheek patch (Canada goose marking) -->
+        <ellipse cx="15.5" cy="8" rx="2.2" ry="1.4" fill="#e8e8e0"/>
+        <!-- Eye angry red -->
+        <circle cx="16" cy="6" r="1" fill="#c83030"/>
+        <circle cx="16" cy="6" r=".4" fill="#1a1a1a"/>
+        <!-- Beak orange, open/angry -->
+        <path d="M13 7 L10 6.5 L10 7.5 L13 8Z" fill="#d4843a"/>
+        <path d="M13 7 L10 7 L10 7.5 L13 7.5Z" fill="#a86020"/>
+        <!-- Tail -->
+        <path d="M30 20 Q34 18 33 22 Q31 24 29 22Z" fill="#d0d0c8"/>
+        <!-- Feet -->
+        <path d="M17 30 L16 34 M19 31 L18 34 M20 30 L21 34" stroke="#d4843a" stroke-width="1.2" stroke-linecap="round"/>
       </svg>
-      GOADED GOOSE
+      <span class="logo-text">Goaded Goose</span>
     </a>
-    <div class="search-bar">
-      <span class="search-icon">⌕</span>
-      <input id="searchInput" type="text" placeholder="Search any card — name, set, type, keyword…" autocomplete="off">
+    <div class="search-wrap">
+      <span class="s-icon">⌕</span>
+      <input id="srch" type="text" placeholder="Search any card — name, set code, type…" autocomplete="off">
     </div>
-    <div class="hdr-actions">
-      <button class="cart-btn" onclick="openCart()">
-        CART <span class="cart-n" id="cartN">0</span>
-      </button>
+    <div class="hdr-right">
+      <button class="cart-btn" onclick="openCart()">Cart <span class="cart-n" id="cN">0</span></button>
     </div>
   </div>
 </header>
 
 <div class="layout">
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar" id="sidebar">
-    <div class="sb-section">
-      <span class="sb-label">Stock</span>
-      <button class="sb-item active" data-filter="all" onclick="setSideFilter('stock','all',this)">All Cards <span class="sb-count" id="sbAll">—</span></button>
-      <button class="sb-item" data-filter="instock" onclick="setSideFilter('stock','instock',this)">In Stock <span class="sb-count" id="sbStock">—</span></button>
+  <aside class="sidebar">
+    <div class="sb-sec">
+      <span class="sb-lbl">Stock</span>
+      <button class="sb-btn on" onclick="sf('stock','instock',this)">In Stock <span class="sb-n" id="sbS">—</span></button>
+      <button class="sb-btn" onclick="sf('stock','all',this)">All Cards <span class="sb-n">∞</span></button>
     </div>
-    <div class="sb-section">
-      <span class="sb-label">Format</span>
-      <button class="sb-item" onclick="setSideFilter('format','',this)">All Formats</button>
-      <button class="sb-item" onclick="setSideFilter('format','standard',this)">Standard</button>
-      <button class="sb-item" onclick="setSideFilter('format','pioneer',this)">Pioneer</button>
-      <button class="sb-item" onclick="setSideFilter('format','modern',this)">Modern</button>
-      <button class="sb-item" onclick="setSideFilter('format','legacy',this)">Legacy</button>
-      <button class="sb-item" onclick="setSideFilter('format','commander',this)">Commander</button>
-      <button class="sb-item" onclick="setSideFilter('format','pauper',this)">Pauper</button>
+    <div class="sb-sec">
+      <span class="sb-lbl">Sort</span>
+      <button class="sb-btn on" onclick="sf('sort','stock',this)">In Stock First</button>
+      <button class="sb-btn" onclick="sf('sort','price_desc',this)">Price High–Low</button>
+      <button class="sb-btn" onclick="sf('sort','price_asc',this)">Price Low–High</button>
+      <button class="sb-btn" onclick="sf('sort','name',this)">Name A–Z</button>
     </div>
-    <div class="sb-section">
-      <span class="sb-label">Color</span>
-      <button class="sb-item" onclick="setSideFilter('color','',this)">All Colors</button>
-      <button class="sb-item" onclick="setSideFilter('color','W',this)"><span class="color-dot" style="background:#f9e090"></span>White</button>
-      <button class="sb-item" onclick="setSideFilter('color','U',this)"><span class="color-dot" style="background:#4a8fd4"></span>Blue</button>
-      <button class="sb-item" onclick="setSideFilter('color','B',this)"><span class="color-dot" style="background:#8060a0"></span>Black</button>
-      <button class="sb-item" onclick="setSideFilter('color','R',this)"><span class="color-dot" style="background:#d04040"></span>Red</button>
-      <button class="sb-item" onclick="setSideFilter('color','G',this)"><span class="color-dot" style="background:#30a050"></span>Green</button>
-      <button class="sb-item" onclick="setSideFilter('color','C',this)"><span class="color-dot" style="background:#888"></span>Colorless</button>
+    <div class="sb-sec">
+      <span class="sb-lbl">Color</span>
+      <button class="sb-btn" onclick="sf('color','',this)">All Colors</button>
+      <button class="sb-btn" onclick="sf('color','W',this)">
+        <i class="ms ms-w ms-cost" style="font-size:14px"></i> White
+      </button>
+      <button class="sb-btn" onclick="sf('color','U',this)">
+        <i class="ms ms-u ms-cost" style="font-size:14px"></i> Blue
+      </button>
+      <button class="sb-btn" onclick="sf('color','B',this)">
+        <i class="ms ms-b ms-cost" style="font-size:14px"></i> Black
+      </button>
+      <button class="sb-btn" onclick="sf('color','R',this)">
+        <i class="ms ms-r ms-cost" style="font-size:14px"></i> Red
+      </button>
+      <button class="sb-btn" onclick="sf('color','G',this)">
+        <i class="ms ms-g ms-cost" style="font-size:14px"></i> Green
+      </button>
+      <button class="sb-btn" onclick="sf('color','C',this)">
+        <i class="ms ms-c ms-cost" style="font-size:14px"></i> Colorless
+      </button>
     </div>
-    <div class="sb-section">
-      <span class="sb-label">Type</span>
-      <button class="sb-item" onclick="setSideFilter('type','',this)">All Types</button>
-      <button class="sb-item" onclick="setSideFilter('type','Creature',this)">Creature</button>
-      <button class="sb-item" onclick="setSideFilter('type','Instant',this)">Instant</button>
-      <button class="sb-item" onclick="setSideFilter('type','Sorcery',this)">Sorcery</button>
-      <button class="sb-item" onclick="setSideFilter('type','Enchantment',this)">Enchantment</button>
-      <button class="sb-item" onclick="setSideFilter('type','Artifact',this)">Artifact</button>
-      <button class="sb-item" onclick="setSideFilter('type','Planeswalker',this)">Planeswalker</button>
-      <button class="sb-item" onclick="setSideFilter('type','Land',this)">Land</button>
+    <div class="sb-sec">
+      <span class="sb-lbl">Rarity</span>
+      <button class="sb-btn" onclick="sf('rarity','',this)">All</button>
+      <button class="sb-btn" onclick="sf('rarity','mythic',this)"><span style="color:var(--mythic)">◆</span> Mythic</button>
+      <button class="sb-btn" onclick="sf('rarity','rare',this)"><span style="color:var(--rare)">◆</span> Rare</button>
+      <button class="sb-btn" onclick="sf('rarity','uncommon',this)"><span style="color:var(--uncommon)">◆</span> Uncommon</button>
+      <button class="sb-btn" onclick="sf('rarity','common',this)"><span style="color:var(--common)">◆</span> Common</button>
     </div>
-    <div class="sb-section">
-      <span class="sb-label">Rarity</span>
-      <button class="sb-item" onclick="setSideFilter('rarity','',this)">All Rarities</button>
-      <button class="sb-item" onclick="setSideFilter('rarity','mythic',this)"><span class="color-dot" style="background:var(--mythic)"></span>Mythic</button>
-      <button class="sb-item" onclick="setSideFilter('rarity','rare',this)"><span class="color-dot" style="background:var(--rare)"></span>Rare</button>
-      <button class="sb-item" onclick="setSideFilter('rarity','uncommon',this)"><span class="color-dot" style="background:var(--uncommon)"></span>Uncommon</button>
-      <button class="sb-item" onclick="setSideFilter('rarity','common',this)"><span class="color-dot" style="background:var(--common)"></span>Common</button>
+    <div class="sb-sec">
+      <span class="sb-lbl">Type</span>
+      <button class="sb-btn" onclick="sf('type','',this)">All</button>
+      <button class="sb-btn" onclick="sf('type','Creature',this)">Creature</button>
+      <button class="sb-btn" onclick="sf('type','Instant',this)">Instant</button>
+      <button class="sb-btn" onclick="sf('type','Sorcery',this)">Sorcery</button>
+      <button class="sb-btn" onclick="sf('type','Enchantment',this)">Enchantment</button>
+      <button class="sb-btn" onclick="sf('type','Artifact',this)">Artifact</button>
+      <button class="sb-btn" onclick="sf('type','Planeswalker',this)">Planeswalker</button>
+      <button class="sb-btn" onclick="sf('type','Land',this)">Land</button>
+    </div>
+    <div class="sb-sec">
+      <span class="sb-lbl">Format</span>
+      <button class="sb-btn" onclick="sf('format','',this)">All</button>
+      <button class="sb-btn" onclick="sf('format','standard',this)">Standard</button>
+      <button class="sb-btn" onclick="sf('format','pioneer',this)">Pioneer</button>
+      <button class="sb-btn" onclick="sf('format','modern',this)">Modern</button>
+      <button class="sb-btn" onclick="sf('format','legacy',this)">Legacy</button>
+      <button class="sb-btn" onclick="sf('format','commander',this)">Commander</button>
+      <button class="sb-btn" onclick="sf('format','pauper',this)">Pauper</button>
     </div>
   </aside>
 
-  <!-- MAIN CONTENT -->
   <main class="main">
-    <div class="topbar">
-      <span class="topbar-title" id="pageTitle">All Cards</span>
-      <span class="topbar-count" id="pageCount"></span>
-      <div class="filter-chips">
-        <select class="sort-select" id="sortSel" onchange="resort()">
-          <option value="name">Name A–Z</option>
-          <option value="price_desc">Price High–Low</option>
-          <option value="price_asc">Price Low–High</option>
-          <option value="stock">In Stock First</option>
-        </select>
+    <div class="tbar">
+      <span class="tbar-title" id="pgTitle">In Stock</span>
+      <span class="tbar-n" id="pgN"></span>
+      <div class="tbar-right">
+        <div class="rar-chips">
+          <button class="rchip on" onclick="rar('',this)">All</button>
+          <button class="rchip" style="color:var(--mythic)" onclick="rar('mythic',this)">M</button>
+          <button class="rchip" style="color:var(--rare)" onclick="rar('rare',this)">R</button>
+          <button class="rchip" style="color:var(--uncommon)" onclick="rar('uncommon',this)">U</button>
+          <button class="rchip" style="color:var(--common)" onclick="rar('common',this)">C</button>
+        </div>
       </div>
     </div>
-
     <div class="grid" id="grid"></div>
-    <div class="load-more-wrap" id="loadWrap" style="display:none">
-      <button class="load-more-btn" onclick="loadMore()">Load More</button>
-    </div>
-    <div class="no-results" id="noRes" style="display:none">
-      <h3>No Cards Found</h3>
-      <p>Try a different search or filter</p>
-    </div>
+    <div class="lm-wrap" id="lmWrap" style="display:none"><button class="lm-btn" onclick="loadMore()">Load More</button></div>
+    <div class="no-res" id="noRes" style="display:none"><h3>No Results</h3><p id="noResMsg">Try a different search</p></div>
   </main>
-
 </div>
 
 <!-- MODAL -->
-<div class="modal-bg" id="modal" onclick="if(event.target===this)closeModal()">
+<div class="modal-bg" id="modal" onclick="if(event.target===this)closeM()">
   <div class="modal">
-    <button class="modal-x" onclick="closeModal()">✕</button>
-    <div class="modal-grid">
-      <div class="modal-left">
-        <div class="modal-card-img"><img id="mImg" src="" alt=""></div>
+    <button class="mx" onclick="closeM()">✕</button>
+    <div class="m-grid">
+      <div class="m-left">
+        <div class="m-img"><img id="mImg" src="" alt=""></div>
         <div>
-          <div class="leg-title">Format Legality</div>
+          <div class="leg-hdr">Format Legality</div>
           <div id="mLeg"></div>
         </div>
       </div>
-      <div class="modal-right">
-        <div class="modal-eyebrow" id="mEye"></div>
-        <div class="modal-name" id="mName"></div>
-        <div class="modal-type" id="mType"></div>
-        <div class="modal-price-row">
-          <div class="mprice-block"><label>Price (CAD)</label><div class="mprice-num" id="mPrice"></div></div>
-          <div class="mprice-block"><label>Stock</label><div class="mprice-num dim" id="mStock"></div></div>
-          <div class="mprice-block"><label>Condition</label><div class="mprice-num dim" id="mCond" style="font-size:18px"></div></div>
+      <div class="m-right">
+        <div class="m-eye" id="mEye"></div>
+        <div class="m-name" id="mName"></div>
+        <div class="m-type" id="mType"></div>
+        <div class="m-prices">
+          <div class="m-pb"><label>Price (CAD)</label><div class="m-num" id="mP"></div></div>
+          <div class="m-pb"><label>Stock</label><div class="m-num dim" id="mSt"></div></div>
+          <div class="m-pb"><label>Cond.</label><div class="m-num dim" style="font-size:16px" id="mCd"></div></div>
         </div>
-        <div class="modal-meta">
-          <div class="mmeta"><label>Set</label><span id="mSet"></span></div>
-          <div class="mmeta"><label>Rarity</label><span id="mRar"></span></div>
-          <div class="mmeta"><label>Number</label><span id="mNum"></span></div>
-          <div class="mmeta"><label>Foil</label><span id="mFoil"></span></div>
+        <div class="m-meta">
+          <div class="m-mi"><label>Set</label><span id="mSet"></span></div>
+          <div class="m-mi"><label>Rarity</label><span id="mRar"></span></div>
+          <div class="m-mi"><label>Number</label><span id="mNum"></span></div>
+          <div class="m-mi"><label>Foil</label><span id="mFoil"></span></div>
         </div>
-        <div class="modal-qty-row">
-          <div class="qty-ctrl">
+        <div class="m-actions">
+          <div class="qty-c">
             <button onclick="dq(-1)">−</button>
             <span id="mQ">1</span>
             <button onclick="dq(1)">+</button>
           </div>
-          <button class="modal-add" id="mAddBtn" onclick="addFromModal()">Add to Cart</button>
+          <button class="m-add" id="mAddBtn" onclick="addFromM()">Add to Cart</button>
         </div>
       </div>
     </div>
@@ -608,312 +471,274 @@ input,select,button{font-family:'Barlow',sans-serif}
 </div>
 
 <!-- CART -->
-<div class="cart-ov" id="cartOv" onclick="closeCart()"></div>
-<div class="cart-drw" id="cartDrw">
-  <div class="cart-hdr"><h2>Cart</h2><button class="cart-x" onclick="closeCart()">✕</button></div>
-  <div class="cart-body" id="cartBody"></div>
-  <div class="cart-foot" id="cartFoot" style="display:none">
-    <div class="cart-total-row">
-      <span class="cart-total-lbl">Subtotal (CAD)</span>
-      <span class="cart-total-num" id="cartTotal">$0.00</span>
-    </div>
-    <button class="checkout-btn" onclick="checkout()">Checkout →</button>
+<div class="c-ov" id="cOv" onclick="closeCart()"></div>
+<div class="c-drw" id="cDrw">
+  <div class="c-hdr"><h2>Cart</h2><button class="c-x" onclick="closeCart()">✕</button></div>
+  <div class="c-body" id="cBody"></div>
+  <div class="c-foot" id="cFoot" style="display:none">
+    <div class="c-tot-row"><span class="c-tot-lbl">Subtotal (CAD)</span><span class="c-tot-n" id="cTot">$0.00</span></div>
+    <button class="chk-btn" onclick="checkout()">Checkout →</button>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
-// ── CONSTANTS ──
-const CAD = 1.37;
-const PAGE = 60;
-const FORMATS = ['standard','pioneer','modern','legacy','vintage','commander','pauper','historic'];
+// ── CONFIG ──
+const MARKUP = 1.15;   // 15% above market
+const CAD    = 1.37;   // USD → CAD
+const MIN_PRICE = 0.33; // floor in CAD
+const PAGE   = 60;
 const DB_URL = 'https://raw.githubusercontent.com/Bchilled/goaded-goose/main/database.json';
-const CATALOG_BASE = 'https://raw.githubusercontent.com/Bchilled/goaded-goose/main/catalog/';
+const CAT_BASE = 'https://raw.githubusercontent.com/Bchilled/goaded-goose/main/catalog/';
+const FORMATS = ['standard','pioneer','modern','legacy','vintage','commander','pauper','historic'];
 
 // ── STATE ──
-let inventory = {};      // key: set_num_foil -> card with qty/price
-let catalogCache = {};   // set code -> array of cards
-let allCards = [];        // current working set
+let inv = {};          // set_num[_f] → card (your stock)
+let working = [];      // current display list (deduped)
 let filtered = [];
 let page = 1;
-let modalCard = null, modalQty = 1;
+let mCard = null, mQty = 1;
 let cart = {};
-let activeSet = null;
-let sideFilters = { stock: 'all', format: '', color: '', type: '', rarity: '' };
-let searchQ = '';
-let loadedSets = new Set();
+let filt = {stock:'instock', sort:'stock', color:'', rarity:'', type:'', format:''};
+let srchQ = '';
+
+// ── PRICE ──
+function calcPrice(usd, foil) {
+  let base = usd * CAD * MARKUP;
+  if (foil) base *= 1.3;
+  return Math.max(MIN_PRICE, Math.round(base * 100) / 100);
+}
+function fmt(p) { return '$' + p.toFixed(2); }
 
 // ── INIT ──
 async function init() {
-  setLoading(true);
   try {
     const r = await fetch(DB_URL);
     const db = await r.json();
-    // Index inventory
+    // Deduplicate: if same set+num appears multiple times (normal + foil), keep both keyed separately
+    // But if same set+num+foil appears multiple times, sum quantities
+    const merged = {};
     db.forEach(c => {
-      const k = c.set + '_' + c.num + (c.foil ? '_f' : '');
-      inventory[k] = c;
+      const k = c.set + '_' + c.num + (c.foil ? '_f' : '_n');
+      if (merged[k]) {
+        merged[k].qty += (c.qty || 0);
+      } else {
+        merged[k] = {...c};
+        merged[k].price = calcPrice(c.usd || 0.10, c.foil);
+      }
     });
-    document.getElementById('sbAll').textContent = '∞';
-    document.getElementById('sbStock').textContent = db.length;
-    // Default: show in-stock cards
-    sideFilters.stock = 'instock';
-    document.querySelector('[data-filter="instock"]').classList.add('active');
-    document.querySelector('[data-filter="all"]').classList.remove('active');
-    allCards = db;
-    applyFilters();
-  } catch(e) {
-    console.error(e);
-  }
-  setLoading(false);
-}
-
-// ── CATALOG LOAD ──
-async function loadCatalog(setCode) {
-  if (catalogCache[setCode]) return catalogCache[setCode];
-  setLoading(true);
-  try {
-    const r = await fetch(CATALOG_BASE + setCode + '.js');
-    if (!r.ok) return null;
-    const text = await r.text();
-    // Execute the catalog JS to get window.CATALOG[setCode]
-    const fn = new Function(text + '; return window.CATALOG["' + setCode + '"];');
-    const cards = fn();
-    if (cards) {
-      // Overlay inventory quantities
-      cards.forEach(c => {
-        const k = c.set + '_' + c.num + (c.foil ? '_f' : '');
-        if (inventory[k]) {
-          c.qty = inventory[k].qty;
-          c.cond = inventory[k].cond;
-          c.usd = inventory[k].usd;
-        }
-      });
-      catalogCache[setCode] = cards;
-    }
-    return catalogCache[setCode] || null;
-  } catch(e) {
-    return null;
-  } finally {
-    setLoading(false);
-  }
+    inv = merged;
+    const allInv = Object.values(inv);
+    document.getElementById('sbS').textContent = allInv.filter(c=>c.qty>0).length;
+    working = allInv;
+    applyF();
+  } catch(e) { console.error(e); }
 }
 
 // ── SEARCH ──
-document.getElementById('searchInput').addEventListener('input', async function() {
-  searchQ = this.value.trim().toLowerCase();
-  if (!searchQ) {
-    // Back to inventory view
-    allCards = Object.values(inventory);
-    sideFilters.stock = 'instock';
-    document.querySelector('[data-filter="instock"]').classList.add('active');
-    document.querySelector('[data-filter="all"]').classList.remove('active');
-    page = 1; applyFilters(); return;
+document.getElementById('srch').addEventListener('input', async function() {
+  srchQ = this.value.trim().toLowerCase();
+  if (!srchQ) { goHome(); return; }
+
+  // Search inventory first
+  const inv_hits = Object.values(inv).filter(c => hit(c, srchQ));
+
+  // If query looks like a set code, also load that catalog
+  const codeQ = srchQ.toUpperCase();
+  let cat_hits = [];
+  if (/^[A-Z0-9]{2,6}$/.test(codeQ)) {
+    try {
+      const r = await fetch(CAT_BASE + codeQ + '.js');
+      if (r.ok) {
+        const text = await r.text();
+        const fn = new Function(text + ';return window.CATALOG["'+codeQ+'"]');
+        const cards = fn();
+        if (cards) {
+          const owned = new Set(Object.values(inv).filter(c=>c.set===codeQ).map(c=>c.set+'_'+c.num+'_n'));
+          cat_hits = cards
+            .filter(c => !owned.has(c.set+'_'+c.num+'_n'))
+            .map(c => ({...c, price: calcPrice(c.usd||0.10, false), qty:0}));
+        }
+      }
+    } catch(e) {}
   }
-  // Search across all loaded inventory first
-  const inStockMatches = Object.values(inventory).filter(c => matches(c, searchQ));
-  // Also try to figure out if a set code was typed
-  const upperQ = this.value.trim().toUpperCase();
-  let catalogResults = [];
-  // If 2-4 uppercase letters match a set, load that catalog
-  if (/^[A-Z0-9]{2,5}$/.test(upperQ)) {
-    const cat = await loadCatalog(upperQ);
-    if (cat) catalogResults = cat.filter(c => matches(c, searchQ));
-  }
-  // Merge: prefer inventory cards, fill with catalog
-  const seen = new Set(inStockMatches.map(c => c.set+'_'+c.num));
-  const combined = [...inStockMatches, ...catalogResults.filter(c => !seen.has(c.set+'_'+c.num))];
-  allCards = combined;
-  sideFilters.stock = 'all';
-  document.querySelector('[data-filter="all"]').classList.add('active');
-  document.querySelector('[data-filter="instock"]').classList.remove('active');
-  page = 1; applyFilters();
+
+  working = [...inv_hits, ...cat_hits];
+  filt.stock = 'all';
+  page = 1; applyF();
 });
 
-function matches(c, q) {
+function hit(c, q) {
   return c.name.toLowerCase().includes(q) ||
-    (c.set||'').toLowerCase().includes(q) ||
-    (c.type||'').toLowerCase().includes(q) ||
-    (c.num||'').toString().includes(q);
+    (c.set||'').toLowerCase() === q ||
+    (c.type||'').toLowerCase().includes(q);
 }
 
-// ── FILTERS ──
-function setSideFilter(group, val, el) {
-  sideFilters[group] = val;
-  // Update active states in that group's section
-  const section = el.closest('.sb-section');
-  section.querySelectorAll('.sb-item').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  page = 1; applyFilters();
+// ── SIDEBAR FILTER ──
+function sf(group, val, el) {
+  filt[group] = val;
+  el.closest('.sb-sec').querySelectorAll('.sb-btn').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  page = 1; applyF();
 }
 
-function resort() { page = 1; applyFilters(); }
+// ── RARITY CHIP (top bar) ──
+function rar(val, el) {
+  filt.rarity = val;
+  document.querySelectorAll('.rchip').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  page = 1; applyF();
+}
 
-function applyFilters() {
-  const sort = document.getElementById('sortSel').value;
-  let cards = allCards.slice();
+// ── APPLY FILTERS ──
+function applyF() {
+  let cards = working.slice();
+  if (srchQ) cards = cards.filter(c => hit(c, srchQ));
+  if (filt.stock === 'instock') cards = cards.filter(c => (c.qty||0) > 0);
+  if (filt.color) cards = cards.filter(c => (c.colors||[]).includes(filt.color));
+  if (filt.rarity) cards = cards.filter(c => c.rar === filt.rarity);
+  if (filt.type) cards = cards.filter(c => (c.type||'').includes(filt.type));
+  if (filt.format) cards = cards.filter(c => c.leg && c.leg[filt.format]);
 
-  // Search filter
-  if (searchQ) cards = cards.filter(c => matches(c, searchQ));
-
-  // Stock filter
-  if (sideFilters.stock === 'instock') cards = cards.filter(c => (c.qty||0) > 0);
-
-  // Format
-  if (sideFilters.format) cards = cards.filter(c => c.leg && c.leg[sideFilters.format]);
-
-  // Color
-  if (sideFilters.color) cards = cards.filter(c => (c.colors||[]).includes(sideFilters.color));
-
-  // Type
-  if (sideFilters.type) cards = cards.filter(c => (c.type||'').includes(sideFilters.type));
-
-  // Rarity
-  if (sideFilters.rarity) cards = cards.filter(c => c.rar === sideFilters.rarity);
-
-  // Sort
-  if (sort === 'price_desc') cards.sort((a,b) => (b.usd||0)*CAD - (a.usd||0)*CAD);
-  else if (sort === 'price_asc') cards.sort((a,b) => (a.usd||0)*CAD - (b.usd||0)*CAD);
-  else if (sort === 'stock') cards.sort((a,b) => (b.qty||0) - (a.qty||0));
+  const sort = filt.sort;
+  if (sort === 'price_desc') cards.sort((a,b) => (b.price||0)-(a.price||0));
+  else if (sort === 'price_asc') cards.sort((a,b) => (a.price||0)-(b.price||0));
+  else if (sort === 'stock') cards.sort((a,b) => (b.qty||0)-(a.qty||0) || a.name.localeCompare(b.name));
   else cards.sort((a,b) => a.name.localeCompare(b.name));
 
   filtered = cards;
-  document.getElementById('pageCount').textContent = filtered.length.toLocaleString() + ' cards';
+  document.getElementById('pgN').textContent = filtered.length.toLocaleString() + ' cards';
   document.getElementById('noRes').style.display = filtered.length ? 'none' : 'block';
-  document.getElementById('loadWrap').style.display = filtered.length > PAGE ? 'block' : 'none';
-  renderGrid(1);
-}
-
-function goHome() {
-  document.getElementById('searchInput').value = '';
-  searchQ = '';
-  allCards = Object.values(inventory);
-  sideFilters = { stock: 'instock', format: '', color: '', type: '', rarity: '' };
-  document.querySelectorAll('.sb-item').forEach(b => b.classList.remove('active'));
-  document.querySelector('[data-filter="instock"]').classList.add('active');
-  page = 1; applyFilters();
+  document.getElementById('lmWrap').style.display = filtered.length > PAGE ? 'block' : 'none';
+  if (!filtered.length && srchQ) {
+    document.getElementById('noResMsg').textContent = '"'+srchQ+'" — not in stock, try browsing by set code';
+  }
+  renderG(1);
 }
 
 // ── RENDER ──
-function renderGrid(p) {
+function renderG(p) {
   page = p;
   const slice = filtered.slice(0, p * PAGE);
-  const grid = document.getElementById('grid');
-  grid.innerHTML = slice.map(cardHTML).join('');
-  document.getElementById('loadWrap').style.display = filtered.length > slice.length ? 'block' : 'none';
+  document.getElementById('grid').innerHTML = slice.map(cardHTML).join('');
+  document.getElementById('lmWrap').style.display = filtered.length > slice.length ? 'block' : 'none';
 }
-
-function loadMore() { renderGrid(page + 1); }
+function loadMore() { renderG(page+1); }
 
 function cardHTML(c) {
-  const inStock = (c.qty||0) > 0;
-  const price = inStock ? '$' + (c.usd*CAD).toFixed(2) : null;
-  const rar = c.rar || 'common';
-  return `<div class="card ${inStock?'in-stock':'out-of-stock'}" onclick="openModal(${safeJ(c)})">
-    <div class="card-img">
-      ${c.img ? `<img src="${c.img}" alt="${c.name}" loading="lazy">` : `<div class="card-img-ph">🃏</div>`}
-      <div class="rar-pip rar-${rar}"></div>
-      ${c.foil ? `<span class="foil-tag">Foil</span>` : ''}
-      ${!inStock ? `<div class="oos-overlay"><span class="oos-tag">Out of Stock</span></div>` : ''}
+  const owned = (c.qty||0) > 0;
+  const price = c.price || calcPrice(c.usd||0.10, c.foil);
+  const rar = (c.rar||'common')[0].toUpperCase();
+  const rarMap = {M:'rM',R:'rR',U:'rU',C:'rC'};
+  const safe = JSON.stringify(c).replace(/"/g,'&quot;');
+  return `<div class="crd ${owned?'owned':'oos'}" onclick="openM(${safe})">
+    <div class="crd-img">
+      ${c.img?`<img src="${c.img}" alt="${c.name}" loading="lazy">`:`<div class="crd-ph">🃏</div>`}
+      <div class="rpip ${rarMap[rar]||'rC'}"></div>
+      ${c.foil?`<span class="fbadge">Foil</span>`:''}
+      ${owned?`<span class="qty-badge ${c.qty>=4?'many':''}">×${c.qty}</span>`:''}
+      ${!owned?`<div class="oos-ov"></div><div class="oos-lbl">Out of Stock</div>`:''}
     </div>
-    <div class="card-body">
-      <div class="card-set-line">${c.set} · #${c.num}</div>
-      <div class="card-name" title="${c.name}">${c.name}</div>
-      <div class="card-type">${c.type||''}</div>
-      <div class="card-foot">
-        ${inStock
-          ? `<div class="card-price">${price}<sub> CAD</sub></div>
-             <button class="add-btn" onclick="event.stopPropagation();quickAdd(${safeJ(c)})" title="Add to cart">+</button>`
-          : `<div class="card-price oos">Out of Stock</div>`
-        }
+    <div class="crd-body">
+      <div class="crd-meta">${c.set} · #${c.num}</div>
+      <div class="crd-name" title="${c.name}">${c.name}</div>
+      <div class="crd-type">${c.type||''}</div>
+      <div class="crd-foot">
+        ${owned
+          ? `<div class="crd-price">${fmt(price)}<sup> cad</sup></div>
+             <button class="add-btn" onclick="event.stopPropagation();qAdd(${safe})">+</button>`
+          : `<div class="crd-price oos-p">Out of Stock</div>`}
       </div>
     </div>
   </div>`;
 }
 
 // ── MODAL ──
-function openModal(c) {
-  modalCard = c; modalQty = 1;
-  const inStock = (c.qty||0) > 0;
-  document.getElementById('mImg').src = c.img || '';
-  document.getElementById('mEye').textContent = c.set + ' · #' + c.num;
+function openM(c) {
+  mCard = c; mQty = 1;
+  const owned = (c.qty||0) > 0;
+  const price = c.price || calcPrice(c.usd||0.10, c.foil);
+  document.getElementById('mImg').src = c.img||'';
+  document.getElementById('mEye').textContent = c.set+' · #'+c.num;
   document.getElementById('mName').textContent = c.name;
-  document.getElementById('mType').textContent = c.type || '';
-  document.getElementById('mPrice').textContent = inStock ? '$'+(c.usd*CAD).toFixed(2)+' CAD' : '—';
-  document.getElementById('mStock').textContent = inStock ? c.qty + ' in stock' : 'Out of Stock';
-  document.getElementById('mCond').textContent = c.cond || (inStock ? 'LP' : '—');
+  document.getElementById('mType').textContent = c.type||'';
+  document.getElementById('mP').textContent = owned ? fmt(price)+' CAD' : '—';
+  document.getElementById('mSt').textContent = owned ? c.qty+' in stock' : 'Out of Stock';
+  document.getElementById('mCd').textContent = c.cond||(owned?'LP':'—');
   document.getElementById('mSet').textContent = c.set;
   document.getElementById('mRar').textContent = (c.rar||'common')[0].toUpperCase()+(c.rar||'common').slice(1);
   document.getElementById('mNum').textContent = '#'+c.num;
-  document.getElementById('mFoil').textContent = c.foil ? 'Yes' : 'No';
+  document.getElementById('mFoil').textContent = c.foil?'Yes — Foil':'No';
   document.getElementById('mQ').textContent = 1;
   const btn = document.getElementById('mAddBtn');
-  btn.textContent = inStock ? 'Add to Cart' : 'Out of Stock';
-  btn.disabled = !inStock;
-  // Legality
-  const leg = c.leg || {};
-  document.getElementById('mLeg').innerHTML = FORMATS.map(f => {
-    const v = leg[f];
-    const cls = v===1?'leg-y':v===2?'leg-b':'leg-n';
-    const txt = v===1?'Legal':v===2?'Banned':'Not Legal';
-    return `<div class="leg-row"><span class="leg-fmt">${f[0].toUpperCase()+f.slice(1)}</span><span class="leg-legal ${cls}">${txt}</span></div>`;
+  btn.disabled = !owned;
+  btn.textContent = owned ? 'Add to Cart' : 'Out of Stock';
+  const leg = c.leg||{};
+  document.getElementById('mLeg').innerHTML = FORMATS.map(f=>{
+    const v=leg[f]; const cls=v===1?'lt-y':v===2?'lt-b':'lt-n';
+    const t=v===1?'Legal':v===2?'Banned':'Not Legal';
+    return `<div class="leg-row"><span class="leg-fmt">${f[0].toUpperCase()+f.slice(1)}</span><span class="leg-tag ${cls}">${t}</span></div>`;
   }).join('');
   document.getElementById('modal').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow='hidden';
 }
-function closeModal() {
-  document.getElementById('modal').classList.remove('open');
-  document.body.style.overflow = '';
-}
-document.getElementById('modal').addEventListener('click', e => { if(e.target===document.getElementById('modal')) closeModal(); });
-function dq(d) { modalQty = Math.max(1, modalQty+d); document.getElementById('mQ').textContent = modalQty; }
-function addFromModal() { if(modalCard && (modalCard.qty||0)>0) { addToCart(modalCard, modalQty); closeModal(); } }
-function quickAdd(c) { if((c.qty||0)>0) addToCart(c,1); }
+function closeM(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target===document.getElementById('modal'))closeM();});
+function dq(d){mQty=Math.max(1,mQty+d);document.getElementById('mQ').textContent=mQty;}
+function addFromM(){if(mCard&&(mCard.qty||0)>0){addCart(mCard,mQty);closeM();}}
+function qAdd(c){if((c.qty||0)>0)addCart(c,1);}
 
 // ── CART ──
-function addToCart(c, qty) {
-  const k = c.set+'_'+c.num+(c.foil?'_f':'');
-  if(cart[k]) cart[k].qty+=qty; else cart[k]={...c,qty};
-  updateCart();
-  toast(c.name + ' added');
+function addCart(c,qty){
+  const price = c.price||calcPrice(c.usd||0.10,c.foil);
+  const k=c.set+'_'+c.num+(c.foil?'_f':'_n');
+  if(cart[k])cart[k].qty+=qty;else cart[k]={...c,qty,price};
+  updCart(); toast(c.name+' added');
 }
-function updateCart() {
-  const total = Object.values(cart).reduce((s,c)=>s+c.qty,0);
-  document.getElementById('cartN').textContent = total;
-  const items = Object.values(cart);
-  const body = document.getElementById('cartBody');
-  const foot = document.getElementById('cartFoot');
-  if(!items.length) { body.innerHTML='<div class="cart-empty">Your cart is empty</div>'; foot.style.display='none'; return; }
-  body.innerHTML = items.map(c=>`<div class="ci">
-    ${c.img?`<img class="ci-img" src="${c.img}" alt="${c.name}">`:'<div class="ci-img"></div>'}
+function updCart(){
+  const items=Object.values(cart);
+  document.getElementById('cN').textContent=items.reduce((s,c)=>s+c.qty,0);
+  const body=document.getElementById('cBody'),foot=document.getElementById('cFoot');
+  if(!items.length){body.innerHTML='<div class="c-empty">Your cart is empty</div>';foot.style.display='none';return;}
+  body.innerHTML=items.map(c=>`<div class="ci">
+    ${c.img?`<img class="ci-img" src="${c.img}" alt="">`:'<div class="ci-img"></div>'}
     <div class="ci-info">
       <div class="ci-name">${c.name}</div>
       <div class="ci-set">${c.set} #${c.num}${c.foil?' · Foil':''}</div>
       <div class="ci-row">
-        <span class="ci-price">$${(c.usd*CAD*c.qty).toFixed(2)} <span style="font-size:10px;color:var(--txt3)">×${c.qty}</span></span>
-        <button class="ci-rm" onclick="removeCart('${c.set}_${c.num}${c.foil?'_f':''}')">✕</button>
+        <span class="ci-p">${fmt(c.price*c.qty)} <span style="font-size:9px;color:var(--txt3)">×${c.qty}</span></span>
+        <button class="ci-rm" onclick="rmCart('${c.set}_${c.num}${c.foil?'_f':'_n'}')">✕</button>
       </div>
     </div>
   </div>`).join('');
-  const sub = items.reduce((s,c)=>s+c.usd*CAD*c.qty,0);
-  document.getElementById('cartTotal').textContent='$'+sub.toFixed(2);
+  document.getElementById('cTot').textContent=fmt(items.reduce((s,c)=>s+c.price*c.qty,0));
   foot.style.display='block';
 }
-function removeCart(k){delete cart[k];updateCart();}
-function openCart(){document.getElementById('cartDrw').classList.add('open');document.getElementById('cartOv').classList.add('open');document.body.style.overflow='hidden';}
-function closeCart(){document.getElementById('cartDrw').classList.remove('open');document.getElementById('cartOv').classList.remove('open');document.body.style.overflow='';}
+function rmCart(k){delete cart[k];updCart();}
+function openCart(){document.getElementById('cDrw').classList.add('open');document.getElementById('cOv').classList.add('open');document.body.style.overflow='hidden';}
+function closeCart(){document.getElementById('cDrw').classList.remove('open');document.getElementById('cOv').classList.remove('open');document.body.style.overflow='';}
 function checkout(){
   const items=Object.values(cart);if(!items.length)return;
-  const sub=items.reduce((s,c)=>s+c.usd*CAD*c.qty,0);
-  const subject=encodeURIComponent('Order — The Goaded Goose');
-  const body=encodeURIComponent('Hi,\n\nI\'d like to order:\n\n'+items.map(c=>`${c.qty}x ${c.name} (${c.set} #${c.num}${c.foil?' Foil':''}) — $${(c.usd*CAD*c.qty).toFixed(2)} CAD`).join('\n')+'\n\nSubtotal: $'+sub.toFixed(2)+' CAD');
-  window.location.href=`mailto:brentlysnow@gmail.com?subject=${subject}&body=${body}`;
+  const sub=items.reduce((s,c)=>s+c.price*c.qty,0);
+  const subj=encodeURIComponent('Order — The Goaded Goose');
+  const body=encodeURIComponent('Hi,\n\nI\'d like to order:\n\n'+items.map(c=>`${c.qty}x ${c.name} (${c.set} #${c.num}${c.foil?' Foil':''}) — ${fmt(c.price*c.qty)} CAD`).join('\n')+'\n\nSubtotal: '+fmt(sub)+' CAD\n\nThanks!');
+  window.location.href=`mailto:brentlysnow@gmail.com?subject=${subj}&body=${body}`;
 }
 
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}
-function setLoading(on){document.getElementById('loadBar').classList.toggle('active',on);}
-function safeJ(c){return JSON.stringify(c).replace(/"/g,'&quot;');}
+
+function goHome(){
+  document.getElementById('srch').value='';
+  srchQ='';
+  working=Object.values(inv);
+  filt={stock:'instock',sort:'stock',color:'',rarity:'',type:'',format:''};
+  document.querySelectorAll('.sb-btn').forEach(b=>b.classList.remove('on'));
+  document.querySelector('[onclick="sf(\'stock\',\'instock\',this)"]').classList.add('on');
+  document.querySelector('[onclick="sf(\'sort\',\'stock\',this)"]').classList.add('on');
+  document.querySelectorAll('.rchip').forEach(b=>b.classList.remove('on'));
+  document.querySelector('.rchip').classList.add('on');
+  page=1; applyF();
+}
 
 init();
 </script>
