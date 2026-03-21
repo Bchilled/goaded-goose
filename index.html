@@ -7,8 +7,38 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mana-font@latest/css/mana.css">
     <script type="module" crossorigin src="/goated-goose/assets/index-DI66dGA8.js"></script>
     <link rel="stylesheet" crossorigin href="/goated-goose/assets/index-Cqm63GqX.css">
+    <style>
+      body { background: #0c0c0c; color: #f0f0f0; font-family: monospace; }
+      #error-display { display: none; padding: 2rem; background: #1a0000; color: #ff6666; border: 1px solid #ff3333; margin: 1rem; border-radius: 8px; white-space: pre-wrap; font-size: 12px; }
+      #loading { padding: 2rem; color: #666; font-size: 14px; }
+    </style>
+    <script>
+      window.onerror = function(msg, src, line, col, err) {
+        var el = document.getElementById('error-display');
+        if (el) { el.style.display = 'block'; el.textContent = 'ERROR: ' + msg + '\nFile: ' + src + '\nLine: ' + line + '\n' + (err ? err.stack : ''); }
+        document.getElementById('loading').style.display = 'none';
+        return false;
+      };
+      window.addEventListener('unhandledrejection', function(e) {
+        var el = document.getElementById('error-display');
+        if (el) { el.style.display = 'block'; el.textContent = 'PROMISE ERROR: ' + (e.reason ? e.reason.stack || e.reason : e); }
+        document.getElementById('loading').style.display = 'none';
+      });
+    </script>
   </head>
   <body>
+    <div id="loading">Loading The Goaded Goose...</div>
+    <div id="error-display"></div>
     <div id="root"></div>
+    <script>
+      // Hide loading when root gets content
+      setTimeout(function() {
+        var root = document.getElementById('root');
+        var loading = document.getElementById('loading');
+        if (root && root.children.length > 0 && loading) {
+          loading.style.display = 'none';
+        }
+      }, 3000);
+    </script>
   </body>
 </html>
