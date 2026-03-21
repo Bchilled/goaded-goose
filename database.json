@@ -11315,6 +11315,302 @@
       "rar": "common",
       "img": "https://cards.scryfall.io/normal/front/b/5/b5e85acc-ed12-4036-8193-739721c3e178.jpg?1562364181",
       "added": "2026-03-21"
+    },
+    {
+      "set": "ECL",
+      "num": "331",
+      "name": "Boggart Cursecrafter",
+      "type": "Creature \u2014 Goblin Warlock",
+      "usd": 0.31,
+      "fusd": 0.34,
+      "qty": 2,
+      "foil": false,
+      "cond": "LP",
+      "colors": [
+        "B",
+        "R"
+      ],
+      "leg": {
+        "commander": true,
+        "modern": true,
+        "legacy": true,
+        "standard": true,
+        "pioneer": true,
+        "vintage": true,
+        "pauper": false,
+        "historic": true
+      },
+      "rar": "uncommon",
+      "img": "https://cards.scryfall.io/normal/front/a/9/a942f56d-69ee-4151-baae-9a718ff6e7b6.jpg?1767952621"
+    },
+    {
+      "set": "ECL",
+      "num": "333",
+      "name": "Deepchannel Duelist",
+      "type": "Creature \u2014 Merfolk Soldier",
+      "usd": 0.27,
+      "fusd": 0.32,
+      "qty": 1,
+      "foil": true,
+      "cond": "LP",
+      "colors": [
+        "U",
+        "W"
+      ],
+      "leg": {
+        "commander": true,
+        "modern": true,
+        "legacy": true,
+        "standard": true,
+        "pioneer": true,
+        "vintage": true,
+        "pauper": false,
+        "historic": true
+      },
+      "rar": "uncommon",
+      "img": "https://cards.scryfall.io/normal/front/0/f/0fe0730e-a549-427d-99be-68d6fded5ac5.jpg?1767957340"
+    },
+    {
+      "set": "ECL",
+      "num": "333",
+      "name": "Deepchannel Duelist",
+      "type": "Creature \u2014 Merfolk Soldier",
+      "usd": 0.27,
+      "fusd": 0.32,
+      "qty": 1,
+      "foil": false,
+      "cond": "LP",
+      "colors": [
+        "U",
+        "W"
+      ],
+      "leg": {
+        "commander": true,
+        "modern": true,
+        "legacy": true,
+        "standard": true,
+        "pioneer": true,
+        "vintage": true,
+        "pauper": false,
+        "historic": true
+      },
+      "rar": "uncommon",
+      "img": "https://cards.scryfall.io/normal/front/0/f/0fe0730e-a549-427d-99be-68d6fded5ac5.jpg?1767957340"
+    },
+    {
+      "set": "ECL",
+      "num": "335",
+      "name": "Eclipsed Boggart",
+      "type": "Creature \u2014 Goblin Scout",
+      "usd": 0.26,
+      "fusd": 0.27,
+      "qty": 1,
+      "foil": false,
+      "cond": "LP",
+      "colors": [
+        "B",
+        "R"
+      ],
+      "leg": {
+        "commander": true,
+        "modern": true,
+        "legacy": true,
+        "standard": true,
+        "pioneer": true,
+        "vintage": true,
+        "pauper": false,
+        "historic": true
+      },
+      "rar": "uncommon",
+      "img": "https://cards.scryfall.io/normal/front/3/4/343a04c9-ebf8-41d9-9ebf-9d17da5ad605.jpg?1767952629"
+    },
+    {
+      "set": "ECL",
+      "num": "337",
+      "name": "Eclipsed Flamekin",
+      "type": "Creature \u2014 Elemental Scout",
+      "usd": 0.22,
+      "fusd": 0.27,
+      "qty": 1,
+      "foil": false,
+      "cond": "LP",
+      "colors": [
+        "R",
+        "U"
+      ],
+      "leg": {
+        "commander": true,
+        "modern": true,
+        "legacy": true,
+        "standard": true,
+        "pioneer": true,
+        "vintage": true,
+        "pauper": false,
+        "historic": true
+      },
+      "rar": "uncommon",
+      "img": "https://cards.scryfall.io/normal/front/6/2/6271b82d-5922-4de0-b763-129908ece6ee.jpg?1767733102"
+    },
+    {
+      "set": "ECL",
+      "num": "338",
+      "name": "Eclipsed Kithkin",
+      "type": "Creature \u2014 Kithkin Scout",
+      "usd": 0.3,
+      "fusd": 0.27,
+      "qty": 1,
+      "foil": false,
+      "cond": "LP",
+      "colors": [
+        "G",
+        "W"
+      ],
+      "leg": {
+        "commander": true,
+        "modern": true,
+        "legacy": true,
+        "standard": true,
+        "pioneer": true,
+        "vintage": true,
+        "pauper": false,
+        "historic": true
+      },
+      "rar": "uncommon",
+      "img": "https://cards.scryfall.io/normal/front/e/4/e40d5d7c-4176-4faa-9701-933307eebb26.jpg?1767952645"
+    },
+    {
+      "set": "ECL",
+      "num": "339",
+      "name": "Eclipsed Merrow",
+      "type": "Creature \u2014 Merfolk Scout",
+      "usd": 0.22,
+      "fusd": 0.29,
+      "qty": 1,
+      "foil": false,
+      "cond": "LP",
+      "colors": [
+        "U",
+        "W"
+      ],
+      "leg": {
+        "commander": true,
+        "modern": true,
+        "legacy": true,
+        "standard": true,
+        "pioneer": true,
+        "vintage": true,
+        "pauper": false,
+        "historic": true
+      },
+      "rar": "uncommon",
+      "img": "https://cards.scryfall.io/normal/front/4/5/45d96555-4976-49d1-b529-09cc7ca37cd3.jpg?1767952653"
+    },
+    {
+      "set": "ECL",
+      "num": "343",
+      "name": "Thoughtweft Lieutenant",
+      "type": "Creature \u2014 Kithkin Soldier",
+      "usd": 0.25,
+      "fusd": 0.25,
+      "qty": 1,
+      "foil": false,
+      "cond": "LP",
+      "colors": [
+        "G",
+        "W"
+      ],
+      "leg": {
+        "commander": true,
+        "modern": true,
+        "legacy": true,
+        "standard": true,
+        "pioneer": true,
+        "vintage": true,
+        "pauper": false,
+        "historic": true
+      },
+      "rar": "uncommon",
+      "img": "https://cards.scryfall.io/normal/front/f/e/fea71783-1ac5-483b-8a91-1ba45af4ea3c.jpg?1767660993"
+    },
+    {
+      "set": "ECL",
+      "num": "345",
+      "name": "Twinflame Travelers",
+      "type": "Creature \u2014 Elemental Sorcerer",
+      "usd": 0.35,
+      "fusd": 1.22,
+      "qty": 1,
+      "foil": false,
+      "cond": "LP",
+      "colors": [
+        "R",
+        "U"
+      ],
+      "leg": {
+        "commander": true,
+        "modern": true,
+        "legacy": true,
+        "standard": true,
+        "pioneer": true,
+        "vintage": true,
+        "pauper": false,
+        "historic": true
+      },
+      "rar": "uncommon",
+      "img": "https://cards.scryfall.io/normal/front/a/4/a422ae59-abb6-423d-8400-670196560920.jpg?1767957463"
+    },
+    {
+      "set": "ECL",
+      "num": "351",
+      "name": "Temple Garden // Temple Garden",
+      "type": "",
+      "usd": 12.0,
+      "fusd": 18.02,
+      "qty": 1,
+      "foil": false,
+      "cond": "LP",
+      "colors": [
+        "G",
+        "W"
+      ],
+      "leg": {
+        "commander": true,
+        "modern": true,
+        "legacy": true,
+        "standard": true,
+        "pioneer": true,
+        "vintage": true,
+        "pauper": false,
+        "historic": true
+      },
+      "rar": "rare",
+      "img": "https://cards.scryfall.io/normal/front/e/c/ec75b840-420d-4512-a74a-d70f19be0085.jpg?1763522834"
+    },
+    {
+      "set": "ECL",
+      "num": "408",
+      "name": "Harmonized Crescendo",
+      "type": "Instant",
+      "usd": 0.0,
+      "fusd": 0.59,
+      "qty": 1,
+      "foil": true,
+      "cond": "LP",
+      "colors": [
+        "U"
+      ],
+      "leg": {
+        "commander": true,
+        "modern": true,
+        "legacy": true,
+        "standard": true,
+        "pioneer": true,
+        "vintage": true,
+        "pauper": false,
+        "historic": true
+      },
+      "rar": "rare",
+      "img": "https://cards.scryfall.io/normal/front/2/d/2dbd1ec1-2b66-4fcc-84cb-9d35afcec921.jpg?1767691540"
     }
   ]
 }
