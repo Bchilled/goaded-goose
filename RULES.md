@@ -213,3 +213,57 @@ Confirmed by Brent 2026-03-21
 
 Use: black bg, dark grey panels, orange accents/CTAs, light grey text, white for headings
 NO teal. NO brown. NO dark red. This palette only.
+
+## VISUAL FEEDBACK FROM SCREENSHOTS — 2026-03-21
+
+### LAYOUT
+- Site looks built for mobile on desktop — everything stacked in one column, infinite scroll — REJECTED
+- Full desktop width must be used — sections side by side, not stacked
+- Dead center of page is empty black space — needs content there (card carousel/new inventory)
+- "New Inventory" card row should be IN the banner area filling dead space
+- Browse By Set tiles should end at 3 visible, scroll/drag sideways for more
+- All card rows should be horizontal drag/scroll — not full grid dumps
+- Card of the Day is buried at bottom — nobody sees it — move to top
+
+### CARDS / GRID
+- Rarity colored circles — REMOVE. Tiny dot or text label only
+- FOIL badge is barely visible — make it loud, prominent, it's a selling point
+- Foil pricing: ALWAYS higher than non-foil regardless of market. Formula: max(fusd*CAD*MK, usd*CAD*MK*1.3, MIN)
+- High Value row shows too many cards at once with no scroll
+- Budget section just shows cheap cards with no sell copy — needs to explain WHY each card is good
+- Menus don't work — dropdowns broken
+- Legality tags don't work
+
+### NAVIGATION
+- Nav items that were wrong: Format, Mythic, Foil, In Stock — these are FILTERS not nav items
+- Correct nav: MTG SINGLES ↓ | BROWSE BY SET ↓ | FORMAT ↓ | CONTACT
+- All dropdowns must actually work
+
+### CARD OF THE DAY
+- Must be a card we ACTUALLY OWN (multiple copies)
+- Must show WHY the card is good — research it, sell it
+- Must be near the TOP of the page
+- Currently shows LRW cards we don't own — WRONG
+
+### WHAT SELLS A CARD
+- Not just "it's cheap" — explain the mechanic
+- Show what decks it goes in
+- Show what it combos with
+- Show if it's a budget staple in a format
+- Research before writing — never guess
+
+### BROWSE BY SET
+- Shows "Lorwyn 112 listings" — we don't have Lorwyn — that's LRW which was fabricated
+- Must only show sets we actually have
+
+### COLORS — CONFIRMED ASIMOV PALETTE
+--white:  #F2F2F2
+--lgrey:  #E8E8E8
+--orange: #F26419  ← PRIMARY ACCENT
+--dgrey:  #454545
+--black:  #111111  ← BACKGROUND
+
+### TECH
+- Plain HTML looks dated — "went from 1997 to 2001"
+- Needs to feel 2026 — modern, premium
+- Consider React or at minimum modern CSS grid/flex properly used
