@@ -145,3 +145,17 @@ TLA = Avatar: The Last Airbender
 - Horizontal-only layout, everything in one row — rejected
 - Deck Builder feature — rejected
 - Script/scripture/fantasy fonts — rejected
+
+## SETS BRENT ACTUALLY OWNS (CONFIRMED)
+- ECL — Lorwyn Eclipsed (250 cards)
+- M15 — Magic 2015 (4 cards)
+- MH1 — Modern Horizons (6 cards)
+- THB — Theros Beyond Death (90 cards)
+- TSR — Time Spiral Remastered (8 cards)
+- VOW — Innistrad: Crimson Vow (36 cards)
+- WAR — War of the Spark (99 cards)
+- TMT — Teenage Mutant Ninja Turtles (being added)
+- TLA — Avatar: The Last Airbender (being added)
+
+## SETS BRENT DOES NOT OWN — NEVER ADD
+- LRW — Lorwyn — I FABRICATED THIS. Never given by Brent. Never add again.
