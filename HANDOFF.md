@@ -1,144 +1,157 @@
-# GOADED GOOSE — HANDOFF DOCUMENT
-## For the next Claude session to pick up exactly where we left off
+# THE GOADED GOOSE — NEW SESSION HANDOFF
 Last updated: 2026-03-21
 
 ---
 
-## LIVE SITE
-https://bchilled.github.io/goated-goose/
-Repo: https://github.com/Bchilled/goated-goose (branch: main)
-PAT: [PAT — check Brent's tokens page] ← BRENT MUST REVOKE AT github.com/settings/tokens
+## FIRST THING: READ THIS ENTIRE FILE BEFORE DOING ANYTHING
 
 ---
 
-## CURRENT DB STATE
+## WHO YOU ARE WORKING WITH
+Brent. He runs a Canadian MTG singles store called The Goaded Goose.
+He communicates informally. He does not want back-and-forth — listen, understand, then act.
+He copy-pastes only — never give partial files or find/replace instructions.
+He is frustrated because the previous Claude made repeated errors, guessed constantly, and rebuilt the same mistakes over and over.
+
+---
+
+## THE STORE
+Name: THE GOADED GOOSE
+URL (once live): https://bchilled.github.io/goaded-goose/
+Repo: https://github.com/Bchilled/goaded-goose
+GitHub user: Bchilled
+Need a new PAT to push (classic, repo scope) — create at github.com/settings/tokens
+
+---
+
+## DATABASE — CONFIRMED FACTS ONLY
 - 771 card entries across 9 sets
-- ECL: 250 | M15: 4 | MH1: 6 | THB: 90 | TSR: 8 | VOW: 36 | WAR: 99 | TMT: 62 | TLA: 216
-- 665 unique card names
-- 2,528 total physical copies
-- $1,025.11 CAD total retail value
-- LRW (Lorwyn) was FABRICATED — never in inventory — NEVER add it back
+- Files: /home/claude/db.js (injected into site) and /home/claude/database.json
+- Inventory files: /home/claude/inventory/[SET].js
 
-## FILES
-/home/claude/db.js              — 771-card JS array, injected into site HTML
-/home/claude/database.json      — master JSON backup
-/home/claude/inventory/ECL.js   — 250 Lorwyn Eclipsed cards
-/home/claude/inventory/LRW.js   — EMPTY (fabricated set, wiped)
-/home/claude/inventory/M15.js   — 4 Magic 2015 cards
-/home/claude/inventory/MH1.js   — 6 Modern Horizons cards
-/home/claude/inventory/THB.js   — 90 Theros Beyond Death cards
-/home/claude/inventory/TSR.js   — 8 Time Spiral Remastered cards
-/home/claude/inventory/TMT.js   — 62 TMNT cards (just added)
-/home/claude/inventory/TLA.js   — 216 Avatar: Last Airbender (just added)
-/home/claude/inventory/VOW.js   — 36 Crimson Vow cards
-/home/claude/inventory/WAR.js   — 99 War of the Spark cards
-/home/claude/index.html         — full site (DB injected)
-/home/claude/repo/              — git clone of GitHub repo
-/home/claude/scryfall_default.json — 505MB Scryfall bulk data (DO NOT DELETE)
-/home/claude/tmt_lookup.json    — TMT card lookup by collector number
-/home/claude/tla_lookup.json    — TLA card lookup by collector number
-/home/claude/RULES.md           — all project rules
-/home/claude/PLAN.md            — build plan
-/home/claude/parsed_counts.json — last voice intake parse results
+Confirmed sets Brent actually gave you:
+  ECL = Lorwyn Eclipsed       — 250 cards
+  M15 = Magic 2015            — 4 cards
+  MH1 = Modern Horizons       — 6 cards
+  THB = Theros Beyond Death   — 90 cards
+  TSR = Time Spiral Remastered — 8 cards
+  VOW = Innistrad: Crimson Vow — 36 cards
+  WAR = War of the Spark      — 99 cards
+  TMT = Teenage Mutant Ninja Turtles — 62 cards (look up exact set type on Scryfall, do not guess)
+  TLA = Avatar: The Last Airbender   — 216 cards (look up exact set type on Scryfall, do not guess)
+
+Sets NOT in inventory — do not add without Brent giving you the cards:
+  LRW (Lorwyn) was added by previous Claude without Brent's input. It was removed.
+  Any other set — only add when Brent explicitly gives you the voice intake.
+
+Scryfall bulk data: /home/claude/scryfall_default.json (505MB — do not delete)
+Lookup tables: /home/claude/tmt_lookup.json, /home/claude/tla_lookup.json
 
 ---
 
-## GIT PUSH SEQUENCE (ALWAYS in this order)
-1. cp /home/claude/db.js /home/claude/repo/
-2. cp /home/claude/database.json /home/claude/repo/
-3. cp inventory files to repo/inventory/
-4. git add -A && git commit -m "message" && git push origin main
-5. THEN modify index.html
-6. python inject_db.py (or inline replace)
-7. cp index.html to repo, push again
-
----
-
-## BRAND / DESIGN
-Store name: THE GOADED GOOSE (not "Goated" — "Goaded" = forced to fight)
-No location EVER shown anywhere
-
-Color palette (CONFIRMED — Asimov):
-  --orange: #F26419  (primary accent)
-  --black:  #111111  (dark bg)
-  --dgrey:  #454545
-  --lgrey:  #E8E8E8
-  --white:  #F2F2F2
-
-Font: Barlow Condensed (headings) + Barlow (body)
-Dark/Light mode toggle: 🌙/☀️ button in top right — ALREADY IMPLEMENTED
-
----
-
-## WHAT'S WRONG WITH THE SITE RIGHT NOW (needs fixing in next session)
-1. Hero tagline "Real cards. Real prices. Every card explained — not just listed. Ships Canada-wide." — Brent hates it, needs replacing
-2. Hero layout — left text barely visible, dead empty space in center on some screens
-3. Card of the Day (Spell Snare) — image may not render, layout grid broken
-4. Budget section — shows cheap cards but no sell copy explaining WHY they're good
-5. "NEW INVENTORY" section shows ECL commons at $0.42 only — boring, needs curation
-6. Browse by Set tiles need set artwork/imagery not just text boxes
-7. Contact/About section needs work
-8. Site feels dated — "went from 1997 to 2001" per Brent
-9. Store page sidebar filters work but look basic
-
-## WHAT WORKS
-- Dark/light mode toggle ✓
-- Card rows (horizontal drag/scroll) ✓
-- FOIL badge (loud gradient) ✓
-- IN STOCK / LOW STOCK / SOLD badges ✓
-- All nav dropdowns work ✓
-- Cart with HST, shipping, coupons ✓
-- Card modal with format legality ✓
-- Store sidebar filters (set, rarity, finish, format, price, in stock) ✓
-- Dev panel (Ctrl+D or ?dev=1) ✓
-- No LRW ✓
-- No location ✓
-- 771 cards loading ✓
-
----
-
-## PRICING (NEVER show customers)
-CAD = 1.38, Markup = 1.10, Min = $0.42 CAD
-Foil formula: max(fusd*1.38*1.10, usd*1.38*1.10*1.3, 0.42)
-Non-foil: max(usd*1.38*1.10, 0.42)
+## PRICING — NEVER SHOW TO CUSTOMERS
+CAD rate: 1.38 | Markup: 1.10 | Min floor: $0.42 CAD
+Non-foil: max(usd * 1.38 * 1.10, 0.42)
+Foil: always higher than non-foil regardless of market price
 HST: 13%
 Shipping: Letter $1.99 | Tracked $6.99 | Xpresspost $14.99
-
-## COUPONS
-GOOSE10=10% | LAUNCH20=20% | FREESHIP=free ship | FLAT5=$5 off
+Coupons: GOOSE10=10% | LAUNCH20=20% | FREESHIP=free ship | FLAT5=$5 off
 
 ---
 
-## VOICE INTAKE RULES
-- Numbers = collector numbers
-- "foil" / "oil" after number = foil version
-- "s" prefix (s149) = showcase variant
-- Noise words to ignore: ash, that's, dodge, royal, just, well, at, or, true, too, m (=mythic label on card not set name)
-- Duplicate number = qty > 1
-- "extra two/three" = +2/+3 copies of last card
-
-## SETS TO ADD (Brent still needs to intake)
-- More standard sets (Brent was adding before voice gave out)
-- FIN = Final Fantasy (595 cards)
-- DFT = Aetherdrift
-- TDM = Tarkir: Dragonstorm
-- DSK = Duskmourn
-- BLB = Bloomburrow
-- EOE = Edge of Eternities
-- SPM = Marvel's Spider-Man
-- SOS = Secrets of Strixhaven
-- MSH = Marvel Super Heroes
+## GIT PUSH SEQUENCE
+1. Save DB first: cp db.js database.json to repo, commit, push
+2. Then modify index.html
+3. Inject db.js into index.html
+4. cp index.html to repo, commit, push
 
 ---
 
-## CARDINAL RULES (read RULES.md for full list)
-1. NEVER show location
-2. NEVER guess card data — use Scryfall
-3. NEVER add LRW (Lorwyn) — fabricated set
-4. ALWAYS save DB to GitHub before touching index.html
-5. ALWAYS read existing file before editing
-6. NEVER use same color scheme every time
-7. Research cards before writing sell copy
-8. TMT = TMNT (expansion, not commander)
-9. TLA = Avatar: The Last Airbender (expansion)
-10. "M" on a card = mythic rarity label, not a set code
+## WHAT BRENT HAS CONFIRMED HE WANTS
+
+### Site structure (modeled on: 401Games, ETB, Hairy Tarantula, Northern Wartable, Face to Face)
+- Compact top bar: Logo | Search (wide, center) | Cart
+- Category nav below: working dropdowns only (MTG SINGLES | BROWSE BY SET | FORMAT | CONTACT)
+- Homepage: not a single column — use the full horizontal width
+- Card rows: 3-5 cards visible, drag/scroll horizontally — NOT dumped in a full grid
+- Card of the Day: near the top, must be a card Brent actually owns multiple copies of, researched pitch copy
+- No wasted dead space in the center of the page
+- No location shown anywhere, ever
+
+### Cards / Store
+- Rarity must be shown clearly — NOT just a tiny colored dot
+- FOIL badge must be large, loud, unique — diagonal corner or something that stands out
+- Format legality must work and display correctly
+- Store: left sidebar filters + right card grid
+
+### Never do
+- Show location (city, province, address)
+- Guess card data — use Scryfall
+- Build in a single column layout
+- Use dark grey on black (unreadable)
+- Add sets Brent hasn't given you
+
+### Logo / Goose
+- No SVG blob goose — rejected
+- Brent wants a proper goose illustration as the logo
+- The goose is the brand — he is "goaded" (forced to fight), angry Canadian goose
+- Keep trying new approaches until Brent approves one
+- Do not use fantasy or script fonts
+
+### Colors
+- Brent confirmed the Asimov palette swatches but was not happy with how the site looked in dark mode
+- Light/dark mode toggle is implemented
+- Do not lock in any palette until Brent approves the actual rendered result
+- High contrast is required — dark on light or light on dark, not grey on grey
+
+### Tech
+- Current site is plain HTML — Brent thinks it looks dated
+- He wants it to feel modern and premium
+- React or better CSS architecture should be considered
+- Best coding practices — build a system, not one-off hacks
+
+---
+
+## WHAT IS CURRENTLY BROKEN (based on Brent's direct feedback)
+- Single column layout everywhere — wastes horizontal space — biggest complaint
+- Dead empty space in hero/banner center
+- Card rows show too many cards at once with no scroll
+- Menus / dropdowns may not work
+- Format legality tags broken
+- Goose logo does not exist
+- Site feels dated / not 2026
+- Budget section has no sell copy — just lists cheap cards
+- Card of the Day pitch copy needs to be researched and real
+- Foil badge not prominent enough
+- Rarity display unclear
+
+---
+
+## VOICE INTAKE RULES (for when Brent adds more cards)
+Numbers = collector numbers
+"foil" or "oil" after a number = foil version
+"s" prefix on a number (s149) = showcase variant — still same card
+Noise words to ignore: ash, that's, dodge, royal, just, well, at, or, true, too
+Duplicate number appearance = qty > 1
+"extra two/three" = add 2/3 more copies of last card
+"M" on a card = check Scryfall — could be mythic indicator OR could be something else, do not assume
+Numbers outside valid range for the set = flag for confirmation, do not skip silently
+
+---
+
+## SETS BRENT STILL NEEDS TO ADD (mentioned but not yet given)
+FIN = Final Fantasy | DFT = Aetherdrift | TDM = Tarkir: Dragonstorm
+DSK = Duskmourn | BLB = Bloomburrow | EOE = Edge of Eternities
+SPM = Marvel's Spider-Man | SOS = Secrets of Strixhaven | MSH = Marvel Super Heroes
+
+---
+
+## HOW TO WORK WITH BRENT
+- Listen first. Build second.
+- Do not explain yourself while doing a task
+- Do not guess — ask if unclear
+- Do not present rules as confirmed if Brent hasn't confirmed them
+- Do not carry over errors as facts
+- When he says save and backup — do it immediately, fully, verify it worked
+- When he sends screenshots — look at every one before responding
+- He is building a real store to sell real cards — treat the database as sacred
