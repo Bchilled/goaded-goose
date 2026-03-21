@@ -3243,7 +3243,7 @@
       "rar": "common",
       "type": "Instant",
       "usd": "0.06",
-      "fusd": null,
+      "fusd": 0,
       "colors": [
         "R"
       ],
@@ -5254,7 +5254,7 @@
       "rar": "uncommon",
       "type": "Enchantment Creature \u2014 Spirit",
       "usd": "0.12",
-      "fusd": null,
+      "fusd": 0,
       "colors": [
         "W"
       ],
