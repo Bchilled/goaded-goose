@@ -3,1069 +3,890 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Goaded Goose | MTG Singles Canada</title>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
-<!-- Keyrune MTG symbols -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/keyrune@latest/css/keyrune.css">
-<!-- Mana font for mana symbols -->
+<title>The Goaded Goose | MTG Singles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mana-font@latest/css/mana.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --ink:#0a0a0a;--ink2:#111;--ink3:#181818;--ink4:#202020;
-  --wire:#2c2c2c;--wire2:#383838;--wire3:#444;
-  --smoke:#666;--ash:#999;--fog:#ccc;
-  --paper:#e8e4dc;--paper2:#f2efe8;
-  --flame:#ff4500;--flame2:#cc3600;--flame3:#ff6633;
-  --gold:#c8922a;--gold2:#e8b84b;
-  --teal:#00b894;--red:#d63031;--blue:#0984e3;
-  --r:4px;--r2:8px;
-  --shadow:0 2px 8px rgba(0,0,0,.5);
-  --shadow2:0 4px 20px rgba(0,0,0,.7);
+  --bg:#121212;--s1:#1a1a1a;--s2:#222;--s3:#2a2a2a;--s4:#333;
+  --border:#2e2e2e;--border2:#3a3a3a;
+  --txt:#ececec;--txt2:#aaa;--txt3:#666;
+  --acc:#e8452a;--acc2:#c43820;--acc3:#ff6645;
+  --gold:#d4a017;--gold2:#f0c040;
+  --green:#1a8a4a;--teal:#00a878;--red:#c0392b;
+  --r:6px;--r2:10px;
 }
-html{scroll-behavior:smooth;font-size:14px}
-body{font-family:'Source Sans 3',sans-serif;background:var(--ink);color:var(--fog);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-button,input,select,textarea{font-family:inherit;font-size:inherit}
-a{color:inherit;text-decoration:none}
-img{display:block;max-width:100%}
+html{font-size:14px;scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block}
+button,input,select{font-family:inherit;font-size:inherit}
 
-/* ══════════════ TOP HEADER ══════════════ */
-#hdr{
-  background:var(--ink2);
-  border-bottom:3px solid var(--flame);
-  position:sticky;top:0;z-index:600;
+/* ═══════════════════════════════════
+   BANNER
+═══════════════════════════════════ */
+#banner{
+  background:linear-gradient(135deg,#0a0a0a 0%,#1a0800 45%,#0f0f0f 100%);
+  border-bottom:3px solid var(--acc);
+  position:relative;overflow:hidden;
 }
-.hdr-main{
-  display:flex;align-items:center;gap:1rem;
-  padding:.6rem 1.25rem;
+/* Subtle plaid texture overlay */
+#banner::before{
+  content:'';position:absolute;inset:0;pointer-events:none;opacity:.04;
+  background-image:
+    repeating-linear-gradient(0deg,#e8452a 0,#e8452a 1px,transparent 1px,transparent 32px),
+    repeating-linear-gradient(90deg,#e8452a 0,#e8452a 1px,transparent 1px,transparent 32px),
+    repeating-linear-gradient(0deg,#e8452a 0,#e8452a 1px,transparent 1px,transparent 8px),
+    repeating-linear-gradient(90deg,#e8452a 0,#e8452a 1px,transparent 1px,transparent 8px);
 }
-.logo{
-  display:flex;align-items:center;gap:.5rem;
-  cursor:pointer;flex-shrink:0;
+.banner-inner{
+  display:flex;align-items:stretch;
+  max-width:1600px;margin:0 auto;position:relative;z-index:1;
 }
-.logo svg{width:32px;height:32px;flex-shrink:0}
-.logo-name{
-  font-family:'Oswald',sans-serif;font-weight:700;
-  font-size:1.3rem;letter-spacing:2px;color:var(--flame);
-  text-transform:uppercase;white-space:nowrap;
+.banner-content{
+  flex:1;padding:1.75rem 2rem 1.5rem;
+  display:flex;flex-direction:column;justify-content:space-between;
 }
-.logo-ca{
-  background:var(--red);color:#fff;font-size:.45rem;
-  font-weight:700;letter-spacing:2px;padding:2px 4px;border-radius:2px;
-  align-self:flex-end;margin-bottom:2px;
+.banner-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.brand{display:flex;align-items:center;gap:.75rem;cursor:pointer}
+.brand-text{
+  font-family:'Anton',sans-serif;font-size:2rem;
+  letter-spacing:3px;color:var(--acc);text-transform:uppercase;
+  text-shadow:0 0 40px rgba(232,69,42,.25);
 }
-
-/* SEARCH BAR — prominent, center */
-.search-wrap{
-  flex:1;max-width:580px;margin:0 auto;position:relative;
+.brand-ca{
+  background:var(--red);color:#fff;font-size:.5rem;
+  font-weight:700;letter-spacing:2px;padding:2px 5px;
+  border-radius:2px;align-self:flex-end;margin-bottom:4px;
 }
-.search-wrap input{
-  width:100%;background:var(--ink4);
-  border:1.5px solid var(--wire2);border-radius:var(--r2);
-  padding:.65rem 1rem .65rem 2.8rem;
-  color:var(--paper);font-size:.95rem;
-  transition:border-color .15s,box-shadow .15s;
+.banner-links{display:flex;align-items:center;gap:.25rem}
+.bl{
+  background:transparent;border:none;color:var(--txt2);
+  font-size:.8rem;padding:.4rem .8rem;border-radius:var(--r);
+  cursor:pointer;transition:.12s;font-weight:500;
 }
-.search-wrap input:focus{
-  outline:none;border-color:var(--flame);
-  box-shadow:0 0 0 3px rgba(255,69,0,.15);
+.bl:hover{color:var(--txt);background:rgba(255,255,255,.05)}
+.cart-bl{
+  background:var(--acc);color:#fff;border:none;
+  padding:.45rem 1rem;border-radius:var(--r);
+  font-weight:600;font-size:.82rem;cursor:pointer;
+  display:flex;align-items:center;gap:.4rem;transition:.12s;
 }
-.search-wrap input::placeholder{color:var(--smoke)}
-.search-ico{
-  position:absolute;left:10px;top:50%;transform:translateY(-50%);
-  color:var(--smoke);font-size:1rem;pointer-events:none;
-}
-.search-clear{
-  position:absolute;right:10px;top:50%;transform:translateY(-50%);
-  background:none;border:none;color:var(--smoke);cursor:pointer;
-  font-size:1rem;display:none;padding:2px;
-}
-.search-clear.vis{display:block}
-.search-clear:hover{color:var(--flame)}
-
-.hdr-right{display:flex;align-items:center;gap:.5rem;flex-shrink:0}
-.hdr-btn{
-  background:transparent;border:1px solid var(--wire2);
-  color:var(--ash);padding:.45rem .85rem;border-radius:var(--r);
-  font-family:'Oswald',sans-serif;font-weight:500;font-size:.78rem;
-  letter-spacing:1px;cursor:pointer;transition:.12s;white-space:nowrap;
-  text-transform:uppercase;
-}
-.hdr-btn:hover{border-color:var(--flame);color:var(--flame)}
-.cart-btn{
-  background:var(--flame);color:#fff;border:none;
-  padding:.5rem 1rem;border-radius:var(--r);
-  font-family:'Oswald',sans-serif;font-weight:600;font-size:.85rem;
-  letter-spacing:1.5px;cursor:pointer;transition:.12s;
-  display:flex;align-items:center;gap:.4rem;text-transform:uppercase;
-}
-.cart-btn:hover{background:var(--flame2)}
-.cart-ct{
-  background:var(--ink2);color:var(--flame);
+.cart-bl:hover{background:var(--acc2)}
+.cart-n{
+  background:rgba(0,0,0,.4);color:#fff;
   border-radius:50%;width:18px;height:18px;
   font-size:.62rem;font-weight:700;
   display:flex;align-items:center;justify-content:center;
 }
 
-/* NAV BAR */
-.hdr-nav{
-  background:var(--ink3);border-top:1px solid var(--wire);
-  display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;
-  padding:0 .75rem;
+/* NAV MENU BAR */
+.banner-nav{
+  display:flex;align-items:center;gap:0;
+  overflow-x:auto;scrollbar-width:none;
 }
-.hdr-nav::-webkit-scrollbar{display:none}
-.nav-item{
-  font-family:'Oswald',sans-serif;font-size:.78rem;font-weight:500;
-  letter-spacing:1.5px;text-transform:uppercase;
-  color:var(--ash);padding:.55rem .85rem;white-space:nowrap;
+.banner-nav::-webkit-scrollbar{display:none}
+.bn{
+  font-family:'Anton',sans-serif;font-size:.8rem;letter-spacing:1.5px;
+  color:var(--txt2);padding:.55rem .9rem;white-space:nowrap;
   cursor:pointer;border-bottom:2px solid transparent;
-  transition:.12s;display:flex;align-items:center;gap:.3rem;
+  transition:.12s;text-transform:uppercase;
+  background:none;border-left:none;border-right:none;border-top:none;
 }
-.nav-item:hover,.nav-item.on{color:var(--paper);border-bottom-color:var(--flame)}
-.nav-sep{width:1px;height:16px;background:var(--wire);margin:0 .25rem;flex-shrink:0}
-
-/* dropdown */
-.dd-wrap{position:relative}
-.dd-menu{
-  position:absolute;top:100%;left:0;
-  background:var(--ink3);border:1px solid var(--wire2);border-radius:var(--r2);
-  min-width:200px;box-shadow:var(--shadow2);z-index:700;
-  display:none;padding:.3rem 0;
+.bn:hover,.bn.on{color:var(--txt);border-bottom-color:var(--acc)}
+.bn-sep{width:1px;height:14px;background:var(--border2);margin:0 .1rem;flex-shrink:0}
+.dd-w{position:relative}
+.dd-m{
+  position:absolute;top:calc(100% + 4px);left:0;
+  background:var(--s1);border:1px solid var(--border2);border-radius:var(--r2);
+  min-width:220px;box-shadow:0 8px 32px rgba(0,0,0,.7);
+  z-index:900;display:none;padding:.3rem 0;
 }
-.dd-menu.open{display:block}
-.dd-item{
-  padding:.55rem 1rem;font-size:.83rem;color:var(--ash);
+.dd-m.open{display:block}
+.di{
+  padding:.55rem 1rem;font-size:.82rem;color:var(--txt2);
   cursor:pointer;transition:.1s;
-  font-family:'Oswald',sans-serif;letter-spacing:.5px;
   display:flex;align-items:center;gap:.5rem;
 }
-.dd-item:hover{background:rgba(255,69,0,.1);color:var(--flame)}
-.dd-item i{font-size:1rem;width:20px;text-align:center}
+.di:hover{background:rgba(232,69,42,.1);color:var(--acc3)}
+.di i{width:18px;text-align:center}
 
-/* ══════════════ LAYOUT ══════════════ */
-#app{display:flex;min-height:calc(100vh - 80px)}
-
-/* ══════════════ SIDEBAR ══════════════ */
-#sidebar{
-  width:210px;flex-shrink:0;
-  background:var(--ink2);
-  border-right:1px solid var(--wire);
-  overflow-y:auto;
-  position:sticky;top:80px;
-  height:calc(100vh - 80px);
+/* GOOSE ILLUSTRATION */
+.banner-goose{
+  width:220px;flex-shrink:0;
+  position:relative;display:flex;align-items:flex-end;justify-content:center;
+  overflow:hidden;
 }
-#sidebar::-webkit-scrollbar{width:3px}
-#sidebar::-webkit-scrollbar-thumb{background:var(--wire2)}
 
-.sf-group{border-bottom:1px solid var(--wire)}
-.sf-label{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:.65rem .9rem;cursor:pointer;
-  font-family:'Oswald',sans-serif;font-size:.72rem;
-  font-weight:600;letter-spacing:2px;text-transform:uppercase;
-  color:var(--ash);transition:.12s;user-select:none;
+/* ═══════════════════════════════════
+   SEARCH + FILTER BAR
+═══════════════════════════════════ */
+#searchbar{
+  background:var(--s1);border-bottom:1px solid var(--border);
+  padding:.7rem 1.25rem;
+  display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;
+  position:sticky;top:0;z-index:800;
 }
-.sf-label:hover{color:var(--fog)}
-.sf-label .arr{font-size:.65rem;transition:.2s;color:var(--smoke)}
-.sf-label.closed .arr{transform:rotate(-90deg)}
-.sf-body{padding:.3rem .9rem .7rem}
-.sf-body.hidden{display:none}
-
-/* mana pips */
-.pip-row{display:flex;flex-wrap:wrap;gap:.3rem;padding:.15rem 0}
-.pip{
-  width:26px;height:26px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;border:2px solid transparent;transition:.12s;
-  font-size:.75rem;
+.search-main{
+  flex:1;min-width:200px;max-width:480px;position:relative;
 }
-.pip:hover{transform:scale(1.12)}
-.pip.on{border-color:var(--paper);box-shadow:0 0 6px rgba(255,255,255,.3)}
-.pip-W{background:radial-gradient(#f5eda0,#c8a830)}
-.pip-U{background:radial-gradient(#1a8fd1,#0a4f8f)}
-.pip-B{background:radial-gradient(#555,#1a1a1a);border-color:var(--wire2)!important}
-.pip-R{background:radial-gradient(#e85c22,#9a1800)}
-.pip-G{background:radial-gradient(#2db84e,#0a5a1e)}
-.pip-C{background:radial-gradient(#c0c0c0,#808080)}
+.search-main input{
+  width:100%;background:var(--bg);border:1.5px solid var(--border2);
+  border-radius:var(--r2);padding:.6rem 2.4rem .6rem 2.4rem;
+  color:var(--txt);font-size:.92rem;
+  transition:border-color .15s,box-shadow .15s;
+}
+.search-main input:focus{
+  outline:none;border-color:var(--acc);
+  box-shadow:0 0 0 3px rgba(232,69,42,.12);
+}
+.search-main input::placeholder{color:var(--txt3)}
+.si{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--txt3);font-size:.92rem;pointer-events:none}
+.sc{position:absolute;right:9px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--txt3);cursor:pointer;font-size:.9rem;display:none}
+.sc.vis{display:block}.sc:hover{color:var(--acc)}
+.q-pills{display:flex;gap:.35rem;flex-wrap:wrap;align-items:center}
+.qp{
+  background:var(--s2);border:1px solid var(--border2);
+  color:var(--txt2);font-size:.72rem;padding:.3rem .7rem;
+  border-radius:20px;cursor:pointer;transition:.12s;white-space:nowrap;
+  font-weight:500;
+}
+.qp:hover,.qp.on{background:rgba(232,69,42,.12);border-color:var(--acc);color:var(--acc3)}
+.adv-btn{
+  background:var(--s2);border:1px solid var(--border2);color:var(--txt2);
+  padding:.38rem .8rem;border-radius:var(--r);font-size:.75rem;
+  cursor:pointer;transition:.12s;white-space:nowrap;font-weight:500;
+  display:flex;align-items:center;gap:.3rem;
+}
+.adv-btn:hover,.adv-btn.on{border-color:var(--acc);color:var(--acc3)}
+.sort-s{
+  background:var(--s2);border:1px solid var(--border2);color:var(--txt2);
+  padding:.38rem .65rem;border-radius:var(--r);font-size:.75rem;cursor:pointer;
+}
+.sort-s:focus{outline:none;border-color:var(--acc)}
+.res-n{font-size:.72rem;color:var(--txt3);white-space:nowrap;margin-left:auto}
+.view-t{display:flex;gap:2px}
+.vt{
+  background:var(--s2);border:1px solid var(--border);
+  color:var(--txt3);width:28px;height:28px;border-radius:var(--r);
+  cursor:pointer;font-size:.78rem;
+  display:flex;align-items:center;justify-content:center;transition:.12s;
+}
+.vt:hover,.vt.on{border-color:var(--acc);color:var(--acc3)}
 
-/* checks */
-.sf-check{
-  display:flex;align-items:center;gap:.45rem;
-  padding:3px 2px;cursor:pointer;
-  font-size:.82rem;color:var(--ash);transition:.1s;
+/* ACTIVE FILTER TAGS */
+.tag-row{
+  padding:.4rem 1.25rem;background:var(--s1);
+  border-bottom:1px solid var(--border);
+  display:none;flex-wrap:wrap;gap:.28rem;align-items:center;
+}
+.tag-row.vis{display:flex}
+.ftag{
+  background:rgba(232,69,42,.1);border:1px solid rgba(232,69,42,.25);
+  color:var(--acc3);font-size:.68rem;padding:2px 7px;
+  border-radius:3px;cursor:pointer;display:flex;align-items:center;gap:.25rem;
+  font-weight:500;
+}
+.ftag:hover{background:rgba(232,69,42,.2)}
+.ftag-x{color:var(--txt3);font-size:.72rem}
+.tag-clear{background:none;border:none;color:var(--txt3);font-size:.7rem;cursor:pointer;margin-left:.3rem}
+.tag-clear:hover{color:var(--red)}
+
+/* ═══════════════════════════════════
+   ADVANCED FILTERS PANEL
+═══════════════════════════════════ */
+#adv-panel{
+  background:var(--s1);border-bottom:1px solid var(--border);
+  max-height:0;overflow:hidden;
+  transition:max-height .3s cubic-bezier(.4,0,.2,1);
+}
+#adv-panel.open{max-height:600px}
+.adv-grid{
+  display:flex;flex-wrap:wrap;gap:1.25rem;
+  padding:.9rem 1.25rem 1.1rem;
+}
+.af-col{min-width:130px}
+.af-lbl{
+  font-family:'Anton',sans-serif;font-size:.62rem;letter-spacing:2px;
+  color:var(--txt3);margin-bottom:.45rem;text-transform:uppercase;
+}
+.af-checks{display:flex;flex-direction:column;gap:.18rem}
+.afc{
+  display:flex;align-items:center;gap:.38rem;
+  padding:2px 0;cursor:pointer;font-size:.8rem;color:var(--txt2);
   user-select:none;
 }
-.sf-check:hover{color:var(--fog)}
-.sf-check input{accent-color:var(--flame);width:13px;height:13px;cursor:pointer;flex-shrink:0}
-.sf-check.checked{color:var(--paper)}
+.afc:hover{color:var(--txt)}
+.afc input{accent-color:var(--acc);width:13px;height:13px;cursor:pointer;flex-shrink:0}
+.afc.on{color:var(--txt)}
+.price-row{display:flex;gap:.35rem;align-items:center}
+.pri{
+  background:var(--bg);border:1px solid var(--border2);
+  border-radius:var(--r);padding:4px 7px;color:var(--txt);
+  width:72px;font-size:.78rem;
+}
+.pri:focus{outline:none;border-color:var(--acc)}
+.afscroll{max-height:130px;overflow-y:auto;scrollbar-width:thin}
+.afscroll::-webkit-scrollbar{width:2px}
+.afscroll::-webkit-scrollbar-thumb{background:var(--border2)}
+.af-clear-btn{
+  background:none;border:1px solid var(--border);color:var(--txt3);
+  padding:4px 10px;border-radius:var(--r);font-size:.7rem;cursor:pointer;
+  transition:.12s;font-family:'Anton',sans-serif;letter-spacing:1px;
+}
+.af-clear-btn:hover{border-color:var(--red);color:var(--red)}
 
-/* rar dots inline */
-.rar-dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0}
-.rc{background:#6c757d}.ru{background:#7ba8c4}.rr{background:#c8a830}.rm{background:#ff6020}
+/* mana pips in filter */
+.mpips{display:flex;gap:.3rem;flex-wrap:wrap}
+.mpip{
+  width:28px;height:28px;border-radius:50%;cursor:pointer;
+  border:2px solid transparent;transition:.12s;
+  display:flex;align-items:center;justify-content:center;
+}
+.mpip:hover{transform:scale(1.1)}
+.mpip.on{border-color:#fff;box-shadow:0 0 6px rgba(255,255,255,.25)}
+.mpip .ms{font-size:.9rem}
+.ms-cost.ms-shadow{text-shadow:1px 1px 3px rgba(0,0,0,.8)}
 
-/* range */
-.range-row{display:flex;gap:.35rem;align-items:center;margin:.25rem 0}
-.ri{
-  background:var(--ink4);border:1px solid var(--wire2);
-  border-radius:var(--r);padding:4px 7px;
-  color:var(--fog);width:70px;font-size:.78rem;
-}
-.ri:focus{outline:none;border-color:var(--flame)}
-.rsep{color:var(--smoke);font-size:.75rem}
+/* rar dots */
+.rdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;display:inline-block}
+.rc{background:#555}.ru{background:#7ab0c8}.rr{background:#c8a820}.rm{background:#ff5500}
 
-.sf-scroll{max-height:160px;overflow-y:auto;scrollbar-width:thin}
-.sf-scroll::-webkit-scrollbar{width:2px}
-.sf-scroll::-webkit-scrollbar-thumb{background:var(--wire2)}
-
-.sf-search-inp{
-  width:100%;background:var(--ink4);border:1px solid var(--wire);
-  border-radius:var(--r);padding:4px 8px;color:var(--fog);
-  font-size:.78rem;margin-bottom:.35rem;
-}
-.sf-search-inp:focus{outline:none;border-color:var(--flame)}
-.sf-search-inp::placeholder{color:var(--smoke)}
-
-.btn-clear-filters{
-  display:block;width:calc(100% - 1.8rem);margin:.6rem .9rem;
-  background:transparent;border:1px solid var(--wire2);color:var(--smoke);
-  padding:5px;border-radius:var(--r);font-size:.72rem;cursor:pointer;
-  font-family:'Oswald',sans-serif;letter-spacing:1px;text-transform:uppercase;
-  transition:.12s;
-}
-.btn-clear-filters:hover{border-color:var(--red);color:var(--red)}
-
-/* ══════════════ MAIN ══════════════ */
-#main{flex:1;min-width:0;display:flex;flex-direction:column}
-
-/* toolbar */
-#toolbar{
-  padding:.55rem 1rem;
-  background:var(--ink2);border-bottom:1px solid var(--wire);
-  display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;
-  position:sticky;top:80px;z-index:500;
-}
-.active-tags{display:flex;flex-wrap:wrap;gap:.25rem;flex:1;min-width:0}
-.af-tag{
-  background:rgba(255,69,0,.12);border:1px solid rgba(255,69,0,.25);
-  color:var(--flame3);font-size:.7rem;padding:2px 7px;
-  border-radius:var(--r);display:flex;align-items:center;gap:.25rem;
-  cursor:pointer;font-family:'Oswald',sans-serif;letter-spacing:.5px;
-  white-space:nowrap;
-}
-.af-tag:hover{background:rgba(255,69,0,.22)}
-.af-x{color:var(--smoke);font-size:.75rem}
-.res-ct{
-  font-family:'Oswald',sans-serif;font-size:.72rem;
-  color:var(--smoke);letter-spacing:1px;white-space:nowrap;
-}
-.sort-sel{
-  background:var(--ink4);border:1px solid var(--wire2);
-  color:var(--ash);padding:4px 8px;border-radius:var(--r);font-size:.78rem;
-}
-.sort-sel:focus{outline:none;border-color:var(--flame)}
-.view-tog{display:flex;gap:2px}
-.vt{
-  background:var(--ink4);border:1px solid var(--wire);
-  color:var(--smoke);width:28px;height:28px;border-radius:var(--r);
-  cursor:pointer;font-size:.78rem;display:flex;align-items:center;justify-content:center;
-  transition:.12s;
-}
-.vt:hover,.vt.on{border-color:var(--flame);color:var(--flame)}
-
-/* ══════════════ CARD GRID ══════════════ */
-#grid-wrap{padding:.85rem 1rem}
-#grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
-  gap:.75rem;
-}
+/* ═══════════════════════════════════
+   LAYOUT
+═══════════════════════════════════ */
+#layout{display:flex;min-height:calc(100vh - 180px)}
+#grid-wrap{flex:1;padding:.85rem 1rem}
+#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:.75rem}
 #grid.list{grid-template-columns:1fr}
 
-/* ══════════════ CARD TILE ══════════════ */
+/* ═══════════════════════════════════
+   CARD TILE
+═══════════════════════════════════ */
 .tile{
-  background:var(--ink3);border:1px solid var(--wire);
+  background:var(--s1);border:1px solid var(--border);
   border-radius:var(--r2);overflow:hidden;cursor:pointer;
   display:flex;flex-direction:column;
-  transition:border-color .15s,transform .18s,box-shadow .18s;
+  transition:border-color .15s,transform .18s cubic-bezier(.34,1.4,.64,1),box-shadow .18s;
 }
 .tile:hover{
-  border-color:var(--flame);
-  transform:translateY(-4px);
-  box-shadow:0 12px 32px rgba(0,0,0,.7),0 0 0 1px rgba(255,69,0,.12);
+  border-color:var(--acc);transform:translateY(-5px);
+  box-shadow:0 14px 40px rgba(0,0,0,.7),0 0 0 1px rgba(232,69,42,.12);
 }
-.tile-img{
-  position:relative;background:#080808;overflow:hidden;
-}
-.tile-img img{
-  width:100%;aspect-ratio:5/7;object-fit:cover;
-  transition:transform .3s;display:block;
-}
-.tile:hover .tile-img img{transform:scale(1.04)}
-.no-img{
-  width:100%;aspect-ratio:5/7;
-  display:flex;align-items:center;justify-content:center;
-  color:var(--wire2);font-size:2.5rem;
-}
-.badge-rar{
-  position:absolute;top:6px;left:6px;
-  width:9px;height:9px;border-radius:50%;
-}
-.badge-foil{
-  position:absolute;top:6px;right:6px;
-  background:linear-gradient(135deg,#6d28d9,#db2777,#ff4500);
+.tile-fig{position:relative;background:#0a0a0a;overflow:hidden}
+.tile-fig img{width:100%;aspect-ratio:5/7;object-fit:cover;transition:transform .3s;display:block}
+.tile:hover .tile-fig img{transform:scale(1.04)}
+.no-img{width:100%;aspect-ratio:5/7;display:flex;align-items:center;justify-content:center;color:var(--border2);font-size:2.5rem}
+.b-rar{position:absolute;top:7px;left:7px;width:9px;height:9px;border-radius:50%}
+.b-foil{
+  position:absolute;top:7px;right:7px;
+  background:linear-gradient(135deg,#5b21b6,#be185d,#e8452a);
   color:#fff;font-size:.5rem;font-weight:700;letter-spacing:1px;
-  padding:2px 5px;border-radius:2px;
-  font-family:'Oswald',sans-serif;
+  padding:2px 5px;border-radius:2px;font-family:'Anton',sans-serif;
 }
-.sold-overlay{
-  position:absolute;inset:0;
-  background:rgba(0,0,0,.72);
+.b-oos{
+  position:absolute;inset:0;background:rgba(0,0,0,.72);
   display:flex;align-items:center;justify-content:center;
-  font-family:'Oswald',sans-serif;font-size:1rem;
-  letter-spacing:3px;color:var(--red);
-  backdrop-filter:blur(1px);
-  opacity:0;transition:opacity .15s;
+  font-family:'Anton',sans-serif;font-size:1rem;letter-spacing:3px;color:var(--red);
+  backdrop-filter:blur(2px);opacity:0;transition:opacity .15s;
 }
-.tile:hover .sold-overlay{opacity:1}
-.tile-body{
-  padding:.55rem .65rem .7rem;
-  display:flex;flex-direction:column;gap:.3rem;flex:1;
-}
-.tile-name{
-  font-family:'Oswald',sans-serif;font-weight:500;
-  font-size:.9rem;color:var(--paper);line-height:1.2;
-}
-.tile-sub{
-  font-size:.65rem;color:var(--smoke);
-  font-family:'Oswald',sans-serif;letter-spacing:.5px;
-}
-.tile-fmts{display:flex;flex-wrap:wrap;gap:.18rem}
-.fmt-chip{
-  font-family:'Oswald',sans-serif;font-size:.58rem;font-weight:500;
-  letter-spacing:.5px;border:1px solid rgba(0,184,148,.25);
-  color:var(--teal);padding:1px 4px;border-radius:2px;
+.tile:hover .b-oos{opacity:1}
+.tile-body{padding:.55rem .65rem .7rem;flex:1;display:flex;flex-direction:column;gap:.28rem}
+.tile-name{font-family:'Anton',sans-serif;font-size:.9rem;color:var(--txt);line-height:1.2;letter-spacing:.5px}
+.tile-meta{font-size:.63rem;color:var(--txt3);font-family:'DM Sans',sans-serif}
+.tile-fmts{display:flex;flex-wrap:wrap;gap:.15rem}
+.fchip{
+  font-family:'Anton',sans-serif;font-size:.56rem;letter-spacing:.5px;
+  border:1px solid rgba(0,168,120,.2);color:var(--teal);
+  padding:1px 4px;border-radius:2px;
 }
 .tile-foot{
   display:flex;align-items:flex-end;justify-content:space-between;
-  margin-top:auto;padding-top:.45rem;border-top:1px solid var(--wire);
+  margin-top:auto;padding-top:.42rem;border-top:1px solid var(--border);
 }
-.tile-price{
-  font-family:'Oswald',sans-serif;font-weight:700;
-  font-size:1.35rem;color:var(--flame3);line-height:1;
-}
-.tile-price .cad-tag{
-  font-size:.55rem;font-weight:400;color:var(--smoke);margin-left:2px;
-}
-.tile-stock{font-size:.62rem;color:var(--smoke);margin-top:1px}
-.tile-actions{display:flex;align-items:center;gap:.22rem}
+.tile-p{font-family:'Anton',sans-serif;font-size:1.3rem;color:var(--acc3);line-height:1}
+.tile-p .cur{font-size:.55rem;color:var(--txt3);margin-left:2px;font-family:'DM Sans',sans-serif}
+.tile-stk{font-size:.6rem;color:var(--txt3);margin-top:1px}
+.t-acts{display:flex;align-items:center;gap:.2rem}
 .qb{
-  background:var(--ink4);border:1px solid var(--wire2);
-  color:var(--fog);width:22px;height:22px;border-radius:3px;
-  cursor:pointer;font-size:.85rem;
-  display:flex;align-items:center;justify-content:center;
-  transition:.1s;flex-shrink:0;
+  background:var(--s3);border:1px solid var(--border2);
+  color:var(--txt);width:22px;height:22px;border-radius:3px;
+  cursor:pointer;font-size:.88rem;
+  display:flex;align-items:center;justify-content:center;transition:.1s;
 }
-.qb:hover:not(:disabled){border-color:var(--flame);color:var(--flame)}
-.qb:disabled{opacity:.25;cursor:not-allowed}
-.q-n{
-  font-family:'Oswald',sans-serif;font-size:.78rem;
-  min-width:14px;text-align:center;color:var(--flame3);
-}
-.btn-add{
-  background:var(--flame);color:#fff;border:none;
+.qb:hover:not(:disabled){border-color:var(--acc);color:var(--acc)}
+.qb:disabled{opacity:.2;cursor:not-allowed}
+.qn{font-family:'Anton',sans-serif;font-size:.78rem;min-width:14px;text-align:center;color:var(--acc3)}
+.badd{
+  background:var(--acc);color:#fff;border:none;
   padding:3px 9px;border-radius:3px;
-  font-family:'Oswald',sans-serif;font-weight:600;
-  font-size:.72rem;letter-spacing:.5px;cursor:pointer;transition:.1s;
+  font-family:'Anton',sans-serif;font-size:.7rem;letter-spacing:.5px;
+  cursor:pointer;transition:.1s;
 }
-.btn-add:hover{background:var(--flame2)}
-.btn-add:disabled{background:var(--wire2);color:var(--smoke);cursor:not-allowed}
+.badd:hover{background:var(--acc2)}
+.badd:disabled{background:var(--s3);color:var(--txt3);cursor:not-allowed}
 
-/* LIST VIEW */
-#grid.list .tile{
-  flex-direction:row;height:68px;align-items:center;
-}
-#grid.list .tile-img{
-  width:48px;height:68px;flex-shrink:0;
-}
-#grid.list .tile-img img{
-  aspect-ratio:unset;height:100%;width:100%;
-}
-#grid.list .tile-body{
-  flex-direction:row;align-items:center;padding:.45rem .8rem;gap:.75rem;flex-wrap:nowrap;
-}
+/* list view */
+#grid.list .tile{flex-direction:row;height:64px}
+#grid.list .tile-fig{width:46px;height:64px;flex-shrink:0}
+#grid.list .tile-fig img{aspect-ratio:unset;height:100%;width:100%;object-fit:cover}
+#grid.list .tile-body{flex-direction:row;align-items:center;gap:.65rem;padding:.45rem .8rem;flex-wrap:nowrap}
 #grid.list .tile-name{min-width:130px;font-size:.85rem}
-#grid.list .tile-sub{min-width:90px}
+#grid.list .tile-meta{min-width:85px}
 #grid.list .tile-fmts{flex:1}
-#grid.list .tile-foot{border:none;padding:0;gap:.5rem}
+#grid.list .tile-foot{border:none;padding:0;gap:.4rem}
 
-.no-results{
-  grid-column:1/-1;text-align:center;
-  padding:4rem 2rem;color:var(--smoke);
-}
-.no-results p{
-  font-family:'Oswald',sans-serif;letter-spacing:2px;font-size:.85rem;
-}
+.no-r{grid-column:1/-1;text-align:center;padding:4rem 2rem;color:var(--txt3)}
+.no-r p{font-family:'Anton',sans-serif;letter-spacing:2px;font-size:.85rem}
 
-/* ══════════════ CARD MODAL ══════════════ */
-#modal-bg{
-  position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:800;
+/* ═══════════════════════════════════
+   CARD MODAL
+═══════════════════════════════════ */
+#mbg{
+  position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:1000;
   display:none;align-items:flex-start;justify-content:center;
-  padding:1.5rem 1rem;overflow-y:auto;
-  backdrop-filter:blur(8px);
+  padding:1.5rem 1rem;overflow-y:auto;backdrop-filter:blur(10px);
 }
-#modal-bg.on{display:flex}
-#modal-box{
-  background:var(--ink2);border:1px solid var(--wire2);border-radius:var(--r2);
-  width:100%;max-width:860px;position:relative;
-  animation:mslide .18s ease;
+#mbg.on{display:flex}
+#mbox{
+  background:var(--s1);border:1px solid var(--border2);border-radius:var(--r2);
+  width:100%;max-width:880px;position:relative;
+  animation:mfade .18s ease;
 }
-@keyframes mslide{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.m-x{
+@keyframes mfade{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.mx{
   position:absolute;top:10px;right:12px;
-  background:var(--ink4);border:1px solid var(--wire);
-  color:var(--ash);width:30px;height:30px;border-radius:var(--r);
-  cursor:pointer;font-size:.9rem;
-  display:flex;align-items:center;justify-content:center;z-index:2;
-  transition:.12s;
+  background:var(--s2);border:1px solid var(--border);
+  color:var(--txt2);width:30px;height:30px;border-radius:var(--r);
+  cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;z-index:2;transition:.12s;
 }
-.m-x:hover{border-color:var(--red);color:var(--red)}
-.m-layout{display:grid;grid-template-columns:260px 1fr;min-height:380px}
-.m-left{
+.mx:hover{border-color:var(--red);color:var(--red)}
+.mgrid{display:grid;grid-template-columns:265px 1fr}
+.mleft{
   background:#080808;display:flex;flex-direction:column;
   align-items:center;padding:1.25rem 1rem;
+  border-radius:var(--r2) 0 0 var(--r2);
 }
-.m-left img{
-  width:100%;max-width:220px;border-radius:var(--r2);
-  box-shadow:0 16px 48px rgba(0,0,0,.9);
+.mleft img{width:100%;max-width:225px;border-radius:var(--r2);box-shadow:0 16px 48px rgba(0,0,0,.9)}
+.ml-meta{text-align:center;margin-top:.75rem}
+.rbadge{
+  display:inline-block;font-family:'Anton',sans-serif;
+  font-size:.6rem;letter-spacing:1.5px;padding:2px 8px;border-radius:3px;margin-bottom:.3rem;
 }
-.m-left-meta{text-align:center;margin-top:.75rem}
-.m-rar-badge{
-  display:inline-block;font-family:'Oswald',sans-serif;
-  font-size:.6rem;font-weight:600;letter-spacing:1.5px;
-  padding:2px 8px;border-radius:3px;margin-bottom:.3rem;
+.rbc{background:rgba(85,85,85,.3);color:#888;border:1px solid #444}
+.rbu{background:rgba(122,176,200,.15);color:#7ab0c8;border:1px solid rgba(122,176,200,.3)}
+.rbr{background:rgba(200,168,32,.15);color:var(--gold2);border:1px solid rgba(200,168,32,.3)}
+.rbm{background:rgba(255,85,0,.15);color:#ff5500;border:1px solid rgba(255,85,0,.3)}
+.ml-sn{font-size:.67rem;color:var(--txt3);font-family:'DM Sans',sans-serif;letter-spacing:.5px}
+.mright{padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:.6rem}
+.mname{font-family:'Anton',sans-serif;font-size:1.85rem;letter-spacing:1px;color:var(--txt);line-height:1}
+.mtype{font-size:.8rem;color:var(--txt2)}
+.msec{font-family:'Anton',sans-serif;font-size:.6rem;letter-spacing:2.5px;color:var(--acc);margin-bottom:.12rem}
+.mstock{font-family:'Anton',sans-serif;font-weight:600;font-size:.82rem;letter-spacing:1px}
+.mstock.ok{color:var(--teal)}.mstock.low{color:var(--gold2)}.mstock.out{color:var(--red)}
+.mpitch{font-size:.86rem;color:var(--txt2);line-height:1.65}
+.muses{display:flex;flex-wrap:wrap;gap:.27rem}
+.mutag{
+  background:rgba(232,69,42,.1);border:1px solid rgba(232,69,42,.2);
+  color:var(--acc3);font-family:'Anton',sans-serif;font-size:.6rem;
+  letter-spacing:.8px;padding:2px 8px;border-radius:3px;
 }
-.rb-c{background:rgba(108,117,125,.2);color:#999;border:1px solid #444}
-.rb-u{background:rgba(123,168,196,.15);color:#7ba8c4;border:1px solid rgba(123,168,196,.3)}
-.rb-r{background:rgba(200,168,48,.15);color:var(--gold2);border:1px solid rgba(200,168,48,.3)}
-.rb-m{background:rgba(255,96,32,.15);color:#ff6020;border:1px solid rgba(255,96,32,.3)}
-.m-set-num{font-size:.68rem;color:var(--smoke);font-family:'Oswald',sans-serif;letter-spacing:.5px}
-.m-right{padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:.65rem}
-.m-name{
-  font-family:'Oswald',sans-serif;font-weight:700;
-  font-size:1.9rem;letter-spacing:1px;color:var(--paper);line-height:1;
+.mfmts{display:flex;flex-wrap:wrap;gap:.22rem}
+.mfmt{
+  font-family:'Anton',sans-serif;font-size:.6rem;letter-spacing:.5px;
+  padding:2px 7px;border-radius:3px;
+  border:1px solid rgba(0,168,120,.22);color:var(--teal);
 }
-.m-type{font-size:.8rem;color:var(--ash)}
-.m-sec{
-  font-family:'Oswald',sans-serif;font-size:.6rem;
-  font-weight:600;letter-spacing:2.5px;color:var(--flame);
-  text-transform:uppercase;margin-bottom:.15rem;
-}
-.m-stock{font-family:'Oswald',sans-serif;font-weight:600;font-size:.82rem;letter-spacing:1px}
-.m-stock.ok{color:var(--teal)}.m-stock.low{color:var(--gold2)}.m-stock.out{color:var(--red)}
-.m-pitch{font-size:.86rem;color:var(--ash);line-height:1.65}
-.m-uses{display:flex;flex-wrap:wrap;gap:.28rem}
-.use-tag{
-  background:rgba(255,69,0,.1);border:1px solid rgba(255,69,0,.2);
-  color:var(--flame3);font-family:'Oswald',sans-serif;
-  font-size:.62rem;font-weight:500;letter-spacing:.8px;
-  padding:2px 8px;border-radius:3px;
-}
-.m-fmts{display:flex;flex-wrap:wrap;gap:.25rem}
-.m-fmt{
-  font-family:'Oswald',sans-serif;font-size:.62rem;font-weight:500;
-  letter-spacing:.5px;padding:2px 7px;border-radius:3px;
-  border:1px solid rgba(0,184,148,.25);color:var(--teal);
-}
-.m-price{
-  font-family:'Oswald',sans-serif;font-weight:700;
-  font-size:2.1rem;color:var(--flame3);line-height:1;
-}
-.m-price .cad-tag{font-size:.68rem;font-weight:400;color:var(--smoke)}
-.m-cart-row{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
-.m-qty{
+.mprice{font-family:'Anton',sans-serif;font-size:2rem;color:var(--acc3);line-height:1}
+.mprice .cur{font-size:.68rem;color:var(--txt3);margin-left:2px;font-family:'DM Sans',sans-serif}
+.mcart{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.mqty{
   display:flex;align-items:center;gap:.4rem;
-  background:var(--ink4);border:1px solid var(--wire2);
+  background:var(--s2);border:1px solid var(--border2);
   border-radius:var(--r);padding:4px 8px;
 }
-.m-qty-n{font-family:'Oswald',sans-serif;font-weight:600;font-size:1rem;min-width:22px;text-align:center}
-.m-add{
-  background:var(--flame);color:#fff;border:none;
+.mqty-n{font-family:'Anton',sans-serif;font-weight:600;font-size:1rem;min-width:20px;text-align:center}
+.madd{
+  background:var(--acc);color:#fff;border:none;
   padding:9px 22px;border-radius:var(--r);
-  font-family:'Oswald',sans-serif;font-weight:600;
-  font-size:.9rem;letter-spacing:1px;cursor:pointer;transition:.12s;
-  text-transform:uppercase;
+  font-family:'Anton',sans-serif;font-size:.88rem;letter-spacing:1px;
+  cursor:pointer;transition:.12s;text-transform:uppercase;
 }
-.m-add:hover{background:var(--flame2)}
-.m-add:disabled{background:var(--wire2);color:var(--smoke);cursor:not-allowed}
-.m-more{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:.5rem;
+.madd:hover{background:var(--acc2)}
+.madd:disabled{background:var(--s3);color:var(--txt3);cursor:not-allowed}
+.mmore{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:.5rem}
+.mmcard{
+  background:var(--s2);border:1px solid var(--border);border-radius:var(--r);
+  overflow:hidden;cursor:pointer;transition:.12s;
 }
-.m-more-card{
-  background:var(--ink3);border:1px solid var(--wire);
-  border-radius:var(--r);overflow:hidden;cursor:pointer;transition:.12s;
-}
-.m-more-card:hover{border-color:var(--flame)}
-.m-more-card img{width:100%}
-.m-more-name{
-  font-family:'Oswald',sans-serif;font-size:.65rem;
-  padding:3px 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  color:var(--ash);
-}
-.m-more-price{
-  font-family:'Oswald',sans-serif;font-size:.85rem;
-  font-weight:600;color:var(--flame3);padding:0 5px 4px;
-}
-@media(max-width:600px){.m-layout{grid-template-columns:1fr}}
+.mmcard:hover{border-color:var(--acc)}
+.mmcard img{width:100%}
+.mmcard-n{font-family:'Anton',sans-serif;font-size:.63rem;padding:3px 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--txt2)}
+.mmcard-p{font-family:'Anton',sans-serif;font-size:.82rem;color:var(--acc3);padding:0 5px 4px}
+@media(max-width:580px){.mgrid{grid-template-columns:1fr}}
 
-/* ══════════════ CART ══════════════ */
-#cart-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:700;
-  display:none;backdrop-filter:blur(3px);
-}
-#cart-overlay.on{display:block}
-#cart-drawer{
-  position:fixed;right:0;top:0;bottom:0;
-  width:400px;max-width:98vw;
-  background:var(--ink2);border-left:2px solid var(--flame);
-  z-index:701;transform:translateX(110%);
-  transition:transform .25s cubic-bezier(.4,0,.2,1);
+/* ═══════════════════════════════════
+   CART
+═══════════════════════════════════ */
+#cov{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:700;display:none;backdrop-filter:blur(3px)}
+#cov.on{display:block}
+#cd{
+  position:fixed;right:0;top:0;bottom:0;width:400px;max-width:98vw;
+  background:var(--s1);border-left:2px solid var(--acc);z-index:701;
+  transform:translateX(110%);transition:transform .25s cubic-bezier(.4,0,.2,1);
   display:flex;flex-direction:column;
 }
-#cart-drawer.on{transform:translateX(0)}
-.cd-head{
-  padding:.85rem 1rem;border-bottom:1px solid var(--wire);
+#cd.on{transform:translateX(0)}
+.cdh{
+  padding:.85rem 1rem;border-bottom:1px solid var(--border);
   display:flex;align-items:center;justify-content:space-between;
 }
-.cd-head h2{
-  font-family:'Oswald',sans-serif;font-weight:700;
-  font-size:1.35rem;letter-spacing:2px;color:var(--flame);
-  text-transform:uppercase;
-}
-.cd-body{flex:1;overflow-y:auto;padding:.75rem}
-.cd-body::-webkit-scrollbar{width:2px}
-.cd-body::-webkit-scrollbar-thumb{background:var(--wire2)}
-.cd-empty{
-  text-align:center;padding:3rem 1rem;color:var(--smoke);
-}
-.cd-empty .ico{font-size:2.5rem;margin-bottom:.5rem}
-.cd-empty p{font-family:'Oswald',sans-serif;letter-spacing:1.5px;font-size:.75rem}
-.ci{
-  display:flex;gap:.6rem;padding:.55rem 0;
-  border-bottom:1px solid var(--wire);
-}
+.cdh h2{font-family:'Anton',sans-serif;font-size:1.35rem;letter-spacing:2px;color:var(--acc)}
+.cdb{flex:1;overflow-y:auto;padding:.75rem}
+.cdb::-webkit-scrollbar{width:2px}
+.cdb::-webkit-scrollbar-thumb{background:var(--border2)}
+.cempty{text-align:center;padding:3rem 1rem;color:var(--txt3)}
+.cempty .ei{font-size:2.5rem;margin-bottom:.5rem}
+.cempty p{font-family:'Anton',sans-serif;letter-spacing:1.5px;font-size:.75rem}
+.ci{display:flex;gap:.6rem;padding:.55rem 0;border-bottom:1px solid var(--border)}
 .ci:last-child{border-bottom:none}
-.ci-img{
-  width:42px;height:58px;border-radius:3px;
-  object-fit:cover;background:var(--ink4);flex-shrink:0;
-}
+.ci-img{width:42px;height:58px;border-radius:3px;object-fit:cover;background:var(--s3);flex-shrink:0}
 .ci-info{flex:1;min-width:0}
-.ci-name{font-family:'Oswald',sans-serif;font-weight:500;font-size:.82rem;color:var(--fog)}
-.ci-meta{font-size:.65rem;color:var(--smoke);margin:.1rem 0}
-.ci-price{font-family:'Oswald',sans-serif;font-weight:700;font-size:.95rem;color:var(--flame3)}
-.ci-qty{display:flex;align-items:center;gap:.25rem;margin-top:.25rem}
-.rm-btn{background:none;border:none;color:var(--smoke);cursor:pointer;font-size:.8rem;transition:.1s;align-self:flex-start;margin-left:auto}
-.rm-btn:hover{color:var(--red)}
-.cd-foot{padding:.85rem 1rem;border-top:1px solid var(--wire)}
-.coupon-row{display:flex;gap:.35rem;margin-bottom:.5rem}
-.coupon-row input{
-  flex:1;background:var(--ink4);border:1px solid var(--wire2);
-  border-radius:var(--r);padding:6px 9px;color:var(--fog);font-size:.78rem;
+.ci-n{font-family:'Anton',sans-serif;font-size:.82rem;color:var(--txt);letter-spacing:.3px}
+.ci-m{font-size:.65rem;color:var(--txt3);margin:.1rem 0}
+.ci-p{font-family:'Anton',sans-serif;font-size:.95rem;color:var(--acc3)}
+.ci-q{display:flex;align-items:center;gap:.25rem;margin-top:.25rem}
+.rmb{background:none;border:none;color:var(--txt3);cursor:pointer;font-size:.8rem;transition:.1s;align-self:flex-start;margin-left:auto}
+.rmb:hover{color:var(--red)}
+.cdf{padding:.85rem 1rem;border-top:1px solid var(--border)}
+.cpnr{display:flex;gap:.35rem;margin-bottom:.5rem}
+.cpnr input{
+  flex:1;background:var(--bg);border:1px solid var(--border2);
+  border-radius:var(--r);padding:6px 9px;color:var(--txt);font-size:.78rem;
 }
-.coupon-row input:focus{outline:none;border-color:var(--flame)}
-.coupon-row button{
-  background:var(--ink4);border:1px solid var(--wire2);color:var(--ash);
-  padding:6px 11px;border-radius:var(--r);
-  font-family:'Oswald',sans-serif;font-weight:500;font-size:.72rem;
-  letter-spacing:1px;cursor:pointer;transition:.12s;white-space:nowrap;
-  text-transform:uppercase;
+.cpnr input:focus{outline:none;border-color:var(--acc)}
+.cpnr button{
+  background:var(--s2);border:1px solid var(--border2);color:var(--txt2);
+  padding:6px 11px;border-radius:var(--r);font-family:'Anton',sans-serif;
+  font-size:.72rem;letter-spacing:1px;cursor:pointer;transition:.12s;white-space:nowrap;
 }
-.coupon-row button:hover{border-color:var(--flame);color:var(--flame)}
-.coupon-msg{font-family:'Oswald',sans-serif;font-size:.7rem;min-height:.85rem;margin-bottom:.4rem}
-.ship-lbl{
-  font-family:'Oswald',sans-serif;font-size:.6rem;
-  letter-spacing:2px;color:var(--smoke);margin:.5rem 0 .35rem;
-  text-transform:uppercase;
-}
-.ship-opt{
+.cpnr button:hover{border-color:var(--acc);color:var(--acc3)}
+.cpnm{font-size:.7rem;min-height:.85rem;margin-bottom:.4rem;font-family:'Anton',sans-serif;letter-spacing:.5px}
+.slbl{font-family:'Anton',sans-serif;font-size:.6rem;letter-spacing:2px;color:var(--txt3);margin:.5rem 0 .35rem;text-transform:uppercase}
+.sopt{
   display:flex;align-items:center;gap:.5rem;padding:5px 8px;
-  border:1px solid var(--wire);border-radius:var(--r);
+  border:1px solid var(--border);border-radius:var(--r);
   cursor:pointer;margin-bottom:.28rem;transition:.12s;
 }
-.ship-opt:hover,.ship-opt.sel{border-color:var(--flame);background:rgba(255,69,0,.05)}
-.ship-opt input{accent-color:var(--flame)}
-.ship-opt-i{flex:1}
-.ship-opt-n{font-size:.8rem;font-weight:500;color:var(--fog)}
-.ship-opt-t{font-size:.63rem;color:var(--smoke)}
-.ship-opt-p{font-family:'Oswald',sans-serif;font-size:.85rem;color:var(--flame3)}
-.totals-block{margin:.6rem 0}
-.t-row{display:flex;justify-content:space-between;font-size:.82rem;color:var(--ash);margin-bottom:.2rem}
-.t-row .v{font-family:'Oswald',sans-serif;color:var(--flame3)}
-.t-grand{font-weight:600;color:var(--fog);border-top:1px solid var(--wire);padding-top:.3rem;margin-top:.3rem}
-.checkout-btn{
-  width:100%;background:var(--flame);color:#fff;border:none;
+.sopt:hover,.sopt.sel{border-color:var(--acc);background:rgba(232,69,42,.05)}
+.sopt input{accent-color:var(--acc)}
+.soi{flex:1}
+.son{font-size:.8rem;font-weight:500;color:var(--txt)}
+.sot{font-size:.63rem;color:var(--txt3)}
+.sop{font-family:'Anton',sans-serif;font-size:.85rem;color:var(--acc3)}
+.tots{margin:.6rem 0}
+.tr{display:flex;justify-content:space-between;font-size:.82rem;color:var(--txt2);margin-bottom:.2rem}
+.tr .v{font-family:'Anton',sans-serif;color:var(--acc3)}
+.tgrand{font-weight:600;color:var(--txt);border-top:1px solid var(--border);padding-top:.3rem;margin-top:.3rem}
+.cobtn{
+  width:100%;background:var(--acc);color:#fff;border:none;
   padding:11px;border-radius:var(--r);
-  font-family:'Oswald',sans-serif;font-weight:700;
-  font-size:1.05rem;letter-spacing:2px;cursor:pointer;transition:.12s;
-  margin-top:.6rem;text-transform:uppercase;
+  font-family:'Anton',sans-serif;font-size:1rem;letter-spacing:2px;
+  cursor:pointer;transition:.12s;margin-top:.6rem;text-transform:uppercase;
 }
-.checkout-btn:hover{background:var(--flame2)}
-.checkout-btn:disabled{background:var(--wire2);color:var(--smoke);cursor:not-allowed}
+.cobtn:hover{background:var(--acc2)}
+.cobtn:disabled{background:var(--s3);color:var(--txt3);cursor:not-allowed}
 
-/* ══════════════ WAITLIST MODAL ══════════════ */
-#wl-modal{
-  position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:900;
-  display:none;align-items:center;justify-content:center;
-  backdrop-filter:blur(10px);
-}
-#wl-modal.on{display:flex}
-.wl-box{
-  background:var(--ink2);border:1px solid var(--flame);
-  border-radius:var(--r2);padding:2rem;
-  width:420px;max-width:95vw;text-align:center;
-}
-.wl-title{
-  font-family:'Oswald',sans-serif;font-weight:700;
-  font-size:1.6rem;letter-spacing:2px;color:var(--flame);
-  margin-bottom:.5rem;text-transform:uppercase;
-}
-.wl-sub{font-size:.85rem;color:var(--ash);line-height:1.6;margin-bottom:1rem}
-.wl-inp{
-  width:100%;background:var(--ink4);border:1px solid var(--wire2);
-  border-radius:var(--r);padding:8px 12px;color:var(--fog);
-  font-size:.86rem;margin-bottom:.75rem;
-}
-.wl-inp:focus{outline:none;border-color:var(--flame)}
-.wl-btns{display:flex;gap:.5rem}
-.wl-go{
-  flex:2;background:var(--flame);color:#fff;border:none;
-  padding:9px;border-radius:var(--r);
-  font-family:'Oswald',sans-serif;font-weight:700;
-  font-size:.88rem;letter-spacing:1px;cursor:pointer;transition:.12s;
-  text-transform:uppercase;
-}
-.wl-go:hover{background:var(--flame2)}
-.wl-back{
-  flex:1;background:transparent;border:1px solid var(--wire2);
-  color:var(--ash);padding:9px;border-radius:var(--r);
-  font-family:'Oswald',sans-serif;font-weight:500;font-size:.85rem;
-  cursor:pointer;transition:.12s;
-}
-.wl-back:hover{border-color:var(--fog);color:var(--fog)}
+/* WAITLIST */
+#wlm{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:1100;display:none;align-items:center;justify-content:center;backdrop-filter:blur(10px)}
+#wlm.on{display:flex}
+.wlb{background:var(--s1);border:1px solid var(--acc);border-radius:var(--r2);padding:2rem;width:420px;max-width:95vw;text-align:center}
+.wlt{font-family:'Anton',sans-serif;font-size:1.6rem;letter-spacing:2px;color:var(--acc);margin-bottom:.5rem;text-transform:uppercase}
+.wls{font-size:.85rem;color:var(--txt2);line-height:1.6;margin-bottom:1rem}
+.wli{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:var(--r);padding:8px 12px;color:var(--txt);font-size:.86rem;margin-bottom:.75rem}
+.wli:focus{outline:none;border-color:var(--acc)}
+.wlbtns{display:flex;gap:.5rem}
+.wlgo{flex:2;background:var(--acc);color:#fff;border:none;padding:9px;border-radius:var(--r);font-family:'Anton',sans-serif;font-weight:700;font-size:.88rem;letter-spacing:1px;cursor:pointer;transition:.12s;text-transform:uppercase}
+.wlgo:hover{background:var(--acc2)}
+.wlbk{flex:1;background:transparent;border:1px solid var(--border2);color:var(--txt2);padding:9px;border-radius:var(--r);font-family:'Anton',sans-serif;font-size:.85rem;cursor:pointer;transition:.12s}
+.wlbk:hover{border-color:var(--txt);color:var(--txt)}
 
-/* CONTACT PAGE */
-.page-wrap{padding:2rem 1.5rem;max-width:640px}
-.page-h{
-  font-family:'Oswald',sans-serif;font-weight:700;
-  font-size:1.8rem;letter-spacing:2px;color:var(--paper);
-  margin-bottom:1.25rem;text-transform:uppercase;
-}
-.form-card{
-  background:var(--ink2);border:1px solid var(--wire);
-  border-radius:var(--r2);padding:1.25rem;
-}
-.f-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
-.f-field{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.75rem}
-.f-field label{
-  font-family:'Oswald',sans-serif;font-size:.62rem;
-  font-weight:600;letter-spacing:2px;color:var(--smoke);
-  text-transform:uppercase;
-}
-.f-field input,.f-field select,.f-field textarea{
-  background:var(--ink4);border:1px solid var(--wire2);
-  border-radius:var(--r);padding:7px 10px;color:var(--fog);
-  font-size:.84rem;transition:.12s;resize:vertical;
-}
-.f-field input:focus,.f-field select:focus,.f-field textarea:focus{
-  outline:none;border-color:var(--flame);
-}
-.f-field textarea{min-height:90px}
-.honeypot{display:none!important}
-.f-submit{
-  width:100%;background:var(--flame);color:#fff;border:none;
-  padding:10px;border-radius:var(--r);
-  font-family:'Oswald',sans-serif;font-weight:700;
-  font-size:.92rem;letter-spacing:2px;cursor:pointer;transition:.12s;
-  text-transform:uppercase;
-}
-.f-submit:hover{background:var(--flame2)}
+/* CONTACT */
+.pgwrap{padding:2rem 1.5rem;max-width:640px}
+.pgh{font-family:'Anton',sans-serif;font-size:1.8rem;letter-spacing:2px;color:var(--txt);margin-bottom:1.25rem;text-transform:uppercase}
+.fcard{background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);padding:1.25rem}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.ff{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.75rem}
+.ff label{font-family:'Anton',sans-serif;font-size:.62rem;letter-spacing:2px;color:var(--txt3);text-transform:uppercase}
+.ff input,.ff select,.ff textarea{background:var(--bg);border:1px solid var(--border2);border-radius:var(--r);padding:7px 10px;color:var(--txt);font-size:.84rem;transition:.12s;resize:vertical}
+.ff input:focus,.ff select:focus,.ff textarea:focus{outline:none;border-color:var(--acc)}
+.ff textarea{min-height:90px}
+.hp{display:none!important}
+.fsub{width:100%;background:var(--acc);color:#fff;border:none;padding:10px;border-radius:var(--r);font-family:'Anton',sans-serif;font-size:.92rem;letter-spacing:2px;cursor:pointer;transition:.12s;text-transform:uppercase}
+.fsub:hover{background:var(--acc2)}
 
 /* TOAST */
-#toast{
-  position:fixed;bottom:1.5rem;left:50%;
-  transform:translateX(-50%) translateY(65px);
-  background:var(--ink3);border:1px solid var(--wire2);
-  color:var(--fog);font-family:'Oswald',sans-serif;
-  font-weight:500;font-size:.83rem;letter-spacing:1px;
-  padding:8px 18px;border-radius:var(--r);z-index:9999;
-  transition:transform .2s;pointer-events:none;white-space:nowrap;
-  box-shadow:var(--shadow2);
-}
+#toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(65px);background:var(--s2);border:1px solid var(--border2);color:var(--txt);font-family:'Anton',sans-serif;font-size:.82rem;letter-spacing:1px;padding:8px 18px;border-radius:var(--r);z-index:9999;transition:transform .2s;pointer-events:none;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.6)}
 #toast.on{transform:translateX(-50%) translateY(0)}
 
-footer{
-  background:var(--ink2);border-top:1px solid var(--wire);
-  padding:.85rem 1.25rem;
-  display:flex;align-items:center;justify-content:space-between;
-  flex-wrap:wrap;gap:.5rem;
-}
-.ft-l{font-size:.72rem;color:var(--smoke)}
-.ft-l strong{color:var(--ash)}
-.ft-r{font-size:.65rem;color:var(--wire2)}
+footer{background:var(--s1);border-top:1px solid var(--border);padding:.85rem 1.25rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.ftl{font-size:.72rem;color:var(--txt3)}
+.ftl strong{color:var(--txt2)}
+.ftr{font-size:.65rem;color:var(--border2)}
 
-/* MOBILE */
 @media(max-width:768px){
-  #sidebar{display:none}
   #grid{grid-template-columns:repeat(2,1fr);gap:.6rem}
   #grid-wrap{padding:.65rem .75rem}
-  .f-row{grid-template-columns:1fr}
-  .hdr-main{gap:.5rem}
-  .logo-name{font-size:1rem}
+  .frow{grid-template-columns:1fr}
+  .banner-goose{display:none}
+  .brand-text{font-size:1.4rem}
 }
 @keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header id="hdr">
-  <div class="hdr-main">
-    <!-- LOGO -->
-    <div class="logo" onclick="showPage('store');clearFilters()">
-      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="pl" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
-            <rect width="12" height="12" fill="#7a1400"/>
-            <rect width="6" height="12" fill="#5a0e00" opacity=".6"/>
-            <rect width="12" height="6" fill="#5a0e00" opacity=".6"/>
-            <line x1="0" y1="0" x2="12" y2="12" stroke="#ff3300" stroke-width="1" opacity=".2"/>
-            <line x1="12" y1="0" x2="0" y2="12" stroke="#ff3300" stroke-width="1" opacity=".2"/>
-          </pattern>
-        </defs>
-        <ellipse cx="40" cy="50" rx="20" ry="17" fill="#f0e8d8"/>
-        <ellipse cx="40" cy="50" rx="20" ry="17" fill="url(#pl)" opacity=".9"/>
-        <ellipse cx="24" cy="52" rx="11" ry="7" fill="#e0d8c8" transform="rotate(30 24 52)"/>
-        <ellipse cx="24" cy="52" rx="11" ry="7" fill="url(#pl)" opacity=".7" transform="rotate(30 24 52)"/>
-        <path d="M34 38 Q30 30 31 22 Q32 17 37 14" fill="none" stroke="#f0e8d8" stroke-width="8" stroke-linecap="round"/>
-        <path d="M34 38 Q30 30 31 22 Q32 17 37 14" fill="none" stroke="#e8dfc8" stroke-width="6" stroke-linecap="round"/>
-        <ellipse cx="40" cy="13" rx="10" ry="9" fill="#f0e8d8"/>
-        <rect x="31" y="4" width="20" height="12" rx="3" fill="#cc1100"/>
-        <rect x="29" y="13" width="24" height="4" rx="2" fill="#ff3311"/>
-        <circle cx="41" cy="4" r="4" fill="#ff3311"/>
-        <circle cx="40" cy="3" r="2.5" fill="#cc1100"/>
-        <circle cx="35" cy="14" r="2.5" fill="#1a0a00"/>
-        <circle cx="34.3" cy="13.3" r=".9" fill="#fff"/>
-        <path d="M31 11 L37 13" stroke="#2a1000" stroke-width="1.5" stroke-linecap="round"/>
-        <path d="M33 16 Q26 18 26 20 Q27 23 33 21 Z" fill="#e8920a"/>
-        <path d="M33 21 Q26 23 27 26 Q30 27 33 21 Z" fill="#c47008"/>
-        <line x1="24" y1="11" x2="20" y2="8" stroke="#ff4500" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="23" y1="15" x2="18" y2="14" stroke="#ff4500" stroke-width="1.5" stroke-linecap="round"/>
-        <rect x="33" y="65" width="5" height="10" rx="2" fill="#e8920a"/>
-        <rect x="43" y="65" width="5" height="10" rx="2" fill="#e8920a"/>
-        <path d="M28 74 L38 74 L40 78 L26 78 Z" fill="#e8920a"/>
-        <path d="M41 74 L51 74 L54 78 L39 78 Z" fill="#e8920a"/>
-      </svg>
-      <span class="logo-name">The Goaded Goose</span>
-      <span class="logo-ca">CA</span>
-    </div>
+<!-- ═══════════ BANNER ═══════════ -->
+<div id="banner">
+  <div class="banner-inner">
+    <div class="banner-content">
+      <!-- TOP ROW: brand + links -->
+      <div class="banner-top">
+        <div class="brand" onclick="goStore();clearF()">
+          <!-- Goaded Goose SVG — angry Canadian goose in plaid flannel, toque -->
+          <svg width="54" height="62" viewBox="0 0 54 62" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="fl" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+                <rect width="8" height="8" fill="#6b1100"/>
+                <rect width="4" height="8" fill="#4a0c00" opacity=".7"/>
+                <rect width="8" height="4" fill="#4a0c00" opacity=".7"/>
+                <line x1="0" y1="0" x2="8" y2="8" stroke="#ff2200" stroke-width=".8" opacity=".2"/>
+                <line x1="8" y1="0" x2="0" y2="8" stroke="#ff2200" stroke-width=".8" opacity=".2"/>
+              </pattern>
+              <radialGradient id="bg" cx="50%" cy="40%"><stop offset="0%" stop-color="#f5ede0"/><stop offset="100%" stop-color="#e8d8c0"/></radialGradient>
+              <radialGradient id="bk" cx="50%" cy="30%"><stop offset="0%" stop-color="#e88a0a"/><stop offset="100%" stop-color="#c06800"/></radialGradient>
+            </defs>
+            <!-- Body -->
+            <ellipse cx="27" cy="44" rx="17" ry="15" fill="url(#bg)"/>
+            <ellipse cx="27" cy="44" rx="17" ry="15" fill="url(#fl)" opacity=".88"/>
+            <!-- Shirt collar V -->
+            <path d="M21 32 L27 40 L33 32" fill="none" stroke="url(#bg)" stroke-width="5" stroke-linejoin="round"/>
+            <!-- Left wing raised (aggressive) -->
+            <ellipse cx="13" cy="43" rx="9" ry="5.5" fill="#e0d4bc" transform="rotate(35 13 43)"/>
+            <ellipse cx="13" cy="43" rx="9" ry="5.5" fill="url(#fl)" opacity=".8" transform="rotate(35 13 43)"/>
+            <!-- Right wing holding card -->
+            <ellipse cx="41" cy="44" rx="9" ry="5" fill="#e0d4bc" transform="rotate(-25 41 44)"/>
+            <ellipse cx="41" cy="44" rx="9" ry="5" fill="url(#fl)" opacity=".8" transform="rotate(-25 41 44)"/>
+            <!-- MTG card in wing -->
+            <rect x="43" y="34" width="8" height="11" rx="1" fill="#0d0d1a" stroke="#e8452a" stroke-width=".8" transform="rotate(10 43 34)"/>
+            <rect x="44" y="35" width="6" height="5" rx=".5" fill="#1a1a3a" transform="rotate(10 43 34)"/>
+            <!-- Neck - long, curved, assertive -->
+            <path d="M23 31 Q18 22 20 14 Q21 9 26 7" fill="none" stroke="url(#bg)" stroke-width="7" stroke-linecap="round"/>
+            <path d="M23 31 Q18 22 20 14 Q21 9 26 7" fill="none" stroke="#e8d8c0" stroke-width="5.5" stroke-linecap="round"/>
+            <!-- Head -->
+            <ellipse cx="29" cy="7" rx="9" ry="8" fill="url(#bg)"/>
+            <!-- TOQUE - proper Canadian winter hat -->
+            <rect x="21" y="1" width="18" height="10" rx="3" fill="#cc1100"/>
+            <rect x="19" y="8" width="22" height="4" rx="2" fill="#ff2211"/>
+            <rect x="21" y="2.5" width="18" height="2" fill="#ff3322" opacity=".5"/>
+            <rect x="21" y="5" width="18" height="1.5" fill="#ff3322" opacity=".35"/>
+            <!-- Pompom -->
+            <circle cx="30" cy="1" r="4" fill="#ff2211"/>
+            <circle cx="29.5" cy=".5" r="2.5" fill="#bb1100"/>
+            <circle cx="31" cy="1.5" r="1.5" fill="#ff4433"/>
+            <!-- Eye - angry, determined -->
+            <ellipse cx="24" cy="8" rx="2.5" ry="2.2" fill="#1a0800"/>
+            <circle cx="23.2" cy="7.3" r=".9" fill="#fff"/>
+            <circle cx="23.5" cy="7.5" r=".5" fill="#e8452a" opacity=".7"/>
+            <!-- BROW - hard angled, very angry -->
+            <path d="M20 5.5 L26.5 7.5" stroke="#2a1000" stroke-width="1.8" stroke-linecap="round"/>
+            <!-- Beak - open, yelling -->
+            <path d="M22 9.5 Q15 11 15 13 Q15.5 16 22 15 Z" fill="url(#bk)"/>
+            <path d="M22 15 Q15 16 15.5 18 Q17 19.5 22 15 Z" fill="#c06800"/>
+            <line x1="15" y1="13.5" x2="22" y2="11" stroke="#9a5000" stroke-width=".8"/>
+            <!-- Rage lines - he's goaded (forced to fight) -->
+            <line x1="14" y1="5" x2="10" y2="2" stroke="#e8452a" stroke-width="1.5" stroke-linecap="round" opacity=".9"/>
+            <line x1="13" y1="8" x2="8" y2="7" stroke="#e8452a" stroke-width="1.5" stroke-linecap="round" opacity=".9"/>
+            <line x1="14" y1="11" x2="9" y2="12" stroke="#e8452a" stroke-width="1.2" stroke-linecap="round" opacity=".7"/>
+            <!-- Legs -->
+            <rect x="22" y="57" width="4" height="6" rx="1.5" fill="url(#bk)"/>
+            <rect x="29" y="57" width="4" height="6" rx="1.5" fill="url(#bk)"/>
+            <!-- Webbed feet -->
+            <path d="M19 62 L27 62 L28 65 L18 65 Z" fill="url(#bk)"/>
+            <path d="M27 62 L35 62 L37 65 L26 65 Z" fill="url(#bk)"/>
+          </svg>
+          <div>
+            <div class="brand-text">The Goaded Goose</div>
+          </div>
+          <span class="brand-ca">CA</span>
+        </div>
 
-    <!-- SEARCH -->
-    <div class="search-wrap">
-      <span class="search-ico">🔍</span>
-      <input id="globalSearch" type="search"
-        placeholder="Search by card name, type, keyword, set…"
-        oninput="onGlobalSearch(this.value)"
-        autocomplete="off">
-      <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
-    </div>
-
-    <div class="hdr-right">
-      <div class="dd-wrap">
-        <button class="hdr-btn" onclick="toggleDD('ddSets')">Sets ▾</button>
-        <div class="dd-menu" id="ddSets" id="ddSets"></div>
-      </div>
-      <div class="dd-wrap">
-        <button class="hdr-btn" onclick="toggleDD('ddFmt')">Format ▾</button>
-        <div class="dd-menu" id="ddFmt">
-          <div class="dd-item" onclick="quickFmt('commander');closeDD()">Commander</div>
-          <div class="dd-item" onclick="quickFmt('modern');closeDD()">Modern</div>
-          <div class="dd-item" onclick="quickFmt('legacy');closeDD()">Legacy</div>
-          <div class="dd-item" onclick="quickFmt('pioneer');closeDD()">Pioneer</div>
-          <div class="dd-item" onclick="quickFmt('standard');closeDD()">Standard</div>
-          <div class="dd-item" onclick="quickFmt('pauper');closeDD()">Pauper</div>
-          <div class="dd-item" onclick="quickFmt('vintage');closeDD()">Vintage</div>
+        <div class="banner-links">
+          <div class="dd-w">
+            <button class="bl" onclick="toggleDD('dds')">Sets ▾</button>
+            <div class="dd-m" id="dds"></div>
+          </div>
+          <div class="dd-w">
+            <button class="bl" onclick="toggleDD('ddf')">Format ▾</button>
+            <div class="dd-m" id="ddf">
+              <div class="di" onclick="qFmt('commander');closeDD()">Commander</div>
+              <div class="di" onclick="qFmt('modern');closeDD()">Modern</div>
+              <div class="di" onclick="qFmt('legacy');closeDD()">Legacy</div>
+              <div class="di" onclick="qFmt('pioneer');closeDD()">Pioneer</div>
+              <div class="di" onclick="qFmt('standard');closeDD()">Standard</div>
+              <div class="di" onclick="qFmt('pauper');closeDD()">Pauper</div>
+              <div class="di" onclick="qFmt('vintage');closeDD()">Vintage</div>
+            </div>
+          </div>
+          <button class="bl" onclick="showPg('contact')">Contact</button>
+          <button class="cart-bl" onclick="openCart()">
+            🛒 Cart <span class="cart-n" id="cartN">0</span>
+          </button>
         </div>
       </div>
-      <button class="hdr-btn" onclick="showPage('contact')">Contact</button>
-      <button class="cart-btn" onclick="openCart()">
-        🛒 Cart <span class="cart-ct" id="cartCt">0</span>
-      </button>
+
+      <!-- NAV ROW -->
+      <div class="banner-nav">
+        <button class="bn on" id="nav-all" onclick="goStore();clearF();navOn(this)">All Cards</button>
+        <div class="bn-sep"></div>
+        <button class="bn" onclick="qStock();navOn(this)">In Stock</button>
+        <button class="bn" onclick="qRar('mythic');navOn(this)">Mythic</button>
+        <button class="bn" onclick="qRar('rare');navOn(this)">Rare</button>
+        <button class="bn" onclick="qFoil();navOn(this)">Foil</button>
+        <div class="bn-sep"></div>
+        <button class="bn" onclick="qSet('M15');navOn(this)">Magic 2015</button>
+        <button class="bn" onclick="qSet('MH1');navOn(this)">Modern Horizons</button>
+        <button class="bn" onclick="qSet('TSR');navOn(this)">Time Spiral Rem.</button>
+        <button class="bn" onclick="qSet('THB');navOn(this)">Theros Beyond</button>
+        <button class="bn" onclick="qSet('VOW');navOn(this)">Crimson Vow</button>
+        <button class="bn" onclick="qSet('WAR');navOn(this)">War of the Spark</button>
+        <button class="bn" onclick="qSet('LRW');navOn(this)">Lorwyn</button>
+        <button class="bn" onclick="qSet('ECL');navOn(this)">Lorwyn Eclipsed</button>
+      </div>
+    </div>
+
+    <!-- GOOSE RIGHT SIDE -->
+    <div class="banner-goose" aria-hidden="true"></div>
+  </div>
+</div>
+
+<!-- ═══════════ SEARCH BAR ═══════════ -->
+<div id="searchbar">
+  <div class="search-main">
+    <span class="si">🔍</span>
+    <input id="srch" type="search" placeholder="Search cards, types, keywords…" oninput="onSrch(this.value)" autocomplete="off">
+    <button class="sc" id="sclear" onclick="clearSrch()">✕</button>
+  </div>
+
+  <!-- Quick color pills -->
+  <div class="q-pills" id="colorPills">
+    <span style="font-size:.68rem;color:var(--txt3);white-space:nowrap">Color:</span>
+    <div class="qp" data-c="W" onclick="pipClick(this)">
+      <i class="ms ms-w ms-cost ms-shadow" title="White"></i>
+    </div>
+    <div class="qp" data-c="U" onclick="pipClick(this)">
+      <i class="ms ms-u ms-cost ms-shadow" title="Blue"></i>
+    </div>
+    <div class="qp" data-c="B" onclick="pipClick(this)">
+      <i class="ms ms-b ms-cost ms-shadow" title="Black"></i>
+    </div>
+    <div class="qp" data-c="R" onclick="pipClick(this)">
+      <i class="ms ms-r ms-cost ms-shadow" title="Red"></i>
+    </div>
+    <div class="qp" data-c="G" onclick="pipClick(this)">
+      <i class="ms ms-g ms-cost ms-shadow" title="Green"></i>
+    </div>
+    <div class="qp" data-c="C" onclick="pipClick(this)">
+      <i class="ms ms-c ms-cost ms-shadow" title="Colorless"></i>
     </div>
   </div>
 
-  <nav class="hdr-nav">
-    <div class="nav-item on" id="nav-all" onclick="showPage('store');clearFilters();navOn(this)">All Cards</div>
-    <div class="nav-sep"></div>
-    <div class="nav-item" onclick="quickStock(true);navOn(this)">In Stock</div>
-    <div class="nav-item" onclick="quickRar('mythic');navOn(this)">Mythic</div>
-    <div class="nav-item" onclick="quickRar('rare');navOn(this)">Rare</div>
-    <div class="nav-item" onclick="quickFoil();navOn(this)">Foil</div>
-    <div class="nav-sep"></div>
-    <div class="nav-item" id="nav-M15" onclick="quickSet('M15');navOn(this)">Magic 2015</div>
-    <div class="nav-item" id="nav-MH1" onclick="quickSet('MH1');navOn(this)">Modern Horizons</div>
-    <div class="nav-item" id="nav-TSR" onclick="quickSet('TSR');navOn(this)">Time Spiral Rem.</div>
-    <div class="nav-item" id="nav-THB" onclick="quickSet('THB');navOn(this)">Theros Beyond</div>
-    <div class="nav-item" id="nav-VOW" onclick="quickSet('VOW');navOn(this)">Crimson Vow</div>
-    <div class="nav-item" id="nav-WAR" onclick="quickSet('WAR');navOn(this)">War of the Spark</div>
-    <div class="nav-item" id="nav-LRW" onclick="quickSet('LRW');navOn(this)">Lorwyn</div>
-    <div class="nav-item" id="nav-ECL" onclick="quickSet('ECL');navOn(this)">Lorwyn Eclipsed</div>
-  </nav>
-</header>
+  <button class="adv-btn" id="advBtn" onclick="toggleAdv()">⚙ Filters</button>
+  <select class="sort-s" id="sortSel" onchange="run()">
+    <option value="name">Name A–Z</option>
+    <option value="name_z">Name Z–A</option>
+    <option value="price_lo">Price ↑</option>
+    <option value="price_hi">Price ↓</option>
+    <option value="rarity">Rarity</option>
+    <option value="set">Set</option>
+    <option value="newest">Newest</option>
+  </select>
+  <span class="res-n" id="resN"></span>
+  <div class="view-t">
+    <button class="vt on" id="vtg" onclick="setView('grid')" title="Grid">⊞</button>
+    <button class="vt" id="vtl" onclick="setView('list')" title="List">≡</button>
+  </div>
+</div>
 
-<!-- APP -->
-<div id="app">
+<!-- ACTIVE FILTER TAGS -->
+<div class="tag-row" id="tagRow"></div>
 
-  <!-- SIDEBAR -->
-  <aside id="sidebar">
+<!-- ═══════════ ADVANCED FILTERS ═══════════ -->
+<div id="adv-panel">
+  <div class="adv-grid">
 
-    <div class="sf-group">
-      <div class="sf-label" onclick="sfToggle(this)">
-        Color <span class="arr">▾</span>
-      </div>
-      <div class="sf-body">
-        <div class="pip-row">
-          <div class="pip pip-W" data-c="W" onclick="pipToggle(this)" title="White">
-            <i class="ms ms-w ms-cost"></i>
-          </div>
-          <div class="pip pip-U" data-c="U" onclick="pipToggle(this)" title="Blue">
-            <i class="ms ms-u ms-cost"></i>
-          </div>
-          <div class="pip pip-B" data-c="B" onclick="pipToggle(this)" title="Black">
-            <i class="ms ms-b ms-cost"></i>
-          </div>
-          <div class="pip pip-R" data-c="R" onclick="pipToggle(this)" title="Red">
-            <i class="ms ms-r ms-cost"></i>
-          </div>
-          <div class="pip pip-G" data-c="G" onclick="pipToggle(this)" title="Green">
-            <i class="ms ms-g ms-cost"></i>
-          </div>
-          <div class="pip pip-C" data-c="C" onclick="pipToggle(this)" title="Colorless">
-            <i class="ms ms-c ms-cost"></i>
-          </div>
-        </div>
+    <div class="af-col">
+      <div class="af-lbl">Format</div>
+      <div class="af-checks afscroll">
+        <label class="afc"><input type="checkbox" data-g="fmt" data-v="commander" onchange="run()"> Commander</label>
+        <label class="afc"><input type="checkbox" data-g="fmt" data-v="modern" onchange="run()"> Modern</label>
+        <label class="afc"><input type="checkbox" data-g="fmt" data-v="legacy" onchange="run()"> Legacy</label>
+        <label class="afc"><input type="checkbox" data-g="fmt" data-v="pioneer" onchange="run()"> Pioneer</label>
+        <label class="afc"><input type="checkbox" data-g="fmt" data-v="standard" onchange="run()"> Standard</label>
+        <label class="afc"><input type="checkbox" data-g="fmt" data-v="vintage" onchange="run()"> Vintage</label>
+        <label class="afc"><input type="checkbox" data-g="fmt" data-v="pauper" onchange="run()"> Pauper</label>
+        <label class="afc"><input type="checkbox" data-g="fmt" data-v="historic" onchange="run()"> Historic</label>
       </div>
     </div>
 
-    <div class="sf-group">
-      <div class="sf-label" onclick="sfToggle(this)">Format <span class="arr">▾</span></div>
-      <div class="sf-body">
-        <div class="sf-scroll">
-          <label class="sf-check"><input type="checkbox" data-g="fmt" data-v="commander" onchange="run()"> Commander</label>
-          <label class="sf-check"><input type="checkbox" data-g="fmt" data-v="modern" onchange="run()"> Modern</label>
-          <label class="sf-check"><input type="checkbox" data-g="fmt" data-v="legacy" onchange="run()"> Legacy</label>
-          <label class="sf-check"><input type="checkbox" data-g="fmt" data-v="pioneer" onchange="run()"> Pioneer</label>
-          <label class="sf-check"><input type="checkbox" data-g="fmt" data-v="standard" onchange="run()"> Standard</label>
-          <label class="sf-check"><input type="checkbox" data-g="fmt" data-v="vintage" onchange="run()"> Vintage</label>
-          <label class="sf-check"><input type="checkbox" data-g="fmt" data-v="pauper" onchange="run()"> Pauper</label>
-          <label class="sf-check"><input type="checkbox" data-g="fmt" data-v="historic" onchange="run()"> Historic</label>
-        </div>
+    <div class="af-col">
+      <div class="af-lbl">Rarity</div>
+      <div class="af-checks">
+        <label class="afc"><input type="checkbox" data-g="rar" data-v="mythic" onchange="run()"> <span class="rdot rm"></span> Mythic</label>
+        <label class="afc"><input type="checkbox" data-g="rar" data-v="rare" onchange="run()"> <span class="rdot rr"></span> Rare</label>
+        <label class="afc"><input type="checkbox" data-g="rar" data-v="uncommon" onchange="run()"> <span class="rdot ru"></span> Uncommon</label>
+        <label class="afc"><input type="checkbox" data-g="rar" data-v="common" onchange="run()"> <span class="rdot rc"></span> Common</label>
       </div>
     </div>
 
-    <div class="sf-group">
-      <div class="sf-label" onclick="sfToggle(this)">Rarity <span class="arr">▾</span></div>
-      <div class="sf-body">
-        <label class="sf-check"><input type="checkbox" data-g="rar" data-v="mythic" onchange="run()"> <span class="rar-dot rm"></span> Mythic</label>
-        <label class="sf-check"><input type="checkbox" data-g="rar" data-v="rare" onchange="run()"> <span class="rar-dot rr"></span> Rare</label>
-        <label class="sf-check"><input type="checkbox" data-g="rar" data-v="uncommon" onchange="run()"> <span class="rar-dot ru"></span> Uncommon</label>
-        <label class="sf-check"><input type="checkbox" data-g="rar" data-v="common" onchange="run()"> <span class="rar-dot rc"></span> Common</label>
+    <div class="af-col">
+      <div class="af-lbl">Card Type</div>
+      <div class="af-checks afscroll">
+        <label class="afc"><input type="checkbox" data-g="type" data-v="Creature" onchange="run()"> Creature</label>
+        <label class="afc"><input type="checkbox" data-g="type" data-v="Instant" onchange="run()"> Instant</label>
+        <label class="afc"><input type="checkbox" data-g="type" data-v="Sorcery" onchange="run()"> Sorcery</label>
+        <label class="afc"><input type="checkbox" data-g="type" data-v="Enchantment" onchange="run()"> Enchantment</label>
+        <label class="afc"><input type="checkbox" data-g="type" data-v="Artifact" onchange="run()"> Artifact</label>
+        <label class="afc"><input type="checkbox" data-g="type" data-v="Land" onchange="run()"> Land</label>
+        <label class="afc"><input type="checkbox" data-g="type" data-v="Planeswalker" onchange="run()"> Planeswalker</label>
+        <label class="afc"><input type="checkbox" data-g="type" data-v="Battle" onchange="run()"> Battle</label>
+        <label class="afc"><input type="checkbox" data-g="type" data-v="Legendary" onchange="run()"> Legendary</label>
+        <label class="afc"><input type="checkbox" data-g="type" data-v="Saga" onchange="run()"> Saga</label>
+        <label class="afc"><input type="checkbox" data-g="type" data-v="Equipment" onchange="run()"> Equipment</label>
+        <label class="afc"><input type="checkbox" data-g="type" data-v="Aura" onchange="run()"> Aura</label>
       </div>
     </div>
 
-    <div class="sf-group">
-      <div class="sf-label" onclick="sfToggle(this)">Type <span class="arr">▾</span></div>
-      <div class="sf-body">
-        <div class="sf-scroll">
-          <label class="sf-check"><input type="checkbox" data-g="type" data-v="Creature" onchange="run()"> Creature</label>
-          <label class="sf-check"><input type="checkbox" data-g="type" data-v="Instant" onchange="run()"> Instant</label>
-          <label class="sf-check"><input type="checkbox" data-g="type" data-v="Sorcery" onchange="run()"> Sorcery</label>
-          <label class="sf-check"><input type="checkbox" data-g="type" data-v="Enchantment" onchange="run()"> Enchantment</label>
-          <label class="sf-check"><input type="checkbox" data-g="type" data-v="Artifact" onchange="run()"> Artifact</label>
-          <label class="sf-check"><input type="checkbox" data-g="type" data-v="Land" onchange="run()"> Land</label>
-          <label class="sf-check"><input type="checkbox" data-g="type" data-v="Planeswalker" onchange="run()"> Planeswalker</label>
-          <label class="sf-check"><input type="checkbox" data-g="type" data-v="Battle" onchange="run()"> Battle</label>
-          <label class="sf-check"><input type="checkbox" data-g="type" data-v="Legendary" onchange="run()"> Legendary</label>
-          <label class="sf-check"><input type="checkbox" data-g="type" data-v="Tribal" onchange="run()"> Tribal</label>
-          <label class="sf-check"><input type="checkbox" data-g="type" data-v="Saga" onchange="run()"> Saga</label>
-          <label class="sf-check"><input type="checkbox" data-g="type" data-v="Equipment" onchange="run()"> Equipment</label>
-          <label class="sf-check"><input type="checkbox" data-g="type" data-v="Aura" onchange="run()"> Aura</label>
-          <label class="sf-check"><input type="checkbox" data-g="type" data-v="Vehicle" onchange="run()"> Vehicle</label>
-        </div>
+    <div class="af-col">
+      <div class="af-lbl">Tribe / Subtype</div>
+      <div class="af-checks afscroll">
+        <label class="afc"><input type="checkbox" data-g="tribe" data-v="Sliver" onchange="run()"> Sliver</label>
+        <label class="afc"><input type="checkbox" data-g="tribe" data-v="Vampire" onchange="run()"> Vampire</label>
+        <label class="afc"><input type="checkbox" data-g="tribe" data-v="Zombie" onchange="run()"> Zombie</label>
+        <label class="afc"><input type="checkbox" data-g="tribe" data-v="Elf" onchange="run()"> Elf</label>
+        <label class="afc"><input type="checkbox" data-g="tribe" data-v="Goblin" onchange="run()"> Goblin</label>
+        <label class="afc"><input type="checkbox" data-g="tribe" data-v="Merfolk" onchange="run()"> Merfolk</label>
+        <label class="afc"><input type="checkbox" data-g="tribe" data-v="Faerie" onchange="run()"> Faerie</label>
+        <label class="afc"><input type="checkbox" data-g="tribe" data-v="Giant" onchange="run()"> Giant</label>
+        <label class="afc"><input type="checkbox" data-g="tribe" data-v="Kithkin" onchange="run()"> Kithkin</label>
+        <label class="afc"><input type="checkbox" data-g="tribe" data-v="Boggart" onchange="run()"> Boggart</label>
+        <label class="afc"><input type="checkbox" data-g="tribe" data-v="Wizard" onchange="run()"> Wizard</label>
+        <label class="afc"><input type="checkbox" data-g="tribe" data-v="Warrior" onchange="run()"> Warrior</label>
+        <label class="afc"><input type="checkbox" data-g="tribe" data-v="Dragon" onchange="run()"> Dragon</label>
+        <label class="afc"><input type="checkbox" data-g="tribe" data-v="Angel" onchange="run()"> Angel</label>
+        <label class="afc"><input type="checkbox" data-g="tribe" data-v="Human" onchange="run()"> Human</label>
+        <label class="afc"><input type="checkbox" data-g="tribe" data-v="Changeling" onchange="run()"> Changeling</label>
+        <label class="afc"><input type="checkbox" data-g="tribe" data-v="Spirit" onchange="run()"> Spirit</label>
+        <label class="afc"><input type="checkbox" data-g="tribe" data-v="Elemental" onchange="run()"> Elemental</label>
       </div>
     </div>
 
-    <div class="sf-group">
-      <div class="sf-label" onclick="sfToggle(this)">Subtype / Tribe <span class="arr">▾</span></div>
-      <div class="sf-body">
-        <div class="sf-scroll">
-          <label class="sf-check"><input type="checkbox" data-g="tribe" data-v="Sliver" onchange="run()"> Sliver</label>
-          <label class="sf-check"><input type="checkbox" data-g="tribe" data-v="Vampire" onchange="run()"> Vampire</label>
-          <label class="sf-check"><input type="checkbox" data-g="tribe" data-v="Zombie" onchange="run()"> Zombie</label>
-          <label class="sf-check"><input type="checkbox" data-g="tribe" data-v="Wizard" onchange="run()"> Wizard</label>
-          <label class="sf-check"><input type="checkbox" data-g="tribe" data-v="Warrior" onchange="run()"> Warrior</label>
-          <label class="sf-check"><input type="checkbox" data-g="tribe" data-v="Dragon" onchange="run()"> Dragon</label>
-          <label class="sf-check"><input type="checkbox" data-g="tribe" data-v="Angel" onchange="run()"> Angel</label>
-          <label class="sf-check"><input type="checkbox" data-g="tribe" data-v="Human" onchange="run()"> Human</label>
-          <label class="sf-check"><input type="checkbox" data-g="tribe" data-v="Elf" onchange="run()"> Elf</label>
-          <label class="sf-check"><input type="checkbox" data-g="tribe" data-v="Goblin" onchange="run()"> Goblin</label>
-          <label class="sf-check"><input type="checkbox" data-g="tribe" data-v="Merfolk" onchange="run()"> Merfolk</label>
-          <label class="sf-check"><input type="checkbox" data-g="tribe" data-v="Faerie" onchange="run()"> Faerie</label>
-          <label class="sf-check"><input type="checkbox" data-g="tribe" data-v="Giant" onchange="run()"> Giant</label>
-          <label class="sf-check"><input type="checkbox" data-g="tribe" data-v="Kithkin" onchange="run()"> Kithkin</label>
-          <label class="sf-check"><input type="checkbox" data-g="tribe" data-v="Boggart" onchange="run()"> Boggart</label>
-          <label class="sf-check"><input type="checkbox" data-g="tribe" data-v="Elemental" onchange="run()"> Elemental</label>
-          <label class="sf-check"><input type="checkbox" data-g="tribe" data-v="Spirit" onchange="run()"> Spirit</label>
-          <label class="sf-check"><input type="checkbox" data-g="tribe" data-v="Beast" onchange="run()"> Beast</label>
-          <label class="sf-check"><input type="checkbox" data-g="tribe" data-v="Changeling" onchange="run()"> Changeling</label>
-        </div>
+    <div class="af-col">
+      <div class="af-lbl">Set</div>
+      <div class="af-checks afscroll" id="setFilters"></div>
+    </div>
+
+    <div class="af-col">
+      <div class="af-lbl">Condition</div>
+      <div class="af-checks">
+        <label class="afc"><input type="checkbox" data-g="cond" data-v="NM" onchange="run()"> NM — Near Mint</label>
+        <label class="afc"><input type="checkbox" data-g="cond" data-v="LP" onchange="run()"> LP — Lightly Played</label>
+        <label class="afc"><input type="checkbox" data-g="cond" data-v="MP" onchange="run()"> MP — Mod. Played</label>
+        <label class="afc"><input type="checkbox" data-g="cond" data-v="HP" onchange="run()"> HP — Heavy Played</label>
+        <label class="afc"><input type="checkbox" data-g="cond" data-v="DMG" onchange="run()"> DMG — Damaged</label>
       </div>
     </div>
 
-    <div class="sf-group">
-      <div class="sf-label" onclick="sfToggle(this)">Set <span class="arr">▾</span></div>
-      <div class="sf-body">
-        <div class="sf-scroll" id="set-filter-list"></div>
+    <div class="af-col">
+      <div class="af-lbl">Price (CAD)</div>
+      <div class="price-row">
+        <input class="pri" id="pMin" type="number" placeholder="Min" min="0" step=".01" oninput="run()">
+        <span style="color:var(--txt3);font-size:.75rem">–</span>
+        <input class="pri" id="pMax" type="number" placeholder="Max" min="0" step=".01" oninput="run()">
       </div>
-    </div>
-
-    <div class="sf-group">
-      <div class="sf-label" onclick="sfToggle(this)">Condition <span class="arr">▾</span></div>
-      <div class="sf-body">
-        <label class="sf-check"><input type="checkbox" data-g="cond" data-v="NM" onchange="run()"> NM — Near Mint</label>
-        <label class="sf-check"><input type="checkbox" data-g="cond" data-v="LP" onchange="run()"> LP — Lightly Played</label>
-        <label class="sf-check"><input type="checkbox" data-g="cond" data-v="MP" onchange="run()"> MP — Mod Played</label>
-        <label class="sf-check"><input type="checkbox" data-g="cond" data-v="HP" onchange="run()"> HP — Heavy Played</label>
-        <label class="sf-check"><input type="checkbox" data-g="cond" data-v="DMG" onchange="run()"> DMG — Damaged</label>
+      <div style="margin-top:.5rem">
+        <label class="afc"><input type="checkbox" id="inStock" onchange="run()"> In Stock Only</label>
+        <label class="afc" style="margin-top:.2rem"><input type="checkbox" data-g="foil" data-v="foil" onchange="run()"> Foil Only</label>
+        <label class="afc" style="margin-top:.2rem"><input type="checkbox" data-g="foil" data-v="nonfoil" onchange="run()"> Non-Foil Only</label>
       </div>
-    </div>
-
-    <div class="sf-group">
-      <div class="sf-label" onclick="sfToggle(this)">Foil <span class="arr">▾</span></div>
-      <div class="sf-body">
-        <label class="sf-check"><input type="checkbox" data-g="foil" data-v="foil" onchange="run()"> Foil Only</label>
-        <label class="sf-check"><input type="checkbox" data-g="foil" data-v="nonfoil" onchange="run()"> Non-Foil Only</label>
-      </div>
-    </div>
-
-    <div class="sf-group">
-      <div class="sf-label" onclick="sfToggle(this)">In Stock <span class="arr">▾</span></div>
-      <div class="sf-body">
-        <label class="sf-check"><input type="checkbox" id="inStock" onchange="run()"> In Stock Only</label>
-      </div>
-    </div>
-
-    <div class="sf-group">
-      <div class="sf-label" onclick="sfToggle(this)">Price (CAD) <span class="arr">▾</span></div>
-      <div class="sf-body">
-        <div class="range-row">
-          <input class="ri" id="pMin" type="number" placeholder="Min" min="0" step=".01" oninput="run()">
-          <span class="rsep">–</span>
-          <input class="ri" id="pMax" type="number" placeholder="Max" min="0" step=".01" oninput="run()">
-        </div>
-      </div>
-    </div>
-
-    <button class="btn-clear-filters" onclick="clearFilters()">✕ Clear All</button>
-  </aside>
-
-  <!-- MAIN CONTENT -->
-  <div id="main">
-
-    <!-- STORE -->
-    <div id="page-store">
-      <div id="toolbar">
-        <div class="active-tags" id="activeTags"></div>
-        <span class="res-ct" id="resCt"></span>
-        <select class="sort-sel" id="sortSel" onchange="run()">
-          <option value="name">Name A–Z</option>
-          <option value="name_z">Name Z–A</option>
-          <option value="price_lo">Price ↑</option>
-          <option value="price_hi">Price ↓</option>
-          <option value="rarity">Rarity</option>
-          <option value="set">Set</option>
-          <option value="newest">Newest</option>
-        </select>
-        <div class="view-tog">
-          <button class="vt on" id="vtG" onclick="setView('grid')" title="Grid view">⊞</button>
-          <button class="vt" id="vtL" onclick="setView('list')" title="List view">≡</button>
-        </div>
-      </div>
-      <div id="grid-wrap">
-        <div id="grid"></div>
-      </div>
-    </div>
-
-    <!-- CONTACT -->
-    <div id="page-contact" style="display:none">
-      <div class="page-wrap">
-        <div class="page-h">Contact Us</div>
-        <form class="form-card" onsubmit="submitCF(event)" novalidate>
-          <div class="f-row">
-            <div class="f-field"><label>Name</label><input type="text" id="cf-name" required placeholder="Your name"></div>
-            <div class="f-field"><label>Email</label><input type="email" id="cf-email" required placeholder="you@email.com"></div>
-          </div>
-          <div class="f-field"><label>Subject</label>
-            <select id="cf-sub"><option>Order Question</option><option>Card Condition</option><option>Shipping</option><option>Sell / Trade</option><option>Other</option></select>
-          </div>
-          <div class="f-field"><label>Message</label><textarea id="cf-msg" required placeholder="What's on your mind?" minlength="10"></textarea></div>
-          <div class="f-field honeypot"><label>Leave blank</label><input id="cf-hp" tabindex="-1" autocomplete="off"></div>
-          <button class="f-submit" type="submit">Send Message</button>
-        </form>
-      </div>
+      <button class="af-clear-btn" onclick="clearF()" style="margin-top:.7rem">✕ Clear All</button>
     </div>
 
   </div>
 </div>
 
-<!-- CARD MODAL -->
-<div id="modal-bg" onclick="closeMod(event)">
-  <div id="modal-box">
-    <button class="m-x" onclick="closeMod()">✕</button>
-    <div id="modal-content"></div>
+<!-- ═══════════ PAGES ═══════════ -->
+<div id="page-store">
+  <div id="layout">
+    <div id="grid-wrap">
+      <div id="grid"></div>
+    </div>
+  </div>
+</div>
+
+<div id="page-contact" style="display:none">
+  <div class="pgwrap">
+    <div class="pgh">Contact Us</div>
+    <form class="fcard" onsubmit="submitCF(event)" novalidate>
+      <div class="frow">
+        <div class="ff"><label>Name</label><input type="text" id="cf-n" required placeholder="Your name"></div>
+        <div class="ff"><label>Email</label><input type="email" id="cf-e" required placeholder="you@email.com"></div>
+      </div>
+      <div class="ff"><label>Subject</label>
+        <select id="cf-s"><option>Order Question</option><option>Card Condition</option><option>Shipping</option><option>Sell / Trade</option><option>Other</option></select>
+      </div>
+      <div class="ff"><label>Message</label><textarea id="cf-m" required placeholder="What's up?" minlength="10"></textarea></div>
+      <div class="ff hp"><label>Leave blank</label><input id="cf-hp" tabindex="-1" autocomplete="off"></div>
+      <button class="fsub" type="submit">Send Message</button>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div id="mbg" onclick="closeMod(event)">
+  <div id="mbox">
+    <button class="mx" onclick="closeMod()">✕</button>
+    <div id="mcontent"></div>
   </div>
 </div>
 
 <!-- CART -->
-<div id="cart-overlay" onclick="closeCart()"></div>
-<aside id="cart-drawer">
-  <div class="cd-head">
-    <h2>Your Cart</h2>
-    <button class="m-x" style="position:static" onclick="closeCart()">✕</button>
-  </div>
-  <div class="cd-body" id="cd-body"></div>
-  <div class="cd-foot">
-    <div class="coupon-row">
-      <input type="text" id="cpnInp" placeholder="Coupon code">
-      <button onclick="applyCpn()">Apply</button>
-    </div>
-    <div class="coupon-msg" id="cpnMsg"></div>
-    <div class="ship-lbl">Shipping</div>
-    <label class="ship-opt sel" id="sh0"><input type="radio" name="ship" checked onchange="setShip(0)"><div class="ship-opt-i"><div class="ship-opt-n">Letter Mail</div><div class="ship-opt-t">5–10 business days</div></div><div class="ship-opt-p">$1.99</div></label>
-    <label class="ship-opt" id="sh1"><input type="radio" name="ship" onchange="setShip(1)"><div class="ship-opt-i"><div class="ship-opt-n">Tracked Parcel</div><div class="ship-opt-t">3–5 business days</div></div><div class="ship-opt-p">$6.99</div></label>
-    <label class="ship-opt" id="sh2"><input type="radio" name="ship" onchange="setShip(2)"><div class="ship-opt-i"><div class="ship-opt-n">Xpresspost</div><div class="ship-opt-t">1–2 business days</div></div><div class="ship-opt-p">$14.99</div></label>
-    <div class="totals-block" id="totals-block"></div>
-    <button class="checkout-btn" id="checkoutBtn" disabled onclick="openWL()">Checkout</button>
+<div id="cov" onclick="closeCart()"></div>
+<aside id="cd">
+  <div class="cdh"><h2>Your Cart</h2><button class="mx" style="position:static" onclick="closeCart()">✕</button></div>
+  <div class="cdb" id="cdbody"></div>
+  <div class="cdf">
+    <div class="cpnr"><input type="text" id="cpni" placeholder="Coupon code"><button onclick="applyCpn()">Apply</button></div>
+    <div class="cpnm" id="cpnm"></div>
+    <div class="slbl">Shipping</div>
+    <label class="sopt sel" id="sh0"><input type="radio" name="ship" checked onchange="setSh(0)"><div class="soi"><div class="son">Letter Mail</div><div class="sot">5–10 business days</div></div><div class="sop">$1.99</div></label>
+    <label class="sopt" id="sh1"><input type="radio" name="ship" onchange="setSh(1)"><div class="soi"><div class="son">Tracked Parcel</div><div class="sot">3–5 business days</div></div><div class="sop">$6.99</div></label>
+    <label class="sopt" id="sh2"><input type="radio" name="ship" onchange="setSh(2)"><div class="soi"><div class="son">Xpresspost</div><div class="sot">1–2 business days</div></div><div class="sop">$14.99</div></label>
+    <div class="tots" id="tots"></div>
+    <button class="cobtn" id="cobtn" disabled onclick="openWL()">Checkout</button>
   </div>
 </aside>
 
 <!-- WAITLIST -->
-<div id="wl-modal">
-  <div class="wl-box">
-    <div class="wl-title">Coming Soon</div>
-    <div class="wl-sub">Checkout isn't live yet. Drop your email and we'll notify you at launch.</div>
-    <input class="wl-inp" type="email" id="wlEmail" placeholder="your@email.com">
-    <div class="wl-btns">
-      <button class="wl-back" onclick="closeWL()">← Back</button>
-      <button class="wl-go" onclick="joinWL()">Notify Me</button>
+<div id="wlm">
+  <div class="wlb">
+    <div class="wlt">Coming Soon</div>
+    <div class="wls">Checkout isn't live yet. Leave your email and we'll notify you at launch.</div>
+    <input class="wli" type="email" id="wle" placeholder="your@email.com">
+    <div class="wlbtns">
+      <button class="wlbk" onclick="closeWL()">← Back</button>
+      <button class="wlgo" onclick="joinWL()">Notify Me</button>
     </div>
   </div>
 </div>
@@ -1073,40 +894,37 @@ footer{
 <div id="toast"></div>
 
 <footer>
-  <div class="ft-l"><strong>The Goaded Goose</strong> · MTG Singles · Ships Canada-wide</div>
-  <div class="ft-r">Card images © Wizards of the Coast · Not affiliated with Wizards of the Coast</div>
+  <div class="ftl"><strong>The Goaded Goose</strong> · MTG Singles · Ships Canada-wide</div>
+  <div class="ftr">Card images © Wizards of the Coast · Not affiliated with Wizards of the Coast</div>
 </footer>
 
 <script>
 'use strict';
 const CAD=1.38,MK=1.10,MIN=0.42,HST=0.13,SHIPS=[1.99,6.99,14.99];
 let cart=[],shipIdx=0,activeCpn=null,activeCols=[],mQty=1;
-
-const COUPONS={GOOSE10:{t:'pct',v:10,l:'10% off'},LAUNCH20:{t:'pct',v:20,l:'20% off'},FREESHIP:{t:'ship',v:0,l:'Free Shipping'},FLAT5:{t:'flat',v:5,l:'$5 off'}};
-
+const CPNS={GOOSE10:{t:'pct',v:10,l:'10% off'},LAUNCH20:{t:'pct',v:20,l:'20% off'},FREESHIP:{t:'ship',v:0,l:'Free Shipping'},FLAT5:{t:'flat',v:5,l:'$5 off'}};
+const SNAMES={M15:'Magic 2015',MH1:'Modern Horizons',MH2:'Modern Horizons 2',TSR:'Time Spiral Rem.',THB:'Theros Beyond Death',VOW:'Innistrad: Crimson Vow',WAR:'War of the Spark',LRW:'Lorwyn',ECL:'Lorwyn Eclipsed',TMT:'Teenage Mutant Ninja Turtles',TLA:'Avatar: The Last Airbender'};
 const PITCHES={
-  'Diffusion Sliver':'Gives your whole Sliver army protection from targeted spells. One of the most disruptive tribal pieces ever printed.',
-  'Venom Sliver':'Deathtouch on every Sliver. Nobody blocks into this.',
-  'Fury Sliver':'Double strike for the whole team. This ends games fast.',
-  'Agonizing Remorse':'Hand disruption and graveyard hate in a single card. Staple in black.',
-  'Bolt Bend':'Redirect any targeted spell for one red mana. Blowout potential.',
-  'Lys Alana Huntmaster':'Generates a 1/1 Elf every time you cast an Elf. Snowballs out of control.',
-  'Doran, the Siege Tower':'Everything fights with its toughness. Trees become monsters.',
-  'Thousand-Year Elixir':'Activate creature abilities the turn they enter and untap them extra. Broken with tap abilities.',
-  'Wort, Boggart Auntie':'Recurring Goblin recursion every turn. Builds card advantage in aggressive decks.',
-  default:'A solid pick for the right build. Check legality and synergies before adding.'
+  'Diffusion Sliver':'Gives your whole Sliver army protection from targeting. One of the most disruptive tribal pieces in the format.',
+  'Venom Sliver':'Deathtouch on every Sliver you control. Nobody blocks into this.',
+  'Fury Sliver':'Double strike on the whole team. This card ends games.',
+  'Agonizing Remorse':'Hand disruption plus graveyard hate in one. Staple in every black shell.',
+  'Doran, the Siege Tower':'Everything fights with its toughness. Your trees become monsters.',
+  'Thousand-Year Elixir':'Tap creature abilities the turn they enter AND untap them an extra time. Broken.',
+  'Wort, Boggart Auntie':'Brings back a Goblin every turn. Card advantage in aggressive red-black.',
+  'Lys Alana Huntmaster':'Makes an Elf every time you cast an Elf. Spirals out of control fast.',
+  default:'Check legality and synergies for your build — this one rewards digging into the rules.'
 };
 const USES={
   'Diffusion Sliver':['Tribal Protection','Blue Staple','Commander Piece'],
-  'Venom Sliver':['Deathtouch Package','Tribal Synergy','Combat Control'],
-  'Fury Sliver':['Aggro Finisher','Double Strike','Tribal'],
-  'Doran, the Siege Tower':['Toughness Matters','Aggro Commander','Budget Bomb'],
-  default:['Synergy Piece','Value Card']
+  'Venom Sliver':['Deathtouch Package','Tribal','Combat Control'],
+  'Doran, the Siege Tower':['Toughness Matters','Aggro Commander','Budget Rare'],
+  default:['Synergy Piece','Value Pick']
 };
 function pitch(n){return PITCHES[n]||PITCHES.default}
-function uses(n){return USES[n]||USES.default}
+function useTags(n){return(USES[n]||USES.default).map(u=>`<span class="mutag">${u}</span>`).join('')}
 </script>
-<script id="DB_INJECT">const DB = [
+<script id="DBINJECT">const DB = [
 {set:'M15',num:'050',name:'Diffusion Sliver',rar:'uncommon',type:'Creature — Sliver',usd:4.23,fusd:5.38,qty:1,foil:false,cond:'LP',colors:["U"],leg:{commander:0,modern:0,legacy:0,standard:0,pioneer:0,vintage:0,pauper:0,historic:0},img:'https://cards.scryfall.io/normal/front/f/b/fb110a55-c8f9-4627-82c2-edb10db4f380.jpg?1562797421',added:'2026-03-21'},
 {set:'M15',num:'102',name:'Leeching Sliver',rar:'uncommon',type:'Creature — Sliver',usd:0.85,fusd:2.95,qty:1,foil:false,cond:'LP',colors:["B"],leg:{commander:0,modern:0,legacy:0,standard:0,pioneer:0,vintage:0,pauper:0,historic:0},img:'https://cards.scryfall.io/normal/front/8/8/888ca52b-1270-4587-804d-1d08b07d7c5d.jpg?1562790394',added:'2026-03-21'},
 {set:'M15',num:'129',name:'Belligerent Sliver',rar:'uncommon',type:'Creature — Sliver',usd:0.48,fusd:3.36,qty:1,foil:false,cond:'LP',colors:["R"],leg:{commander:0,modern:0,legacy:0,standard:0,pioneer:0,vintage:0,pauper:0,historic:0},img:'https://cards.scryfall.io/normal/front/b/7/b78b8268-b090-4012-a3ba-5daab491f78d.jpg?1562793149',added:'2026-03-21'},
@@ -1714,53 +1532,60 @@ function uses(n){return USES[n]||USES.default}
 {set:'ECL',num:'407',name:'Kinbinding',rar:'rare',type:'Enchantment',usd:0.0,fusd:0.3,qty:1,foil:false,cond:'LP',colors:["W"],leg:{commander:1,modern:1,legacy:1,standard:1,pioneer:1,vintage:1,pauper:0,historic:1},img:'https://cards.scryfall.io/normal/front/d/f/df94f428-f097-42cb-be03-3046e6867344.jpg?1767691537',added:'2026-03-21'},
 ];</script>
 <script>
+// ── PRICE ──
 function cad(c){return Math.max((c.foil?c.fusd:c.usd)*CAD*MK,MIN).toFixed(2)}
-function rarCls(r){return{common:'rc',uncommon:'ru',rare:'rr',mythic:'rm'}[r]||'rc'}
-function rarBadge(r){return{common:'rb-c',uncommon:'rb-u',rare:'rb-r',mythic:'rb-m'}[r]||'rb-c'}
-function fmtChips(c){
+function rarC(r){return{common:'rc',uncommon:'ru',rare:'rr',mythic:'rm'}[r]||'rc'}
+function rarB(r){return{common:'rbc',uncommon:'rbu',rare:'rbr',mythic:'rbm'}[r]||'rbc'}
+function fmts(c){
   const m={commander:'CMD',modern:'MOD',legacy:'LEG',standard:'STD',pioneer:'PIO',vintage:'VIN',pauper:'PAU'};
-  return Object.entries(c.leg).filter(([,v])=>v).map(([k])=>`<span class="fmt-chip">${m[k]||k}</span>`).slice(0,4).join('')
+  return Object.entries(c.leg).filter(([,v])=>v).map(([k])=>`<span class="fchip">${m[k]||k}</span>`).slice(0,4).join('')
 }
 
-/* ─── SET NAMES ─── */
-const SET_NAMES={M15:'Magic 2015',MH1:'Modern Horizons',MH2:'Modern Horizons 2',TSR:'Time Spiral Rem.',THB:'Theros Beyond Death',VOW:'Innistrad: Crimson Vow',WAR:'War of the Spark',LRW:'Lorwyn',ECL:'Lorwyn Eclipsed'};
-
-/* ─── PAGES ─── */
-function showPage(p){
-  ['store','contact'].forEach(x=>{
-    const el=document.getElementById('page-'+x);
-    if(el)el.style.display=x===p?'':'none';
-  });
-  window.scrollTo(0,0);
+// ── PAGES ──
+function showPg(p){
+  document.getElementById('page-store').style.display=p==='store'?'':'none';
+  document.getElementById('page-contact').style.display=p==='contact'?'':'none';
   if(p==='store')run();
+  window.scrollTo(0,0);
 }
-function navOn(el){document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('on'));el.classList.add('on')}
+function goStore(){showPg('store')}
+function navOn(el){document.querySelectorAll('.bn').forEach(x=>x.classList.remove('on'));el.classList.add('on')}
 
-/* ─── DROPDOWNS ─── */
+// ── DROPDOWNS ──
 function toggleDD(id){
   const el=document.getElementById(id);
-  const isOpen=el.classList.contains('open');
-  document.querySelectorAll('.dd-menu').forEach(d=>d.classList.remove('open'));
-  if(!isOpen)el.classList.add('open');
+  const was=el.classList.contains('open');
+  document.querySelectorAll('.dd-m').forEach(d=>d.classList.remove('open'));
+  if(!was)el.classList.add('open');
 }
-function closeDD(){document.querySelectorAll('.dd-menu').forEach(d=>d.classList.remove('open'))}
-document.addEventListener('click',e=>{if(!e.target.closest('.dd-wrap'))closeDD()});
+function closeDD(){document.querySelectorAll('.dd-m').forEach(d=>d.classList.remove('open'))}
+document.addEventListener('click',e=>{if(!e.target.closest('.dd-w')&&!e.target.closest('.banner-links'))closeDD()});
 
-/* ─── BUILD SETS DROPDOWN + FILTER ─── */
-function buildSetUI(){
+// ── BUILD SET UI ──
+function buildSets(){
   const sets=[...new Set(DB.map(c=>c.set))].sort();
   // Dropdown
-  const dd=document.getElementById('ddSets');
-  dd.innerHTML=sets.map(s=>`<div class="dd-item" onclick="quickSet('${s}');closeDD()">${SET_NAMES[s]||s}</div>`).join('');
-  // Sidebar filter
-  document.getElementById('set-filter-list').innerHTML=sets.map(s=>
-    `<label class="sf-check"><input type="checkbox" data-g="set" data-v="${s}" onchange="run()"> ${SET_NAMES[s]||s}</label>`
+  document.getElementById('dds').innerHTML=sets.map(s=>`<div class="di" onclick="qSet('${s}');closeDD()">${SNAMES[s]||s}</div>`).join('');
+  // Advanced filter
+  document.getElementById('setFilters').innerHTML=sets.map(s=>
+    `<label class="afc"><input type="checkbox" data-g="set" data-v="${s}" onchange="run()"> ${SNAMES[s]||s}</label>`
   ).join('');
 }
 
-/* ─── SIDEBAR TOGGLES ─── */
-function sfToggle(h){h.classList.toggle('closed');h.nextElementSibling.classList.toggle('hidden')}
-function pipToggle(el){
+// ── ADV PANEL ──
+function toggleAdv(){
+  const p=document.getElementById('adv-panel');
+  const b=document.getElementById('advBtn');
+  const o=p.classList.toggle('open');
+  b.classList.toggle('on',o);
+}
+
+// ── SEARCH ──
+function onSrch(v){document.getElementById('sclear').classList.toggle('vis',v.length>0);run()}
+function clearSrch(){document.getElementById('srch').value='';document.getElementById('sclear').classList.remove('vis');run()}
+
+// ── COLOR PILLS ──
+function pipClick(el){
   el.classList.toggle('on');
   const c=el.dataset.c;
   const i=activeCols.indexOf(c);
@@ -1768,90 +1593,47 @@ function pipToggle(el){
   run();
 }
 
-/* ─── QUICK FILTERS ─── */
-function quickSet(s){
-  clearFilters(true);
-  const el=document.querySelector(`input[data-g="set"][data-v="${s}"]`);
-  if(el)el.checked=true;
-  showPage('store');run();
-}
-function quickFmt(f){
-  clearFilters(true);
-  const el=document.querySelector(`input[data-g="fmt"][data-v="${f}"]`);
-  if(el)el.checked=true;
-  showPage('store');run();
-}
-function quickRar(r){
-  clearFilters(true);
-  const el=document.querySelector(`input[data-g="rar"][data-v="${r}"]`);
-  if(el)el.checked=true;
-  showPage('store');run();
-}
-function quickFoil(){
-  clearFilters(true);
-  const el=document.querySelector('input[data-g="foil"][data-v="foil"]');
-  if(el)el.checked=true;
-  showPage('store');run();
-}
-function quickStock(v){
-  clearFilters(true);
-  document.getElementById('inStock').checked=v;
-  showPage('store');run();
-}
+// ── QUICK FILTERS ──
+function qSet(s){clearF(true);const el=document.querySelector(`input[data-g="set"][data-v="${s}"]`);if(el)el.checked=true;goStore();run()}
+function qFmt(f){clearF(true);const el=document.querySelector(`input[data-g="fmt"][data-v="${f}"]`);if(el)el.checked=true;goStore();run()}
+function qRar(r){clearF(true);const el=document.querySelector(`input[data-g="rar"][data-v="${r}"]`);if(el)el.checked=true;goStore();run()}
+function qFoil(){clearF(true);const el=document.querySelector('input[data-g="foil"][data-v="foil"]');if(el)el.checked=true;goStore();run()}
+function qStock(){clearF(true);document.getElementById('inStock').checked=true;goStore();run()}
 
-/* ─── SEARCH ─── */
-function onGlobalSearch(v){
-  document.getElementById('searchClear').classList.toggle('vis',v.length>0);
-  run();
-}
-function clearSearch(){
-  document.getElementById('globalSearch').value='';
-  document.getElementById('searchClear').classList.remove('vis');
-  run();
-}
-
-/* ─── FILTER ENGINE ─── */
-function getChecked(g){return[...document.querySelectorAll(`input[data-g="${g}"]:checked`)].map(x=>x.dataset.v)}
+// ── FILTER ──
+function getChk(g){return[...document.querySelectorAll(`input[data-g="${g}"]:checked`)].map(x=>x.dataset.v)}
 
 function run(){
-  const q=(document.getElementById('globalSearch').value||'').toLowerCase().trim();
+  const q=(document.getElementById('srch').value||'').toLowerCase().trim();
   const pMin=parseFloat(document.getElementById('pMin').value)||0;
   const pMax=parseFloat(document.getElementById('pMax').value)||Infinity;
   const inStk=document.getElementById('inStock').checked;
   const srt=document.getElementById('sortSel').value;
-  const fmts=getChecked('fmt'),sets=getChecked('set'),rars=getChecked('rar'),
-        types=getChecked('type'),tribes=getChecked('tribe'),
-        conds=getChecked('cond'),foils=getChecked('foil');
+  const fmtF=getChk('fmt'),setF=getChk('set'),rarF=getChk('rar'),
+        typeF=getChk('type'),tribeF=getChk('tribe'),
+        condF=getChk('cond'),foilF=getChk('foil');
 
   let res=DB.filter(c=>{
-    // Search — name, type, set name
     if(q){
-      const sName=(SET_NAMES[c.set]||c.set).toLowerCase();
-      if(!c.name.toLowerCase().includes(q)&&
-         !(c.type||'').toLowerCase().includes(q)&&
-         !c.set.toLowerCase().includes(q)&&
-         !sName.includes(q)&&
-         !(c.kw||[]).some(k=>k.toLowerCase().includes(q)))return false;
+      const sn=(SNAMES[c.set]||c.set).toLowerCase();
+      const kw=(c.kw||[]).join(' ').toLowerCase();
+      if(!c.name.toLowerCase().includes(q)&&!(c.type||'').toLowerCase().includes(q)&&!c.set.toLowerCase().includes(q)&&!sn.includes(q)&&!kw.includes(q))return false;
     }
-    if(fmts.length&&!fmts.every(f=>c.leg[f]))return false;
-    if(sets.length&&!sets.includes(c.set))return false;
-    if(rars.length&&!rars.includes(c.rar))return false;
+    if(fmtF.length&&!fmtF.every(f=>c.leg[f]))return false;
+    if(setF.length&&!setF.includes(c.set))return false;
+    if(rarF.length&&!rarF.includes(c.rar))return false;
     if(activeCols.length&&!activeCols.some(col=>c.colors.includes(col)))return false;
-    if(types.length&&!types.some(t=>(c.type||'').includes(t)))return false;
-    if(tribes.length&&!tribes.some(t=>(c.type||'').includes(t)))return false;
-    if(conds.length&&c.cond&&!conds.includes(c.cond))return false;
-    if(foils.includes('foil')&&!c.foil)return false;
-    if(foils.includes('nonfoil')&&c.foil)return false;
+    if(typeF.length&&!typeF.some(t=>(c.type||'').includes(t)))return false;
+    if(tribeF.length&&!tribeF.some(t=>(c.type||'').includes(t)))return false;
+    if(condF.length&&c.cond&&!condF.includes(c.cond))return false;
+    if(foilF.includes('foil')&&!c.foil)return false;
+    if(foilF.includes('nonfoil')&&c.foil)return false;
     const p=parseFloat(cad(c));
     if(p<pMin||p>pMax)return false;
-    if(inStk){
-      const inCart=cart.find(x=>x.set===c.set&&x.num===c.num&&x.foil===c.foil)?.qty||0;
-      if(c.qty-inCart<=0)return false;
-    }
+    if(inStk){const ic=cart.find(x=>x.set===c.set&&x.num===c.num&&x.foil===c.foil)?.qty||0;if(c.qty-ic<=0)return false}
     return true;
   });
 
-  // Sort
   res.sort((a,b)=>{
     if(srt==='name')return a.name.localeCompare(b.name);
     if(srt==='name_z')return b.name.localeCompare(a.name);
@@ -1864,187 +1646,164 @@ function run(){
   });
 
   renderGrid(res);
-  document.getElementById('resCt').textContent=res.length.toLocaleString()+' cards';
-  buildActiveTags();
+  document.getElementById('resN').textContent=res.length.toLocaleString()+' cards';
+  buildTags();
 }
 
-/* ─── GRID RENDER ─── */
+// ── GRID ──
 function renderGrid(cards){
   const g=document.getElementById('grid');
-  const isList=g.classList.contains('list');
-  if(!cards.length){
-    g.innerHTML='<div class="no-results"><p>NO CARDS MATCH — ADJUST YOUR FILTERS</p></div>';return;
-  }
-  g.innerHTML=cards.map((c,i)=>tilHTML(c,i)).join('');
+  if(!cards.length){g.innerHTML='<div class="no-r"><p>NO CARDS MATCH — TRY DIFFERENT FILTERS</p></div>';return}
+  g.innerHTML=cards.map((c,i)=>tileHTML(c,i)).join('');
 }
-
-function tilHTML(c,i){
+function tileHTML(c,i){
   const p=cad(c);
-  const inC=cart.find(x=>x.set===c.set&&x.num===c.num&&x.foil===c.foil);
-  const av=c.qty-(inC?.qty||0);
-  const isOut=av<=0&&c.qty>0;
-  const isOOS=c.qty===0;
-  const stockTxt=isOOS?'Out of Stock':isOut?'In Cart':av===1?'1 left':av>0?av+' avail':'';
-  return `<div class="tile" style="animation:fu .2s ease ${Math.min(i,.3)*.04}s both" onclick="openMod('${c.set}','${c.num}',${c.foil})">
-  <div class="tile-img">
-    <img src="${c.img}" alt="${c.name}" loading="lazy" onerror="this.closest('.tile-img').innerHTML='<div class=no-img>🃏</div>'">
-    <div class="badge-rar ${rarCls(c.rar)}"></div>
-    ${c.foil?'<div class="badge-foil">FOIL</div>':''}
-    ${(isOOS||isOut)?`<div class="sold-overlay">${isOOS?'OUT OF STOCK':'SOLD OUT'}</div>`:''}
+  const ic=cart.find(x=>x.set===c.set&&x.num===c.num&&x.foil===c.foil);
+  const av=c.qty-(ic?.qty||0);
+  const oos=c.qty===0;
+  const stk=oos?'Out of Stock':av<=0?'In Cart':av<=2?av+' left':av+' in stock';
+  const fk=String(c.foil);
+  return`<div class="tile" style="animation:fu .2s ease ${Math.min(i,.4)*.04}s both" onclick="openMod('${c.set}','${c.num}',${c.foil})">
+  <div class="tile-fig">
+    <img src="${c.img}" alt="${c.name}" loading="lazy" onerror="this.closest('.tile-fig').innerHTML='<div class=no-img>🃏</div>'">
+    <div class="b-rar ${rarC(c.rar)}"></div>
+    ${c.foil?'<div class="b-foil">FOIL</div>':''}
+    ${oos?'<div class="b-oos">OUT OF STOCK</div>':''}
   </div>
   <div class="tile-body">
     <div class="tile-name">${c.name}</div>
-    <div class="tile-sub">${c.set} · #${c.num} · ${c.rar.toUpperCase()}</div>
-    <div class="tile-fmts">${fmtChips(c)}</div>
+    <div class="tile-meta">${c.set} · #${c.num} · ${c.rar.toUpperCase()}</div>
+    <div class="tile-fmts">${fmts(c)}</div>
     <div class="tile-foot">
       <div>
-        <div class="tile-price">$${p}<span class="cad-tag">CAD</span></div>
-        <div class="tile-stock">${stockTxt}</div>
+        <div class="tile-p">$${p}<span class="cur">CAD</span></div>
+        <div class="tile-stk">${stk}</div>
       </div>
-      <div class="tile-actions" onclick="event.stopPropagation()">
+      <div class="t-acts" onclick="event.stopPropagation()">
         <button class="qb" onclick="tq('${c.set}','${c.num}',${c.foil},-1)">−</button>
-        <span class="q-n" id="qn-${c.set}-${c.num}-${c.foil}">${inC?.qty||0}</span>
-        <button class="qb" ${isOOS||isOut?'disabled':''} onclick="tq('${c.set}','${c.num}',${c.foil},1)">+</button>
-        <button class="btn-add" ${isOOS?'disabled':''} onclick="addC('${c.set}','${c.num}',${c.foil})">${isOOS?'OOS':'ADD'}</button>
+        <span class="qn" id="qn-${c.set}-${c.num}-${fk}">${ic?.qty||0}</span>
+        <button class="qb" ${oos||av<=0?'disabled':''} onclick="tq('${c.set}','${c.num}',${c.foil},1)">+</button>
+        <button class="badd" ${oos?'disabled':''} onclick="addC('${c.set}','${c.num}',${c.foil})">${oos?'OOS':'ADD'}</button>
       </div>
     </div>
   </div>
 </div>`;
 }
 
-/* ─── ACTIVE TAGS ─── */
-function buildActiveTags(){
+// ── ACTIVE TAGS ──
+function buildTags(){
   const tags=[];
-  getChecked('fmt').forEach(v=>tags.push({l:'Format:'+v,rm:()=>{unchk('fmt',v);run()}}));
-  getChecked('set').forEach(v=>tags.push({l:SET_NAMES[v]||v,rm:()=>{unchk('set',v);run()}}));
-  getChecked('rar').forEach(v=>tags.push({l:v,rm:()=>{unchk('rar',v);run()}}));
-  getChecked('type').forEach(v=>tags.push({l:v,rm:()=>{unchk('type',v);run()}}));
-  getChecked('tribe').forEach(v=>tags.push({l:v,rm:()=>{unchk('tribe',v);run()}}));
-  activeCols.forEach(v=>tags.push({l:'Color:'+v,rm:()=>{
+  getChk('fmt').forEach(v=>tags.push({l:'Format: '+v,rm:()=>{unchk('fmt',v);run()}}));
+  getChk('set').forEach(v=>tags.push({l:SNAMES[v]||v,rm:()=>{unchk('set',v);run()}}));
+  getChk('rar').forEach(v=>tags.push({l:v,rm:()=>{unchk('rar',v);run()}}));
+  getChk('type').forEach(v=>tags.push({l:v,rm:()=>{unchk('type',v);run()}}));
+  getChk('tribe').forEach(v=>tags.push({l:v,rm:()=>{unchk('tribe',v);run()}}));
+  activeCols.forEach(v=>tags.push({l:'Color: '+v,rm:()=>{
     activeCols=activeCols.filter(x=>x!==v);
-    document.querySelector(`.pip[data-c="${v}"]`)?.classList.remove('on');
-    run();
+    document.querySelector(`.qp[data-c="${v}"]`)?.classList.remove('on');run();
   }}));
-  const q=document.getElementById('globalSearch').value;
-  if(q)tags.push({l:'Search:'+q,rm:clearSearch});
+  const q=document.getElementById('srch').value;
+  if(q)tags.push({l:'Search: '+q,rm:clearSrch});
   if(document.getElementById('inStock').checked)tags.push({l:'In Stock',rm:()=>{document.getElementById('inStock').checked=false;run()}});
-
-  const at=document.getElementById('activeTags');
-  at.innerHTML=tags.map((_,i)=>`<span class="af-tag" data-i="${i}">${tags[i].l} <span class="af-x">✕</span></span>`).join('');
-  at._tags=tags;
-  at.querySelectorAll('.af-tag').forEach(el=>{
-    el.onclick=()=>{const i=+el.dataset.i;at._tags[i]?.rm()};
-  });
+  const tr=document.getElementById('tagRow');
+  if(!tags.length){tr.classList.remove('vis');return}
+  tr.classList.add('vis');
+  tr.innerHTML=tags.map((t,i)=>`<span class="ftag" data-i="${i}">${t.l} <span class="ftag-x">✕</span></span>`).join('')+
+    `<button class="tag-clear" onclick="clearF()">Clear All</button>`;
+  tr._tags=tags;
+  tr.querySelectorAll('.ftag').forEach(el=>{el.onclick=()=>{const t=tr._tags[+el.dataset.i];t?.rm();}});
 }
 function unchk(g,v){const el=document.querySelector(`input[data-g="${g}"][data-v="${v}"]`);if(el)el.checked=false}
 
-function clearFilters(soft=false){
-  document.querySelectorAll('#sidebar input[type=checkbox]').forEach(x=>x.checked=false);
-  document.querySelectorAll('.pip').forEach(x=>x.classList.remove('on'));
+function clearF(soft=false){
+  document.querySelectorAll('#adv-panel input[type=checkbox]').forEach(x=>x.checked=false);
+  document.querySelectorAll('.qp').forEach(x=>x.classList.remove('on'));
   activeCols=[];
   document.getElementById('pMin').value='';
   document.getElementById('pMax').value='';
-  if(!soft){
-    document.getElementById('globalSearch').value='';
-    document.getElementById('searchClear').classList.remove('vis');
-  }
+  if(!soft){document.getElementById('srch').value='';document.getElementById('sclear').classList.remove('vis')}
   run();
 }
 
-/* ─── VIEW ─── */
+// ── VIEW ──
 function setView(v){
-  const g=document.getElementById('grid');
-  g.classList.toggle('list',v==='list');
-  document.getElementById('vtG').classList.toggle('on',v==='grid');
-  document.getElementById('vtL').classList.toggle('on',v==='list');
+  document.getElementById('grid').classList.toggle('list',v==='list');
+  document.getElementById('vtg').classList.toggle('on',v==='grid');
+  document.getElementById('vtl').classList.toggle('on',v==='list');
   run();
 }
 
-/* ─── MODAL ─── */
+// ── MODAL ──
 function openMod(set,num,foil){
+  foil=foil===true||foil==='true';
   const c=DB.find(x=>x.set===set&&x.num===num&&x.foil===foil);if(!c)return;
   mQty=1;
   const p=cad(c);
-  const inC=cart.find(x=>x.set===set&&x.num===num&&x.foil===foil);
-  const av=c.qty-(inC?.qty||0);
-  const sCls=c.qty===0?'out':av<=2?'low':'ok';
-  const sTxt=c.qty===0?'OUT OF STOCK':av<=2?`ONLY ${av} LEFT`:`${av} IN STOCK`;
+  const ic=cart.find(x=>x.set===set&&x.num===num&&x.foil===foil);
+  const av=c.qty-(ic?.qty||0);
+  const sc=c.qty===0?'out':av<=2?'low':'ok';
+  const st=c.qty===0?'OUT OF STOCK':av<=2?`ONLY ${av} LEFT`:`${av} IN STOCK`;
   const fmtTags=Object.entries(c.leg).filter(([,v])=>v).map(([k])=>{
     const n={commander:'Commander',modern:'Modern',legacy:'Legacy',standard:'Standard',pioneer:'Pioneer',vintage:'Vintage',pauper:'Pauper',historic:'Historic'};
-    return `<span class="m-fmt">${n[k]||k}</span>`;
+    return`<span class="mfmt">${n[k]||k}</span>`;
   }).join('');
-  const useTags=uses(c.name).map(u=>`<span class="use-tag">${u}</span>`).join('');
-  // more from same set
-  const more=DB.filter(x=>x.set===set&&!(x.num===num&&x.foil===foil)).slice(0,6);
-  const moreHTML=more.length?`
-    <div class="m-sec">More from ${SET_NAMES[set]||set}</div>
-    <div class="m-more">${more.map(s=>`<div class="m-more-card" onclick="openMod('${s.set}','${s.num}',${s.foil})">
-      <img src="${s.img}" alt="${s.name}" loading="lazy">
-      <div class="m-more-name">${s.name}</div>
-      <div class="m-more-price">$${cad(s)}</div>
+  const more=DB.filter(x=>x.set===set&&!(x.num===num&&x.foil===foil)).slice(0,5);
+  const moreH=more.length?`<div class="msec">More from ${SNAMES[set]||set}</div>
+    <div class="mmore">${more.map(s=>`<div class="mmcard" onclick="openMod('${s.set}','${s.num}',${s.foil})">
+      <img src="${s.img}" alt="${s.name}" loading="lazy"><div class="mmcard-n">${s.name}</div><div class="mmcard-p">$${cad(s)}</div>
     </div>`).join('')}</div>`:'';
-
-  document.getElementById('modal-content').innerHTML=`
-    <div class="m-layout">
-      <div class="m-left">
+  document.getElementById('mcontent').innerHTML=`
+    <div class="mgrid">
+      <div class="mleft">
         <img src="${c.img}" alt="${c.name}">
-        <div class="m-left-meta">
-          <div><span class="m-rar-badge ${rarBadge(c.rar)}">${c.rar.toUpperCase()}</span></div>
-          <div class="m-set-num">${c.set} · #${c.num}${c.foil?' · FOIL':''} · ${c.cond||'LP'}</div>
+        <div class="ml-meta">
+          <div><span class="rbadge ${rarB(c.rar)}">${c.rar.toUpperCase()}</span></div>
+          <div class="ml-sn">${c.set} · #${c.num}${c.foil?' · FOIL':''}</div>
         </div>
       </div>
-      <div class="m-right">
-        <div><div class="m-name">${c.name}</div><div class="m-type">${c.type||''}</div></div>
-        <div class="m-stock ${sCls}">${sTxt}</div>
-        <div><div class="m-sec">Why You Want This</div><div class="m-pitch">${pitch(c.name)}</div></div>
-        <div class="m-uses">${useTags}</div>
-        <div><div class="m-sec">Format Legality</div><div class="m-fmts">${fmtTags}</div></div>
-        <div class="m-price">$${p}<span class="cad-tag"> CAD</span></div>
-        <div class="m-cart-row">
-          <div class="m-qty">
+      <div class="mright">
+        <div><div class="mname">${c.name}</div><div class="mtype">${c.type||''}</div></div>
+        <div class="mstock ${sc}">${st}</div>
+        <div><div class="msec">Why You Want This</div><div class="mpitch">${pitch(c.name)}</div></div>
+        <div class="muses">${useTags(c.name)}</div>
+        <div><div class="msec">Format Legality</div><div class="mfmts">${fmtTags}</div></div>
+        <div class="mprice">$${p}<span class="cur"> CAD</span></div>
+        <div class="mcart">
+          <div class="mqty">
             <button class="qb" onclick="mQty=Math.max(1,mQty-1);document.getElementById('mq').textContent=mQty">−</button>
-            <span class="m-qty-n" id="mq">${mQty}</span>
+            <span class="mqty-n" id="mq">${mQty}</span>
             <button class="qb" onclick="mQty++;document.getElementById('mq').textContent=mQty">+</button>
           </div>
-          <button class="m-add" ${c.qty===0?'disabled':''} onclick="mAddCart('${set}','${num}',${foil})">
-            ${c.qty===0?'Out of Stock':'Add to Cart'}
-          </button>
+          <button class="madd" ${c.qty===0?'disabled':''} onclick="mAdd('${set}','${num}',${foil})">${c.qty===0?'Out of Stock':'Add to Cart'}</button>
         </div>
-        ${moreHTML}
+        ${moreH}
       </div>
     </div>`;
-  document.getElementById('modal-bg').classList.add('on');
+  document.getElementById('mbg').classList.add('on');
   document.body.style.overflow='hidden';
 }
 function closeMod(e){
-  if(e&&e.target!==document.getElementById('modal-bg'))return;
-  document.getElementById('modal-bg').classList.remove('on');
+  if(e&&e.target!==document.getElementById('mbg'))return;
+  document.getElementById('mbg').classList.remove('on');
   document.body.style.overflow='';
 }
-function mAddCart(set,num,foil){
+function mAdd(set,num,foil){
+  foil=foil===true||foil==='true';
   const c=DB.find(x=>x.set===set&&x.num===num&&x.foil===foil);if(!c)return;
   const ex=cart.find(x=>x.set===set&&x.num===num&&x.foil===foil);
-  const inCart=ex?.qty||0;
-  const can=Math.min(mQty,c.qty-inCart);
+  const can=Math.min(mQty,c.qty-(ex?.qty||0));
   if(can<=0){toast('Max stock reached');return}
   if(ex)ex.qty+=can;else cart.push({...c,qty:can});
-  renderCart();run();
-  toast(`${c.name}${c.foil?' (Foil)':''} ×${can} added`);
+  renderCart();run();toast(`${c.name}${c.foil?' ✨':''} ×${can} added`);
 }
 
-/* ─── TILE QTY ─── */
+// ── TILE QTY ──
 function tq(set,num,foil,d){
   foil=foil===true||foil==='true';
   const c=DB.find(x=>x.set===set&&x.num===num&&x.foil===foil);if(!c)return;
   const ex=cart.find(x=>x.set===set&&x.num===num&&x.foil===foil);
-  if(d>0){
-    if(ex){if(ex.qty>=c.qty){toast('Max stock');return}ex.qty++}
-    else cart.push({...c,qty:1});
-  } else {
-    if(!ex||ex.qty<=0)return;
-    ex.qty--;
-    if(ex.qty===0)cart=cart.filter(x=>!(x.set===set&&x.num===num&&x.foil===foil));
-  }
+  if(d>0){if(ex){if(ex.qty>=c.qty){toast('Max stock');return}ex.qty++}else cart.push({...c,qty:1})}
+  else{if(!ex||ex.qty<=0)return;ex.qty--;if(ex.qty===0)cart=cart.filter(x=>!(x.set===set&&x.num===num&&x.foil===foil))}
   const el=document.getElementById(`qn-${set}-${num}-${foil}`);
   if(el)el.textContent=cart.find(x=>x.set===set&&x.num===num&&x.foil===foil)?.qty||0;
   renderCart();
@@ -2053,98 +1812,82 @@ function addC(set,num,foil){
   foil=foil===true||foil==='true';
   const c=DB.find(x=>x.set===set&&x.num===num&&x.foil===foil);if(!c)return;
   const ex=cart.find(x=>x.set===set&&x.num===num&&x.foil===foil);
-  if(ex){if(ex.qty>=c.qty){toast('Max stock');return}ex.qty++}
-  else cart.push({...c,qty:1});
-  renderCart();run();toast(`${c.name} added`);
+  if(ex){if(ex.qty>=c.qty){toast('Max stock');return}ex.qty++}else cart.push({...c,qty:1});
+  renderCart();run();toast(c.name+' added');
 }
 
-/* ─── CART ─── */
+// ── CART ──
 function renderCart(){
   const tot=cart.reduce((a,b)=>a+b.qty,0);
-  document.getElementById('cartCt').textContent=tot;
-  const body=document.getElementById('cd-body');
+  document.getElementById('cartN').textContent=tot;
+  const body=document.getElementById('cdbody');
   if(!cart.length){
-    body.innerHTML='<div class="cd-empty"><div class="ico">🛒</div><p>Your cart is empty</p></div>';
-    document.getElementById('totals-block').innerHTML='';
-    document.getElementById('checkoutBtn').disabled=true;return;
+    body.innerHTML='<div class="cempty"><div class="ei">🛒</div><p>YOUR CART IS EMPTY</p></div>';
+    document.getElementById('tots').innerHTML='';
+    document.getElementById('cobtn').disabled=true;return;
   }
   body.innerHTML=cart.map(it=>`<div class="ci">
     <img class="ci-img" src="${it.img}" alt="${it.name}" loading="lazy" onerror="this.src=''">
     <div class="ci-info">
-      <div class="ci-name">${it.name}${it.foil?' ✨':''}</div>
-      <div class="ci-meta">${it.set} #${it.num} · ${it.cond||'LP'}</div>
-      <div class="ci-price">$${(parseFloat(cad(it))*it.qty).toFixed(2)} CAD</div>
-      <div class="ci-qty">
+      <div class="ci-n">${it.name}${it.foil?' ✨':''}</div>
+      <div class="ci-m">${it.set} #${it.num} · ${it.cond||'LP'}</div>
+      <div class="ci-p">$${(parseFloat(cad(it))*it.qty).toFixed(2)} CAD</div>
+      <div class="ci-q">
         <button class="qb" onclick="cqty('${it.set}','${it.num}',${it.foil},-1)">−</button>
-        <span class="q-n">${it.qty}</span>
+        <span class="qn">${it.qty}</span>
         <button class="qb" onclick="cqty('${it.set}','${it.num}',${it.foil},1)">+</button>
       </div>
     </div>
-    <button class="rm-btn" onclick="rmC('${it.set}','${it.num}',${it.foil})">🗑</button>
+    <button class="rmb" onclick="rmC('${it.set}','${it.num}',${it.foil})">🗑</button>
   </div>`).join('');
-
   const sub=cart.reduce((a,b)=>a+parseFloat(cad(b))*b.qty,0);
-  let disc=0,shipCost=SHIPS[shipIdx];
-  if(activeCpn){if(activeCpn.t==='pct')disc=sub*(activeCpn.v/100);else if(activeCpn.t==='flat')disc=Math.min(activeCpn.v,sub);else if(activeCpn.t==='ship')shipCost=0}
-  const discSub=sub-disc,tax=discSub*HST,total=discSub+shipCost+tax;
-  const discRow=disc>0?`<div class="t-row"><span>Discount (${activeCpn.code})</span><span class="v" style="color:var(--teal)">-$${disc.toFixed(2)}</span></div>`:'';
-  const shipRow=activeCpn?.t==='ship'?`<div class="t-row"><span>Shipping</span><span class="v" style="color:var(--teal)">FREE</span></div>`:`<div class="t-row"><span>Shipping (est.)</span><span class="v">$${shipCost.toFixed(2)}</span></div>`;
-  document.getElementById('totals-block').innerHTML=`
-    <div class="t-row"><span>Subtotal</span><span class="v">$${sub.toFixed(2)}</span></div>
-    ${discRow}${shipRow}
-    <div class="t-row"><span>HST (13%)</span><span class="v">$${tax.toFixed(2)}</span></div>
-    <div class="t-row t-grand"><span>Total</span><span class="v">$${total.toFixed(2)} CAD</span></div>`;
-  document.getElementById('checkoutBtn').disabled=false;
+  let disc=0,sc=SHIPS[shipIdx];
+  if(activeCpn){if(activeCpn.t==='pct')disc=sub*(activeCpn.v/100);else if(activeCpn.t==='flat')disc=Math.min(activeCpn.v,sub);else if(activeCpn.t==='ship')sc=0}
+  const ds=sub-disc,tax=ds*HST,total=ds+sc+tax;
+  const dr=disc>0?`<div class="tr"><span>Discount (${activeCpn.code})</span><span class="v" style="color:var(--teal)">-$${disc.toFixed(2)}</span></div>`:'';
+  const sr=activeCpn?.t==='ship'?`<div class="tr"><span>Shipping</span><span class="v" style="color:var(--teal)">FREE</span></div>`:`<div class="tr"><span>Shipping (est.)</span><span class="v">$${sc.toFixed(2)}</span></div>`;
+  document.getElementById('tots').innerHTML=`
+    <div class="tr"><span>Subtotal</span><span class="v">$${sub.toFixed(2)}</span></div>
+    ${dr}${sr}
+    <div class="tr"><span>HST (13%)</span><span class="v">$${tax.toFixed(2)}</span></div>
+    <div class="tr tgrand"><span>Total</span><span class="v">$${total.toFixed(2)} CAD</span></div>`;
+  document.getElementById('cobtn').disabled=false;
 }
-function cqty(set,num,foil,d){
-  foil=foil===true||foil==='true';
-  const it=cart.find(x=>x.set===set&&x.num===num&&x.foil===foil);if(!it)return;
-  const c=DB.find(x=>x.set===set&&x.num===num&&x.foil===foil);
-  it.qty+=d;
-  if(it.qty<=0)rmC(set,num,foil);
-  else if(c&&it.qty>c.qty){it.qty=c.qty;toast('Max stock')}
-  else{renderCart();run()}
-}
-function rmC(set,num,foil){
-  foil=foil===true||foil==='true';
-  cart=cart.filter(x=>!(x.set===set&&x.num===num&&x.foil===foil));
-  renderCart();run();
-}
-function setShip(i){shipIdx=i;[0,1,2].forEach(j=>document.getElementById('sh'+j).classList.toggle('sel',j===i));renderCart()}
-function openCart(){document.getElementById('cart-overlay').classList.add('on');document.getElementById('cart-drawer').classList.add('on')}
-function closeCart(){document.getElementById('cart-overlay').classList.remove('on');document.getElementById('cart-drawer').classList.remove('on')}
+function cqty(set,num,foil,d){foil=foil===true||foil==='true';const it=cart.find(x=>x.set===set&&x.num===num&&x.foil===foil);if(!it)return;const c=DB.find(x=>x.set===set&&x.num===num&&x.foil===foil);it.qty+=d;if(it.qty<=0)rmC(set,num,foil);else if(c&&it.qty>c.qty){it.qty=c.qty;toast('Max stock')}else{renderCart();run()}}
+function rmC(set,num,foil){foil=foil===true||foil==='true';cart=cart.filter(x=>!(x.set===set&&x.num===num&&x.foil===foil));renderCart();run()}
+function setSh(i){shipIdx=i;[0,1,2].forEach(j=>document.getElementById('sh'+j).classList.toggle('sel',j===i));renderCart()}
+function openCart(){document.getElementById('cov').classList.add('on');document.getElementById('cd').classList.add('on')}
+function closeCart(){document.getElementById('cov').classList.remove('on');document.getElementById('cd').classList.remove('on')}
 
-/* ─── COUPON ─── */
+// ── COUPON ──
 function applyCpn(){
-  const code=document.getElementById('cpnInp').value.trim().toUpperCase();
-  const msg=document.getElementById('cpnMsg');
+  const code=document.getElementById('cpni').value.trim().toUpperCase();
+  const msg=document.getElementById('cpnm');
   if(!code){msg.style.color='var(--red)';msg.textContent='Enter a code.';return}
-  if(COUPONS[code]){activeCpn={code,...COUPONS[code]};msg.style.color='var(--teal)';msg.textContent='✓ '+activeCpn.l}
+  if(CPNS[code]){activeCpn={code,...CPNS[code]};msg.style.color='var(--teal)';msg.textContent='✓ '+activeCpn.l}
   else{activeCpn=null;msg.style.color='var(--red)';msg.textContent='✕ Invalid code.'}
   renderCart();
 }
 
-/* ─── WAITLIST ─── */
-function openWL(){document.getElementById('wl-modal').classList.add('on')}
-function closeWL(){document.getElementById('wl-modal').classList.remove('on')}
-function joinWL(){const e=document.getElementById('wlEmail').value.trim();if(!e||!e.includes('@')){toast('Enter a valid email');return}closeWL();toast("You're on the list!")}
+// ── WAITLIST ──
+function openWL(){document.getElementById('wlm').classList.add('on')}
+function closeWL(){document.getElementById('wlm').classList.remove('on')}
+function joinWL(){const e=document.getElementById('wle').value.trim();if(!e||!e.includes('@')){toast('Enter a valid email');return}closeWL();toast("You're on the list!")}
 
-/* ─── CONTACT ─── */
-function submitCF(e){e.preventDefault();if(document.getElementById('cf-hp').value)return;const n=document.getElementById('cf-name').value.trim(),em=document.getElementById('cf-email').value.trim(),m=document.getElementById('cf-msg').value.trim();if(!n||!em||!m){toast('Fill in all fields');return}e.target.reset();toast('Message sent!')}
+// ── CONTACT ──
+function submitCF(e){e.preventDefault();if(document.getElementById('cf-hp').value)return;const n=document.getElementById('cf-n').value.trim(),em=document.getElementById('cf-e').value.trim(),m=document.getElementById('cf-m').value.trim();if(!n||!em||!m){toast('Fill in all fields');return}e.target.reset();toast('Message sent!')}
 
-/* ─── TOAST ─── */
+// ── TOAST ──
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2300)}
 
-/* ─── KEYBOARD ─── */
+// ── KEYBOARD ──
 document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){closeCart();closeWL();closeMod();document.body.style.overflow=''}
-  if(e.key==='/'&&document.activeElement.tagName!=='INPUT'&&document.activeElement.tagName!=='TEXTAREA'){
-    e.preventDefault();document.getElementById('globalSearch').focus();
-  }
+  if(e.key==='Escape'){closeCart();closeWL();document.getElementById('mbg').classList.remove('on');document.body.style.overflow=''}
+  if(e.key==='/'&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)){e.preventDefault();document.getElementById('srch').focus()}
 });
 
-/* ─── INIT ─── */
-buildSetUI();
+// ── INIT ──
+buildSets();
 run();
 renderCart();
 </script>
