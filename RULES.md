@@ -201,3 +201,15 @@ TLA = Avatar: The Last Airbender
 - SVG blob style = rejected permanently
 - Fantasy/scripture fonts = rejected
 - Goose vibe = aggressive, Canadian, direct
+
+## APPROVED COLOR PALETTE — ASIMOV
+Confirmed by Brent 2026-03-21
+
+--white:    #F2F2F2
+--lgrey:    #E8E8E8  
+--orange:   #F26419  (primary accent)
+--dgrey:    #454545
+--black:    #111111  (background)
+
+Use: black bg, dark grey panels, orange accents/CTAs, light grey text, white for headings
+NO teal. NO brown. NO dark red. This palette only.
