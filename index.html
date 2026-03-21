@@ -3,341 +3,190 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Goaded Goose — MTG Singles Canada</title>
+<title>The Goaded Goose — MTG Singles</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;900&family=Barlow:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mana-font@latest/css/mana.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0a0c0f;
-  --bg2:#111418;
-  --bg3:#181c22;
-  --bg4:#1f242d;
-  --line:#1e242e;
-  --line2:#272f3d;
-  --txt:#dde2ea;
-  --txt2:#7a869a;
-  --txt3:#3d4758;
-  --gold:#c8a040;
-  --gold2:#e8bc5a;
-  --glow:rgba(200,160,64,0.12);
-  --red:#c85050;
-  --green:#4ab870;
-  --blue:#4a80c8;
-  --mythic:#d4783a;
-  --rare:#5888d8;
-  --uncommon:#60b870;
-  --common:#707888;
+  --ink:#0d0f12;--ink2:#161a20;--ink3:#1e232c;--ink4:#252c38;
+  --wire:#242c38;--wire2:#2e3847;
+  --ash:#8492a6;--fog:#b8c4d4;--snow:#e8edf5;
+  --gold:#d4a843;--gold2:#f0c060;--glow:rgba(212,168,67,0.10);
+  --red:#c0404a;--green:#3fa86a;
+  --M:#d4783a;--R:#5888d8;--U:#60b870;--C:#707888;
+  --r:3px;
 }
 html{height:100%}
-body{background:var(--bg);color:var(--txt);font-family:'Barlow',sans-serif;font-size:14px;line-height:1.5;overflow-x:hidden}
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--line2);border-radius:2px}
-input,select,button{font-family:'Barlow',sans-serif}
-
-/* ── HEADER ── */
-.hdr{
-  position:sticky;top:0;z-index:100;
-  background:rgba(10,12,15,0.97);
-  border-bottom:1px solid var(--line);
-  backdrop-filter:blur(16px);
-}
-.hdr-inner{
-  max-width:1600px;margin:0 auto;
-  padding:0 18px;height:50px;
-  display:flex;align-items:center;gap:14px;
-}
-/* GOOSE LOGO — angry Canadian goose SVG */
-.logo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0}
-.logo-text{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:18px;font-weight:900;letter-spacing:2px;
-  text-transform:uppercase;color:var(--gold);white-space:nowrap;
-}
-.goose-svg{width:36px;height:36px;flex-shrink:0}
-.search-wrap{flex:1;max-width:560px;position:relative}
-.search-wrap input{
-  width:100%;background:var(--bg3);
-  border:1px solid var(--line2);border-radius:2px;
-  padding:7px 14px 7px 36px;color:var(--txt);font-size:13px;outline:none;
-  transition:border-color .15s;
-}
-.search-wrap input:focus{border-color:var(--gold)}
-.search-wrap input::placeholder{color:var(--txt3)}
-.s-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--txt3);font-size:15px;pointer-events:none}
+body{background:var(--ink);color:var(--snow);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.5;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--ink)}::-webkit-scrollbar-thumb{background:var(--wire2);border-radius:3px}
+a{color:inherit;text-decoration:none}
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:100;background:rgba(13,15,18,0.96);border-bottom:1px solid var(--wire);backdrop-filter:blur(20px)}
+.hdr-inner{max-width:1600px;margin:0 auto;padding:0 20px;height:54px;display:flex;align-items:center;gap:14px}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0;cursor:pointer}
+.logo-wm{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:var(--gold);line-height:1;white-space:nowrap}
+.logo-sub{font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--ash);display:block;margin-top:-1px}
+.logo-div{width:1px;height:28px;background:var(--wire2);flex-shrink:0}
+.srch-wrap{flex:1;max-width:580px;position:relative}
+.srch-wrap input{width:100%;background:var(--ink3);border:1px solid var(--wire);border-radius:var(--r);padding:9px 14px 9px 38px;color:var(--snow);font-size:13px;outline:none;font-family:'DM Sans',sans-serif;transition:border-color .15s,background .15s}
+.srch-wrap input:focus{border-color:var(--gold);background:var(--ink2)}
+.srch-wrap input::placeholder{color:var(--ash)}
+.s-ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--ash);pointer-events:none;font-size:16px}
 .hdr-right{margin-left:auto;display:flex;align-items:center;gap:8px}
-.cart-btn{
-  display:flex;align-items:center;gap:7px;
-  background:var(--gold);color:#080600;
-  border:none;border-radius:2px;padding:7px 14px;
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
-  cursor:pointer;transition:background .15s;
-}
+.stk-tog{display:flex;background:var(--ink3);border:1px solid var(--wire);border-radius:var(--r);overflow:hidden;flex-shrink:0}
+.stbtn{padding:7px 13px;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;border:none;background:none;cursor:pointer;color:var(--ash);font-family:'DM Sans',sans-serif;transition:all .15s;white-space:nowrap}
+.stbtn.on{background:var(--gold);color:#0a0800}
+.cart-btn{display:flex;align-items:center;gap:8px;background:var(--gold);color:#0a0800;border:none;border-radius:var(--r);padding:8px 16px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;transition:background .15s;flex-shrink:0}
 .cart-btn:hover{background:var(--gold2)}
-.cart-n{background:#080600;color:var(--gold);border-radius:1px;padding:0 5px;font-size:10px;font-weight:700;min-width:16px;text-align:center}
-
-/* ── LAYOUT ── */
+.cart-n{background:rgba(0,0,0,.2);border-radius:2px;padding:0 6px;font-size:10px;font-weight:700;min-width:18px;text-align:center}
+/* LAYOUT */
 .layout{display:flex;max-width:1600px;margin:0 auto}
-
-/* ── SIDEBAR ── */
-.sidebar{
-  width:200px;flex-shrink:0;
-  border-right:1px solid var(--line);
-  padding:16px 0;
-  position:sticky;top:50px;
-  height:calc(100vh - 50px);
-  overflow-y:auto;
-}
-.sb-sec{margin-bottom:20px}
-.sb-lbl{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:10px;font-weight:700;letter-spacing:2px;
-  text-transform:uppercase;color:var(--txt3);
-  padding:0 14px;margin-bottom:6px;display:block;
-}
-.sb-btn{
-  display:flex;align-items:center;gap:6px;
-  padding:5px 14px;font-size:12px;color:var(--txt2);
-  cursor:pointer;transition:all .1s;border:none;background:none;
-  width:100%;text-align:left;white-space:nowrap;
-}
-.sb-btn:hover{background:var(--bg3);color:var(--txt)}
-.sb-btn.on{background:var(--glow);color:var(--gold);border-right:2px solid var(--gold)}
-.sb-n{font-size:10px;color:var(--txt3);font-family:'JetBrains Mono',monospace;margin-left:auto}
-.sb-btn.on .sb-n{color:var(--gold);opacity:.6}
-/* mana symbols in sidebar */
-.ms{width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
-
-/* ── MAIN ── */
-.main{flex:1;min-width:0;padding:16px 18px}
-
-/* ── TOP BAR ── */
-.tbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
-.tbar-title{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:20px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
-}
-.tbar-n{font-size:12px;color:var(--txt3)}
-.tbar-right{margin-left:auto;display:flex;align-items:center;gap:8px}
-.rar-chips{display:flex;gap:4px}
-.rchip{
-  background:var(--bg3);border:1px solid var(--line2);
-  border-radius:2px;padding:3px 9px;
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
-  color:var(--txt3);cursor:pointer;transition:all .1s;
-}
+/* SIDEBAR */
+.sidebar{width:190px;flex-shrink:0;border-right:1px solid var(--wire);padding:18px 0;position:sticky;top:54px;height:calc(100vh - 54px);overflow-y:auto}
+.sb-sec{margin-bottom:22px}
+.sb-lbl{font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--ash);padding:0 16px;margin-bottom:4px;display:block}
+.sb-btn{display:flex;align-items:center;gap:8px;padding:6px 16px;font-size:12px;color:var(--ash);cursor:pointer;border:none;background:none;width:100%;text-align:left;transition:all .12s;white-space:nowrap;font-family:'DM Sans',sans-serif;position:relative}
+.sb-btn:hover{background:var(--ink3);color:var(--fog)}
+.sb-btn.on{background:var(--glow);color:var(--gold)}
+.sb-btn.on::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold)}
+.sb-n{font-size:9px;color:var(--ash);font-family:'DM Mono',monospace;margin-left:auto}
+/* MAIN */
+.main{flex:1;min-width:0;padding:18px 20px}
+.tbar{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.tbar-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-transform:uppercase}
+.tbar-count{font-family:'DM Mono',monospace;font-size:10px;color:var(--ash);background:var(--ink3);border:1px solid var(--wire);border-radius:2px;padding:2px 8px}
+.tbar-right{margin-left:auto;display:flex;align-items:center;gap:6px}
+.rchip{background:var(--ink3);border:1px solid var(--wire);border-radius:2px;padding:4px 10px;font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;color:var(--ash);cursor:pointer;transition:all .12s}
 .rchip:hover,.rchip.on{border-color:var(--gold);color:var(--gold);background:var(--glow)}
-.sort-sel{
-  background:var(--bg3);border:1px solid var(--line2);border-radius:2px;
-  padding:4px 8px;color:var(--txt2);font-size:11px;outline:none;cursor:pointer;
-  font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.5px;
-}
+.sort-sel{background:var(--ink3);border:1px solid var(--wire);border-radius:2px;padding:5px 9px;color:var(--ash);font-size:11px;outline:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500}
 .sort-sel:focus{border-color:var(--gold)}
-
-/* ── GRID ── */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(154px,1fr));
-  gap:7px;
-}
-
-/* ── CARD ── */
-.crd{
-  background:var(--bg2);border:1px solid var(--line);
-  border-radius:3px;overflow:hidden;cursor:pointer;
-  transition:border-color .15s,transform .1s;position:relative;
-}
-.crd:hover{border-color:var(--line2);transform:translateY(-2px)}
-.crd.owned:hover{border-color:var(--gold)}
-.crd-img{aspect-ratio:5/7;background:var(--bg3);position:relative;overflow:hidden}
+.sort-sel option{background:var(--ink2)}
+/* GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:8px}
+/* CARD */
+.crd{background:var(--ink2);border:1px solid var(--wire);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:border-color .15s,transform .12s,box-shadow .15s;position:relative}
+.crd:hover{border-color:var(--wire2);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.crd.owned:hover{border-color:var(--gold);box-shadow:0 8px 24px rgba(212,168,67,.12)}
+.crd.oos{opacity:.65}
+.crd.oos:hover{opacity:.85}
+.crd-img{aspect-ratio:5/7;background:var(--ink3);position:relative;overflow:hidden}
 .crd-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
-.crd:hover .crd-img img{transform:scale(1.04)}
-.crd-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--line2);font-size:28px}
-/* rarity pip bottom-left of image */
-.rpip{position:absolute;bottom:5px;left:5px;width:7px;height:7px;border-radius:50%}
-.rM{background:var(--mythic)}.rR{background:var(--rare)}.rU{background:var(--uncommon)}.rC{background:var(--common)}
-/* foil badge */
-.fbadge{
-  position:absolute;top:4px;left:4px;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  color:#080600;font-size:7px;font-weight:700;
-  padding:1px 4px;border-radius:1px;letter-spacing:.5px;
-  font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;
-}
-/* qty badge top-right */
-.qty-badge{
-  position:absolute;top:4px;right:4px;
-  background:rgba(10,12,15,.85);border:1px solid var(--line2);
-  color:var(--txt2);font-size:9px;font-weight:500;
-  padding:1px 5px;border-radius:1px;
-  font-family:'JetBrains Mono',monospace;
-}
-.qty-badge.many{border-color:var(--gold);color:var(--gold)}
-/* oos */
-.oos-ov{position:absolute;inset:0;background:rgba(10,12,15,.6)}
-.oos-lbl{
-  position:absolute;bottom:5px;left:0;right:0;text-align:center;
-  font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;
-  letter-spacing:1px;text-transform:uppercase;color:var(--txt3);
-}
-/* card body */
-.crd-body{padding:7px 9px 9px}
-.crd-meta{
-  font-family:'JetBrains Mono',monospace;
-  font-size:8px;color:var(--txt3);margin-bottom:2px;letter-spacing:.2px;
-}
-.crd-name{
-  font-size:12px;font-weight:500;color:var(--txt);
-  line-height:1.2;margin-bottom:3px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-}
-.crd.oos .crd-name{color:var(--txt3)}
-.crd-type{font-size:10px;color:var(--txt3);margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.crd-foot{display:flex;align-items:center;justify-content:space-between}
-.crd-price{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:17px;font-weight:700;color:var(--gold);line-height:1;
-}
-.crd-price.oos-p{font-size:11px;color:var(--txt3)}
-.crd-price sup{font-size:9px;color:var(--txt3);font-family:'Barlow',sans-serif;font-weight:400}
-.add-btn{
-  background:var(--bg4);border:1px solid var(--line2);border-radius:2px;
-  width:22px;height:22px;display:flex;align-items:center;justify-content:center;
-  cursor:pointer;color:var(--txt3);font-size:14px;transition:all .1s;flex-shrink:0;
-}
-.add-btn:hover{background:var(--gold);border-color:var(--gold);color:#080600}
-
-/* ── LOAD MORE ── */
-.lm-wrap{text-align:center;padding:20px 0}
-.lm-btn{
-  background:transparent;border:1px solid var(--line2);border-radius:2px;
-  padding:8px 28px;
-  font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;
-  letter-spacing:1.5px;text-transform:uppercase;color:var(--txt2);
-  cursor:pointer;transition:all .15s;
-}
+.crd:hover .crd-img img{transform:scale(1.05)}
+.crd-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--wire2);font-size:32px}
+.rpip{position:absolute;bottom:6px;left:6px;width:8px;height:8px;border-radius:50%;border:1px solid rgba(0,0,0,.4)}
+.rM{background:var(--M)}.rR{background:var(--R)}.rU{background:var(--U)}.rC{background:var(--C)}
+.fbadge{position:absolute;top:0;left:0;background:linear-gradient(135deg,#b8860b,#ffd700,#b8860b);color:#1a0a00;font-size:7px;font-weight:700;padding:3px 7px 3px 5px;letter-spacing:.8px;font-family:'DM Mono',monospace;text-transform:uppercase;clip-path:polygon(0 0,100% 0,85% 100%,0 100%)}
+.qty-b{position:absolute;top:5px;right:5px;background:rgba(10,12,15,.88);border:1px solid var(--wire2);color:var(--ash);font-size:9px;padding:1px 5px;border-radius:2px;font-family:'DM Mono',monospace}
+.qty-b.hi{border-color:var(--gold);color:var(--gold)}
+.oos-ov{position:absolute;inset:0;background:rgba(10,12,15,.55)}
+.oos-lbl{position:absolute;bottom:0;left:0;right:0;background:rgba(10,12,15,.8);font-family:'DM Mono',monospace;font-size:8px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--ash);text-align:center;padding:4px 0}
+.crd-body{padding:8px 10px 10px}
+.crd-meta{font-family:'DM Mono',monospace;font-size:8px;color:var(--ash);margin-bottom:3px;letter-spacing:.3px}
+.crd-name{font-size:12px;font-weight:600;color:var(--snow);line-height:1.25;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crd.oos .crd-name{color:var(--ash)}
+.crd-type{font-size:10px;color:var(--ash);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crd-foot{display:flex;align-items:center;justify-content:space-between;gap:4px}
+.crd-price{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:var(--gold);line-height:1}
+.crd-price.oos-p{font-size:10px;font-family:'DM Mono',monospace;color:var(--ash);font-weight:500;letter-spacing:.5px}
+.crd-price sup{font-size:9px;color:var(--ash);font-family:'DM Sans',sans-serif;font-weight:400}
+.add-btn{background:var(--ink4);border:1px solid var(--wire2);border-radius:2px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ash);font-size:15px;transition:all .12s;flex-shrink:0;line-height:1}
+.add-btn:hover{background:var(--gold);border-color:var(--gold);color:#0a0800}
+/* LOAD MORE */
+.lm-wrap{text-align:center;padding:28px 0}
+.lm-btn{background:transparent;border:1px solid var(--wire2);border-radius:var(--r);padding:10px 36px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--ash);cursor:pointer;transition:all .15s}
 .lm-btn:hover{border-color:var(--gold);color:var(--gold)}
-.no-res{text-align:center;padding:48px 20px}
-.no-res h3{
-  font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:700;
-  letter-spacing:1px;text-transform:uppercase;color:var(--line2);margin-bottom:6px;
-}
-.no-res p{font-size:12px;color:var(--txt3)}
-
-/* ── MODAL ── */
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:200;display:none;align-items:center;justify-content:center;padding:16px}
+.no-res{text-align:center;padding:64px 20px}
+.no-res h3{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;color:var(--wire2);margin-bottom:8px}
+.no-res p{font-size:12px;color:var(--ash)}
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
 .modal-bg.open{display:flex}
-.modal{background:var(--bg2);border:1px solid var(--line2);border-radius:3px;max-width:700px;width:100%;max-height:92vh;overflow-y:auto;position:relative}
-.mx{position:absolute;top:10px;right:10px;background:var(--bg3);border:1px solid var(--line);border-radius:2px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--txt2);font-size:13px;z-index:1}
-.mx:hover{color:var(--txt)}
-.m-grid{display:grid;grid-template-columns:190px 1fr}
-.m-left{background:var(--bg3);padding:14px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:12px}
+.modal{background:var(--ink2);border:1px solid var(--wire2);border-radius:var(--r);max-width:680px;width:100%;max-height:90vh;overflow-y:auto;position:relative}
+.mx{position:absolute;top:12px;right:12px;background:var(--ink3);border:1px solid var(--wire);border-radius:2px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ash);font-size:13px;z-index:1}
+.mx:hover{color:var(--snow);background:var(--ink4)}
+.m-grid{display:grid;grid-template-columns:185px 1fr}
+.m-left{background:var(--ink3);padding:16px;border-right:1px solid var(--wire);display:flex;flex-direction:column;gap:14px}
 .m-img img{width:100%;border-radius:3px;display:block}
-.leg-hdr{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--txt3);margin-bottom:5px}
-.leg-row{display:flex;align-items:center;justify-content:space-between;padding:2px 0;border-bottom:1px solid var(--line);font-size:10px}
+.leg-hdr{font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--ash);margin-bottom:6px}
+.leg-row{display:flex;align-items:center;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--wire);font-size:10px}
 .leg-row:last-child{border:none}
-.leg-fmt{color:var(--txt2)}
-.leg-tag{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.5px;padding:1px 5px;border-radius:1px;text-transform:uppercase}
-.lt-y{background:rgba(74,184,112,.15);color:var(--green)}
-.lt-n{background:rgba(61,71,88,.1);color:var(--txt3)}
-.lt-b{background:rgba(200,80,80,.15);color:var(--red)}
-.m-right{padding:18px 20px}
-.m-eye{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--txt3);margin-bottom:5px}
-.m-name{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;letter-spacing:1px;text-transform:uppercase;line-height:1;margin-bottom:3px}
-.m-type{font-size:12px;color:var(--txt2);margin-bottom:14px}
-.m-prices{display:flex;gap:18px;padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid var(--line)}
-.m-pb label{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--txt3);display:block;margin-bottom:2px}
-.m-num{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:700;color:var(--gold);line-height:1}
-.m-num.dim{color:var(--txt);font-size:20px}
-.m-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-.m-mi label{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--txt3);display:block;margin-bottom:2px}
-.m-mi span{font-size:12px;color:var(--txt)}
-.m-actions{display:flex;gap:7px}
-.qty-c{display:flex;align-items:center;border:1px solid var(--line2);border-radius:2px;overflow:hidden}
-.qty-c button{background:var(--bg3);border:none;color:var(--txt);width:28px;height:34px;cursor:pointer;font-size:14px;transition:background .1s}
-.qty-c button:hover{background:var(--bg4)}
-.qty-c span{padding:0 10px;font-size:12px;min-width:32px;text-align:center;display:flex;align-items:center;justify-content:center}
-.m-add{flex:1;background:var(--gold);color:#080600;border:none;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:background .15s}
+.leg-fmt{color:var(--fog)}
+.leg-tag{font-family:'DM Mono',monospace;font-size:8px;font-weight:500;letter-spacing:.5px;padding:1px 6px;border-radius:2px;text-transform:uppercase}
+.lt-y{background:rgba(63,168,106,.15);color:var(--green)}.lt-n{background:rgba(36,44,56,.5);color:var(--ash)}.lt-b{background:rgba(192,64,74,.15);color:var(--red)}
+.m-right{padding:20px 22px}
+.m-eye{font-family:'DM Mono',monospace;font-size:9px;color:var(--ash);margin-bottom:6px}
+.m-name{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1.5px;text-transform:uppercase;line-height:1;margin-bottom:4px}
+.m-type{font-size:12px;color:var(--ash);margin-bottom:16px}
+.m-prices{display:flex;gap:20px;padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid var(--wire)}
+.m-pb label{font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--ash);display:block;margin-bottom:3px}
+.m-num{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:1px;color:var(--gold);line-height:1}
+.m-num.dim{color:var(--fog);font-size:20px}
+.m-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.m-mi label{font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--ash);display:block;margin-bottom:2px}
+.m-mi span{font-size:12px;color:var(--snow)}
+.m-actions{display:flex;gap:8px}
+.qty-c{display:flex;align-items:center;border:1px solid var(--wire2);border-radius:var(--r);overflow:hidden}
+.qty-c button{background:var(--ink3);border:none;color:var(--fog);width:30px;height:36px;cursor:pointer;font-size:16px;transition:background .1s}
+.qty-c button:hover{background:var(--ink4)}
+.qty-c span{padding:0 12px;font-size:12px;min-width:36px;text-align:center;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace}
+.m-add{flex:1;background:var(--gold);color:#0a0800;border:none;border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;transition:background .15s}
 .m-add:hover{background:var(--gold2)}
-.m-add:disabled{background:var(--bg4);color:var(--txt3);cursor:not-allowed}
-
-/* ── CART ── */
-.c-ov{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:150;display:none}
+.m-add:disabled{background:var(--ink4);color:var(--ash);cursor:not-allowed}
+/* CART */
+.c-ov{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:150;display:none}
 .c-ov.open{display:block}
-.c-drw{position:fixed;right:0;top:0;bottom:0;width:320px;background:var(--bg2);border-left:1px solid var(--line);z-index:151;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .25s}
+.c-drw{position:fixed;right:0;top:0;bottom:0;width:320px;background:var(--ink2);border-left:1px solid var(--wire);z-index:151;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .22s}
 .c-drw.open{transform:translateX(0)}
-.c-hdr{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
-.c-hdr h2{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
-.c-x{background:none;border:none;color:var(--txt2);font-size:16px;cursor:pointer}
-.c-x:hover{color:var(--txt)}
-.c-body{flex:1;overflow-y:auto;padding:12px 14px}
-.c-empty{text-align:center;padding:32px 0;color:var(--txt3);font-size:12px}
-.ci{display:flex;gap:9px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.c-hdr{padding:16px 18px;border-bottom:1px solid var(--wire);display:flex;align-items:center;justify-content:space-between}
+.c-hdr h2{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2.5px;text-transform:uppercase}
+.c-x{background:none;border:none;color:var(--ash);font-size:16px;cursor:pointer}
+.c-x:hover{color:var(--snow)}
+.c-body{flex:1;overflow-y:auto;padding:14px 16px}
+.c-empty{text-align:center;padding:40px 0;color:var(--ash);font-size:12px}
+.ci{display:flex;gap:10px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--wire)}
 .ci:last-child{border:none}
-.ci-img{width:36px;height:50px;object-fit:cover;border-radius:2px;background:var(--bg3);flex-shrink:0}
+.ci-img{width:38px;height:52px;object-fit:cover;border-radius:2px;background:var(--ink3);flex-shrink:0}
 .ci-info{flex:1;min-width:0}
-.ci-name{font-size:11px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:1px}
-.ci-set{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--txt3);margin-bottom:4px}
+.ci-name{font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:1px}
+.ci-set{font-family:'DM Mono',monospace;font-size:8px;color:var(--ash);margin-bottom:5px}
 .ci-row{display:flex;align-items:center;justify-content:space-between}
-.ci-p{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;color:var(--gold)}
-.ci-rm{background:none;border:none;color:var(--txt3);cursor:pointer;font-size:11px}
+.ci-p{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.5px;color:var(--gold)}
+.ci-rm{background:none;border:none;color:var(--ash);cursor:pointer;font-size:11px}
 .ci-rm:hover{color:var(--red)}
-.c-foot{padding:12px 14px;border-top:1px solid var(--line)}
-.c-tot-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
-.c-tot-lbl{font-size:11px;color:var(--txt2)}
-.c-tot-n{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;color:var(--gold)}
-.chk-btn{width:100%;background:var(--gold);color:#080600;border:none;border-radius:2px;padding:11px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:background .15s}
+.c-foot{padding:14px 16px;border-top:1px solid var(--wire)}
+.c-tot-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.c-tot-lbl{font-size:11px;color:var(--ash)}
+.c-tot-n{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;color:var(--gold)}
+.chk-btn{width:100%;background:var(--gold);color:#0a0800;border:none;border-radius:var(--r);padding:12px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;transition:background .15s}
 .chk-btn:hover{background:var(--gold2)}
-
-/* ── TOAST ── */
-.toast{position:fixed;bottom:14px;right:14px;background:var(--bg4);border:1px solid var(--gold);border-left:2px solid var(--gold);border-radius:2px;padding:8px 14px;font-size:12px;color:var(--txt);z-index:300;transform:translateY(40px);opacity:0;transition:all .2s;pointer-events:none}
+/* TOAST */
+.toast{position:fixed;bottom:16px;right:16px;background:var(--ink4);border:1px solid var(--gold);border-left:3px solid var(--gold);border-radius:var(--r);padding:9px 16px;font-size:12px;color:var(--snow);z-index:300;transform:translateY(48px);opacity:0;transition:all .2s;pointer-events:none;font-weight:500}
 .toast.show{transform:translateY(0);opacity:1}
-
-@media(max-width:860px){.sidebar{display:none}.m-grid{grid-template-columns:1fr}.m-left{border-right:none;border-bottom:1px solid var(--line)}.c-drw{width:100%}}
-@media(max-width:560px){.main{padding:10px 12px}.grid{grid-template-columns:repeat(auto-fill,minmax(138px,1fr));gap:5px}}
+@media(max-width:900px){.sidebar{display:none}.m-grid{grid-template-columns:1fr}.m-left{border-right:none;border-bottom:1px solid var(--wire)}.c-drw{width:100%}}
+@media(max-width:560px){.main{padding:12px}.grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px}}
 </style>
 </head>
 <body>
-
 <header class="hdr">
   <div class="hdr-inner">
-    <a class="logo" href="#" onclick="goHome()">
-      <!-- Angry Canadian goose - white body, black head/neck, orange beak -->
-      <svg class="goose-svg" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Body white -->
-        <ellipse cx="20" cy="22" rx="12" ry="9" fill="#e8e8e0"/>
-        <ellipse cx="20" cy="22" rx="9" ry="7" fill="#d0d0c8"/>
-        <!-- Wing detail -->
-        <path d="M10 20 Q14 16 22 19 Q16 23 10 22Z" fill="#c0c0b8"/>
-        <!-- Neck black -->
-        <path d="M16 14 Q14 10 15 7 Q17 5 19 7 Q20 10 18 14Z" fill="#1a1a1a"/>
-        <!-- Head black -->
-        <ellipse cx="17" cy="7" rx="4" ry="3.5" fill="#1a1a1a"/>
-        <!-- White cheek patch (Canada goose marking) -->
-        <ellipse cx="15.5" cy="8" rx="2.2" ry="1.4" fill="#e8e8e0"/>
-        <!-- Eye angry red -->
-        <circle cx="16" cy="6" r="1" fill="#c83030"/>
-        <circle cx="16" cy="6" r=".4" fill="#1a1a1a"/>
-        <!-- Beak orange, open/angry -->
-        <path d="M13 7 L10 6.5 L10 7.5 L13 8Z" fill="#d4843a"/>
-        <path d="M13 7 L10 7 L10 7.5 L13 7.5Z" fill="#a86020"/>
-        <!-- Tail -->
-        <path d="M30 20 Q34 18 33 22 Q31 24 29 22Z" fill="#d0d0c8"/>
-        <!-- Feet -->
-        <path d="M17 30 L16 34 M19 31 L18 34 M20 30 L21 34" stroke="#d4843a" stroke-width="1.2" stroke-linecap="round"/>
-      </svg>
-      <span class="logo-text">Goaded Goose</span>
-    </a>
-    <div class="search-wrap">
-      <span class="s-icon">⌕</span>
-      <input id="srch" type="text" placeholder="Search any card — name, set code, type…" autocomplete="off">
+    <div class="logo" onclick="goHome()">
+      <div>
+        <span class="logo-wm">Goaded Goose</span>
+        <span class="logo-sub">MTG Singles</span>
+      </div>
+    </div>
+    <div class="logo-div"></div>
+    <div class="srch-wrap">
+      <span class="s-ico">⌕</span>
+      <input id="srch" type="text" placeholder="Search by name, set code, type…" autocomplete="off">
     </div>
     <div class="hdr-right">
+      <div class="stk-tog">
+        <button class="stbtn on" id="stIn" onclick="setStock('instock',this)">In Stock</button>
+        <button class="stbtn" id="stAll" onclick="setStock('all',this)">All Cards</button>
+      </div>
       <button class="cart-btn" onclick="openCart()">Cart <span class="cart-n" id="cN">0</span></button>
     </div>
   </div>
@@ -346,50 +195,47 @@ input,select,button{font-family:'Barlow',sans-serif}
 <div class="layout">
   <aside class="sidebar">
     <div class="sb-sec">
-      <span class="sb-lbl">Stock</span>
-      <button class="sb-btn on" onclick="sf('stock','instock',this)">In Stock <span class="sb-n" id="sbS">—</span></button>
-      <button class="sb-btn" onclick="sf('stock','all',this)">All Cards <span class="sb-n">∞</span></button>
-    </div>
-    <div class="sb-sec">
       <span class="sb-lbl">Sort</span>
       <button class="sb-btn on" onclick="sf('sort','stock',this)">In Stock First</button>
-      <button class="sb-btn" onclick="sf('sort','price_desc',this)">Price High–Low</button>
-      <button class="sb-btn" onclick="sf('sort','price_asc',this)">Price Low–High</button>
+      <button class="sb-btn" onclick="sf('sort','price_desc',this)">Price ↓</button>
+      <button class="sb-btn" onclick="sf('sort','price_asc',this)">Price ↑</button>
       <button class="sb-btn" onclick="sf('sort','name',this)">Name A–Z</button>
     </div>
     <div class="sb-sec">
+      <span class="sb-lbl">Set</span>
+      <button class="sb-btn on" onclick="sf('set','',this)">All Sets</button>
+      <button class="sb-btn" onclick="sf('set','ECL',this)">Lorwyn Eclipsed</button>
+      <button class="sb-btn" onclick="sf('set','SPM',this)">Spider-Man</button>
+      <button class="sb-btn" onclick="sf('set','TLA',this)">Avatar</button>
+      <button class="sb-btn" onclick="sf('set','TMT',this)">TMNT</button>
+      <button class="sb-btn" onclick="sf('set','WAR',this)">War of the Spark</button>
+      <button class="sb-btn" onclick="sf('set','THB',this)">Theros</button>
+      <button class="sb-btn" onclick="sf('set','VOW',this)">Crimson Vow</button>
+      <button class="sb-btn" onclick="sf('set','MH1',this)">Modern Horizons</button>
+      <button class="sb-btn" onclick="sf('set','TSR',this)">Time Spiral Rem.</button>
+      <button class="sb-btn" onclick="sf('set','M15',this)">Magic 2015</button>
+    </div>
+    <div class="sb-sec">
       <span class="sb-lbl">Color</span>
-      <button class="sb-btn" onclick="sf('color','',this)">All Colors</button>
-      <button class="sb-btn" onclick="sf('color','W',this)">
-        <i class="ms ms-w ms-cost" style="font-size:14px"></i> White
-      </button>
-      <button class="sb-btn" onclick="sf('color','U',this)">
-        <i class="ms ms-u ms-cost" style="font-size:14px"></i> Blue
-      </button>
-      <button class="sb-btn" onclick="sf('color','B',this)">
-        <i class="ms ms-b ms-cost" style="font-size:14px"></i> Black
-      </button>
-      <button class="sb-btn" onclick="sf('color','R',this)">
-        <i class="ms ms-r ms-cost" style="font-size:14px"></i> Red
-      </button>
-      <button class="sb-btn" onclick="sf('color','G',this)">
-        <i class="ms ms-g ms-cost" style="font-size:14px"></i> Green
-      </button>
-      <button class="sb-btn" onclick="sf('color','C',this)">
-        <i class="ms ms-c ms-cost" style="font-size:14px"></i> Colorless
-      </button>
+      <button class="sb-btn on" onclick="sf('color','',this)">All</button>
+      <button class="sb-btn" onclick="sf('color','W',this)"><i class="ms ms-w ms-cost"></i> White</button>
+      <button class="sb-btn" onclick="sf('color','U',this)"><i class="ms ms-u ms-cost"></i> Blue</button>
+      <button class="sb-btn" onclick="sf('color','B',this)"><i class="ms ms-b ms-cost"></i> Black</button>
+      <button class="sb-btn" onclick="sf('color','R',this)"><i class="ms ms-r ms-cost"></i> Red</button>
+      <button class="sb-btn" onclick="sf('color','G',this)"><i class="ms ms-g ms-cost"></i> Green</button>
+      <button class="sb-btn" onclick="sf('color','C',this)"><i class="ms ms-c ms-cost"></i> Colorless</button>
     </div>
     <div class="sb-sec">
       <span class="sb-lbl">Rarity</span>
-      <button class="sb-btn" onclick="sf('rarity','',this)">All</button>
-      <button class="sb-btn" onclick="sf('rarity','mythic',this)"><span style="color:var(--mythic)">◆</span> Mythic</button>
-      <button class="sb-btn" onclick="sf('rarity','rare',this)"><span style="color:var(--rare)">◆</span> Rare</button>
-      <button class="sb-btn" onclick="sf('rarity','uncommon',this)"><span style="color:var(--uncommon)">◆</span> Uncommon</button>
-      <button class="sb-btn" onclick="sf('rarity','common',this)"><span style="color:var(--common)">◆</span> Common</button>
+      <button class="sb-btn on" onclick="sf('rarity','',this)">All</button>
+      <button class="sb-btn" onclick="sf('rarity','mythic',this)"><span style="color:var(--M)">◆</span> Mythic</button>
+      <button class="sb-btn" onclick="sf('rarity','rare',this)"><span style="color:var(--R)">◆</span> Rare</button>
+      <button class="sb-btn" onclick="sf('rarity','uncommon',this)"><span style="color:var(--U)">◆</span> Uncommon</button>
+      <button class="sb-btn" onclick="sf('rarity','common',this)"><span style="color:var(--C)">◆</span> Common</button>
     </div>
     <div class="sb-sec">
       <span class="sb-lbl">Type</span>
-      <button class="sb-btn" onclick="sf('type','',this)">All</button>
+      <button class="sb-btn on" onclick="sf('type','',this)">All</button>
       <button class="sb-btn" onclick="sf('type','Creature',this)">Creature</button>
       <button class="sb-btn" onclick="sf('type','Instant',this)">Instant</button>
       <button class="sb-btn" onclick="sf('type','Sorcery',this)">Sorcery</button>
@@ -400,12 +246,12 @@ input,select,button{font-family:'Barlow',sans-serif}
     </div>
     <div class="sb-sec">
       <span class="sb-lbl">Format</span>
-      <button class="sb-btn" onclick="sf('format','',this)">All</button>
-      <button class="sb-btn" onclick="sf('format','standard',this)">Standard</button>
-      <button class="sb-btn" onclick="sf('format','pioneer',this)">Pioneer</button>
+      <button class="sb-btn on" onclick="sf('format','',this)">All</button>
+      <button class="sb-btn" onclick="sf('format','commander',this)">Commander</button>
       <button class="sb-btn" onclick="sf('format','modern',this)">Modern</button>
       <button class="sb-btn" onclick="sf('format','legacy',this)">Legacy</button>
-      <button class="sb-btn" onclick="sf('format','commander',this)">Commander</button>
+      <button class="sb-btn" onclick="sf('format','pioneer',this)">Pioneer</button>
+      <button class="sb-btn" onclick="sf('format','standard',this)">Standard</button>
       <button class="sb-btn" onclick="sf('format','pauper',this)">Pauper</button>
     </div>
   </aside>
@@ -413,20 +259,28 @@ input,select,button{font-family:'Barlow',sans-serif}
   <main class="main">
     <div class="tbar">
       <span class="tbar-title" id="pgTitle">In Stock</span>
-      <span class="tbar-n" id="pgN"></span>
+      <span class="tbar-count" id="pgN">—</span>
       <div class="tbar-right">
-        <div class="rar-chips">
+        <div style="display:flex;gap:4px">
           <button class="rchip on" onclick="rar('',this)">All</button>
-          <button class="rchip" style="color:var(--mythic)" onclick="rar('mythic',this)">M</button>
-          <button class="rchip" style="color:var(--rare)" onclick="rar('rare',this)">R</button>
-          <button class="rchip" style="color:var(--uncommon)" onclick="rar('uncommon',this)">U</button>
-          <button class="rchip" style="color:var(--common)" onclick="rar('common',this)">C</button>
+          <button class="rchip" style="color:var(--M)" onclick="rar('mythic',this)">M</button>
+          <button class="rchip" style="color:var(--R)" onclick="rar('rare',this)">R</button>
+          <button class="rchip" style="color:var(--U)" onclick="rar('uncommon',this)">U</button>
+          <button class="rchip" style="color:var(--C)" onclick="rar('common',this)">C</button>
         </div>
+        <select class="sort-sel" id="sortSel" onchange="sfSort(this.value)">
+          <option value="stock">In Stock First</option>
+          <option value="price_desc">Price High–Low</option>
+          <option value="price_asc">Price Low–High</option>
+          <option value="name">Name A–Z</option>
+        </select>
       </div>
     </div>
     <div class="grid" id="grid"></div>
     <div class="lm-wrap" id="lmWrap" style="display:none"><button class="lm-btn" onclick="loadMore()">Load More</button></div>
-    <div class="no-res" id="noRes" style="display:none"><h3>No Results</h3><p id="noResMsg">Try a different search</p></div>
+    <div class="no-res" id="noRes" style="display:none">
+      <h3>No Results</h3><p id="noResMsg">Try a different search or switch to All Cards</p>
+    </div>
   </main>
 </div>
 
@@ -437,19 +291,16 @@ input,select,button{font-family:'Barlow',sans-serif}
     <div class="m-grid">
       <div class="m-left">
         <div class="m-img"><img id="mImg" src="" alt=""></div>
-        <div>
-          <div class="leg-hdr">Format Legality</div>
-          <div id="mLeg"></div>
-        </div>
+        <div><div class="leg-hdr">Format Legality</div><div id="mLeg"></div></div>
       </div>
       <div class="m-right">
         <div class="m-eye" id="mEye"></div>
         <div class="m-name" id="mName"></div>
         <div class="m-type" id="mType"></div>
         <div class="m-prices">
-          <div class="m-pb"><label>Price (CAD)</label><div class="m-num" id="mP"></div></div>
-          <div class="m-pb"><label>Stock</label><div class="m-num dim" id="mSt"></div></div>
-          <div class="m-pb"><label>Cond.</label><div class="m-num dim" style="font-size:16px" id="mCd"></div></div>
+          <div class="m-pb"><label>Price (CAD)</label><div class="m-num" id="mP">—</div></div>
+          <div class="m-pb"><label>Stock</label><div class="m-num dim" id="mSt">—</div></div>
+          <div class="m-pb"><label>Cond.</label><div class="m-num dim" style="font-size:16px" id="mCd">—</div></div>
         </div>
         <div class="m-meta">
           <div class="m-mi"><label>Set</label><span id="mSet"></span></div>
@@ -483,240 +334,192 @@ input,select,button{font-family:'Barlow',sans-serif}
 <div class="toast" id="toast"></div>
 
 <script>
-// ── CONFIG ──
-const MARKUP = 1.15;   // 15% above market
-const CAD    = 1.37;   // USD → CAD
-const MIN_PRICE = 0.33; // floor in CAD
-const PAGE   = 60;
-const DB_URL = 'https://raw.githubusercontent.com/Bchilled/goaded-goose/main/database.json';
-const CAT_BASE = 'https://raw.githubusercontent.com/Bchilled/goaded-goose/main/catalog/';
-const FORMATS = ['standard','pioneer','modern','legacy','vintage','commander','pauper','historic'];
+const CAD=1.38,MARKUP=1.10,MIN=0.42,PAGE=60;
+const DB_URL='https://raw.githubusercontent.com/Bchilled/goaded-goose/main/database.json';
+const FORMATS=['standard','pioneer','modern','legacy','vintage','commander','pauper','historic'];
+let db=[],filtered=[],page=1,mCard=null,mQty=1,cart={};
+let filt={stock:'instock',sort:'stock',set:'',color:'',rarity:'',type:'',format:''};
+let srchQ='';
 
-// ── STATE ──
-let inv = {};          // set_num[_f] → card (your stock)
-let working = [];      // current display list (deduped)
-let filtered = [];
-let page = 1;
-let mCard = null, mQty = 1;
-let cart = {};
-let filt = {stock:'instock', sort:'stock', color:'', rarity:'', type:'', format:''};
-let srchQ = '';
+function calcPrice(usd,foil){let p=(usd||0.10)*CAD*MARKUP;if(foil)p*=1.3;return Math.max(MIN,Math.round(p*100)/100)}
+function fmt(p){return'$'+p.toFixed(2)}
 
-// ── PRICE ──
-function calcPrice(usd, foil) {
-  let base = usd * CAD * MARKUP;
-  if (foil) base *= 1.3;
-  return Math.max(MIN_PRICE, Math.round(base * 100) / 100);
-}
-function fmt(p) { return '$' + p.toFixed(2); }
-
-// ── INIT ──
-async function init() {
-  try {
-    const r = await fetch(DB_URL);
-    const db = await r.json();
-    // Deduplicate: if same set+num appears multiple times (normal + foil), keep both keyed separately
-    // But if same set+num+foil appears multiple times, sum quantities
-    const merged = {};
-    db.forEach(c => {
-      const k = c.set + '_' + c.num + (c.foil ? '_f' : '_n');
-      if (merged[k]) {
-        merged[k].qty += (c.qty || 0);
-      } else {
-        merged[k] = {...c};
-        merged[k].price = calcPrice(c.usd || 0.10, c.foil);
+async function init(){
+  try{
+    const r=await fetch(DB_URL+'?_='+Date.now());
+    const raw=await r.json();
+    // Deduplicate: same set+num+foil → keep highest qty
+    const seen={};
+    for(const c of raw){
+      const k=c.set+'|'+c.num+'|'+(c.foil?'1':'0');
+      if(!seen[k]||(c.qty||0)>(seen[k].qty||0)){
+        c.price=calcPrice(c.usd||0.10,c.foil);
+        seen[k]=c;
       }
-    });
-    inv = merged;
-    const allInv = Object.values(inv);
-    document.getElementById('sbS').textContent = allInv.filter(c=>c.qty>0).length;
-    working = allInv;
+    }
+    db=Object.values(seen);
     applyF();
-  } catch(e) { console.error(e); }
+  }catch(e){console.error('DB load failed:',e)}
 }
 
-// ── SEARCH ──
-document.getElementById('srch').addEventListener('input', async function() {
-  srchQ = this.value.trim().toLowerCase();
-  if (!srchQ) { goHome(); return; }
-
-  // Search inventory first
-  const inv_hits = Object.values(inv).filter(c => hit(c, srchQ));
-
-  // If query looks like a set code, also load that catalog
-  const codeQ = srchQ.toUpperCase();
-  let cat_hits = [];
-  if (/^[A-Z0-9]{2,6}$/.test(codeQ)) {
-    try {
-      const r = await fetch(CAT_BASE + codeQ + '.js');
-      if (r.ok) {
-        const text = await r.text();
-        const fn = new Function(text + ';return window.CATALOG["'+codeQ+'"]');
-        const cards = fn();
-        if (cards) {
-          const owned = new Set(Object.values(inv).filter(c=>c.set===codeQ).map(c=>c.set+'_'+c.num+'_n'));
-          cat_hits = cards
-            .filter(c => !owned.has(c.set+'_'+c.num+'_n'))
-            .map(c => ({...c, price: calcPrice(c.usd||0.10, false), qty:0}));
-        }
-      }
-    } catch(e) {}
-  }
-
-  working = [...inv_hits, ...cat_hits];
-  filt.stock = 'all';
-  page = 1; applyF();
+let srchT;
+document.getElementById('srch').addEventListener('input',function(){
+  clearTimeout(srchT);
+  srchT=setTimeout(()=>{srchQ=this.value.trim().toLowerCase();page=1;applyF()},120);
 });
 
-function hit(c, q) {
-  return c.name.toLowerCase().includes(q) ||
-    (c.set||'').toLowerCase() === q ||
+function hit(c,q){
+  return c.name.toLowerCase().includes(q)||
+    (c.set||'').toLowerCase()===q||
     (c.type||'').toLowerCase().includes(q);
 }
 
-// ── SIDEBAR FILTER ──
-function sf(group, val, el) {
-  filt[group] = val;
-  el.closest('.sb-sec').querySelectorAll('.sb-btn').forEach(b=>b.classList.remove('on'));
+function setStock(val,el){
+  filt.stock=val;
+  document.querySelectorAll('.stbtn').forEach(b=>b.classList.remove('on'));
   el.classList.add('on');
-  page = 1; applyF();
+  page=1;applyF();
 }
 
-// ── RARITY CHIP (top bar) ──
-function rar(val, el) {
-  filt.rarity = val;
+function sf(group,val,el){
+  filt[group]=val;
+  if(el){
+    el.closest('.sb-sec').querySelectorAll('.sb-btn').forEach(b=>b.classList.remove('on'));
+    el.classList.add('on');
+  }
+  page=1;applyF();
+}
+function sfSort(val){filt.sort=val;page=1;applyF()}
+
+function rar(val,el){
+  filt.rarity=val;
   document.querySelectorAll('.rchip').forEach(b=>b.classList.remove('on'));
   el.classList.add('on');
-  page = 1; applyF();
+  page=1;applyF();
 }
 
-// ── APPLY FILTERS ──
-function applyF() {
-  let cards = working.slice();
-  if (srchQ) cards = cards.filter(c => hit(c, srchQ));
-  if (filt.stock === 'instock') cards = cards.filter(c => (c.qty||0) > 0);
-  if (filt.color) cards = cards.filter(c => (c.colors||[]).includes(filt.color));
-  if (filt.rarity) cards = cards.filter(c => c.rar === filt.rarity);
-  if (filt.type) cards = cards.filter(c => (c.type||'').includes(filt.type));
-  if (filt.format) cards = cards.filter(c => c.leg && c.leg[filt.format]);
-
-  const sort = filt.sort;
-  if (sort === 'price_desc') cards.sort((a,b) => (b.price||0)-(a.price||0));
-  else if (sort === 'price_asc') cards.sort((a,b) => (a.price||0)-(b.price||0));
-  else if (sort === 'stock') cards.sort((a,b) => (b.qty||0)-(a.qty||0) || a.name.localeCompare(b.name));
-  else cards.sort((a,b) => a.name.localeCompare(b.name));
-
-  filtered = cards;
-  document.getElementById('pgN').textContent = filtered.length.toLocaleString() + ' cards';
-  document.getElementById('noRes').style.display = filtered.length ? 'none' : 'block';
-  document.getElementById('lmWrap').style.display = filtered.length > PAGE ? 'block' : 'none';
-  if (!filtered.length && srchQ) {
-    document.getElementById('noResMsg').textContent = '"'+srchQ+'" — not in stock, try browsing by set code';
-  }
+function applyF(){
+  let cards=db.slice();
+  if(srchQ)cards=cards.filter(c=>hit(c,srchQ));
+  if(filt.stock==='instock')cards=cards.filter(c=>(c.qty||0)>0);
+  if(filt.set)cards=cards.filter(c=>c.set===filt.set);
+  if(filt.color)cards=cards.filter(c=>(c.colors||[]).includes(filt.color));
+  if(filt.rarity)cards=cards.filter(c=>c.rar===filt.rarity);
+  if(filt.type)cards=cards.filter(c=>(c.type||'').includes(filt.type));
+  if(filt.format)cards=cards.filter(c=>c.leg&&c.leg[filt.format]);
+  const s=filt.sort;
+  if(s==='price_desc')cards.sort((a,b)=>(b.price||0)-(a.price||0));
+  else if(s==='price_asc')cards.sort((a,b)=>(a.price||0)-(b.price||0));
+  else if(s==='stock')cards.sort((a,b)=>(b.qty||0)-(a.qty||0)||a.name.localeCompare(b.name));
+  else cards.sort((a,b)=>a.name.localeCompare(b.name));
+  filtered=cards;
+  const title=srchQ?'"'+srchQ+'"':filt.stock==='instock'?'In Stock':'All Cards';
+  document.getElementById('pgTitle').textContent=title;
+  document.getElementById('pgN').textContent=filtered.length.toLocaleString()+' cards';
+  const has=filtered.length>0;
+  document.getElementById('noRes').style.display=has?'none':'block';
+  if(!has&&srchQ&&filt.stock==='instock')
+    document.getElementById('noResMsg').textContent='Not in stock — switch to "All Cards" to see if we carry it';
+  else
+    document.getElementById('noResMsg').textContent='Try a different search or filter';
   renderG(1);
 }
 
-// ── RENDER ──
-function renderG(p) {
-  page = p;
-  const slice = filtered.slice(0, p * PAGE);
-  document.getElementById('grid').innerHTML = slice.map(cardHTML).join('');
-  document.getElementById('lmWrap').style.display = filtered.length > slice.length ? 'block' : 'none';
+function renderG(p){
+  page=p;
+  const slice=filtered.slice(0,p*PAGE);
+  document.getElementById('grid').innerHTML=slice.map(cardHTML).join('');
+  document.getElementById('lmWrap').style.display=filtered.length>slice.length?'block':'none';
 }
-function loadMore() { renderG(page+1); }
+function loadMore(){renderG(page+1)}
 
-function cardHTML(c) {
-  const owned = (c.qty||0) > 0;
-  const price = c.price || calcPrice(c.usd||0.10, c.foil);
-  const rar = (c.rar||'common')[0].toUpperCase();
-  const rarMap = {M:'rM',R:'rR',U:'rU',C:'rC'};
-  const safe = JSON.stringify(c).replace(/"/g,'&quot;');
-  return `<div class="crd ${owned?'owned':'oos'}" onclick="openM(${safe})">
-    <div class="crd-img">
-      ${c.img?`<img src="${c.img}" alt="${c.name}" loading="lazy">`:`<div class="crd-ph">🃏</div>`}
-      <div class="rpip ${rarMap[rar]||'rC'}"></div>
-      ${c.foil?`<span class="fbadge">Foil</span>`:''}
-      ${owned?`<span class="qty-badge ${c.qty>=4?'many':''}">×${c.qty}</span>`:''}
-      ${!owned?`<div class="oos-ov"></div><div class="oos-lbl">Out of Stock</div>`:''}
-    </div>
-    <div class="crd-body">
-      <div class="crd-meta">${c.set} · #${c.num}</div>
-      <div class="crd-name" title="${c.name}">${c.name}</div>
-      <div class="crd-type">${c.type||''}</div>
-      <div class="crd-foot">
-        ${owned
-          ? `<div class="crd-price">${fmt(price)}<sup> cad</sup></div>
-             <button class="add-btn" onclick="event.stopPropagation();qAdd(${safe})">+</button>`
-          : `<div class="crd-price oos-p">Out of Stock</div>`}
-      </div>
-    </div>
-  </div>`;
+function cardHTML(c){
+  const owned=(c.qty||0)>0;
+  const price=c.price||calcPrice(c.usd||0.10,c.foil);
+  const rar=(c.rar||'common')[0].toUpperCase();
+  const rm={M:'rM',R:'rR',U:'rU',C:'rC'};
+  const safe="'"+btoa(unescape(encodeURIComponent(JSON.stringify(c))))+"'";
+  return`<div class="crd ${owned?'owned':'oos'}" onclick="openM(${safe})">
+<div class="crd-img">
+${c.img?`<img src="${c.img}" alt="" loading="lazy">`:'<div class="crd-ph">🃏</div>'}
+<div class="rpip ${rm[rar]||'rC'}"></div>
+${c.foil?'<span class="fbadge">Foil</span>':''}
+${owned?`<span class="qty-b ${c.qty>=4?'hi':''}">×${c.qty}</span>`:''}
+${!owned?'<div class="oos-ov"></div><div class="oos-lbl">Out of Stock</div>':''}
+</div>
+<div class="crd-body">
+<div class="crd-meta">${c.set} · #${c.num}</div>
+<div class="crd-name">${c.name}</div>
+<div class="crd-type">${c.type||''}</div>
+<div class="crd-foot">
+${owned?`<div class="crd-price">${fmt(price)}<sup> cad</sup></div><button class="add-btn" onclick="event.stopPropagation();qAdd(${safe})">+</button>`
+:'<div class="crd-price oos-p">Out of Stock</div>'}
+</div></div></div>`;
 }
 
-// ── MODAL ──
-function openM(c) {
-  mCard = c; mQty = 1;
-  const owned = (c.qty||0) > 0;
-  const price = c.price || calcPrice(c.usd||0.10, c.foil);
-  document.getElementById('mImg').src = c.img||'';
-  document.getElementById('mEye').textContent = c.set+' · #'+c.num;
-  document.getElementById('mName').textContent = c.name;
-  document.getElementById('mType').textContent = c.type||'';
-  document.getElementById('mP').textContent = owned ? fmt(price)+' CAD' : '—';
-  document.getElementById('mSt').textContent = owned ? c.qty+' in stock' : 'Out of Stock';
-  document.getElementById('mCd').textContent = c.cond||(owned?'LP':'—');
-  document.getElementById('mSet').textContent = c.set;
-  document.getElementById('mRar').textContent = (c.rar||'common')[0].toUpperCase()+(c.rar||'common').slice(1);
-  document.getElementById('mNum').textContent = '#'+c.num;
-  document.getElementById('mFoil').textContent = c.foil?'Yes — Foil':'No';
-  document.getElementById('mQ').textContent = 1;
-  const btn = document.getElementById('mAddBtn');
-  btn.disabled = !owned;
-  btn.textContent = owned ? 'Add to Cart' : 'Out of Stock';
-  const leg = c.leg||{};
-  document.getElementById('mLeg').innerHTML = FORMATS.map(f=>{
-    const v=leg[f]; const cls=v===1?'lt-y':v===2?'lt-b':'lt-n';
-    const t=v===1?'Legal':v===2?'Banned':'Not Legal';
-    return `<div class="leg-row"><span class="leg-fmt">${f[0].toUpperCase()+f.slice(1)}</span><span class="leg-tag ${cls}">${t}</span></div>`;
+function decC(s){return JSON.parse(decodeURIComponent(escape(atob(s))))}
+function openM(s){
+  const c=decC(s);mCard=c;mQty=1;
+  const owned=(c.qty||0)>0;
+  const price=c.price||calcPrice(c.usd||0.10,c.foil);
+  document.getElementById('mImg').src=c.img||'';
+  document.getElementById('mEye').textContent=c.set+' · #'+c.num;
+  document.getElementById('mName').textContent=c.name;
+  document.getElementById('mType').textContent=c.type||'';
+  document.getElementById('mP').textContent=owned?fmt(price)+' CAD':'—';
+  document.getElementById('mSt').textContent=owned?c.qty+' in stock':'Out of Stock';
+  document.getElementById('mCd').textContent=c.cond||(owned?'LP':'—');
+  document.getElementById('mSet').textContent=c.set;
+  document.getElementById('mRar').textContent=(c.rar||'common')[0].toUpperCase()+(c.rar||'common').slice(1);
+  document.getElementById('mNum').textContent='#'+c.num;
+  document.getElementById('mFoil').textContent=c.foil?'Yes — Foil':'No';
+  document.getElementById('mQ').textContent=1;
+  const btn=document.getElementById('mAddBtn');
+  btn.disabled=!owned;btn.textContent=owned?'Add to Cart':'Out of Stock';
+  const leg=c.leg||{};
+  document.getElementById('mLeg').innerHTML=FORMATS.map(f=>{
+    const v=leg[f];const legal=v===true||v===1;const banned=v===2;
+    const cls=legal?'lt-y':banned?'lt-b':'lt-n';
+    const t=legal?'Legal':banned?'Banned':'Not Legal';
+    return`<div class="leg-row"><span class="leg-fmt">${f[0].toUpperCase()+f.slice(1)}</span><span class="leg-tag ${cls}">${t}</span></div>`;
   }).join('');
   document.getElementById('modal').classList.add('open');
   document.body.style.overflow='hidden';
 }
-function closeM(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
-document.getElementById('modal').addEventListener('click',e=>{if(e.target===document.getElementById('modal'))closeM();});
-function dq(d){mQty=Math.max(1,mQty+d);document.getElementById('mQ').textContent=mQty;}
-function addFromM(){if(mCard&&(mCard.qty||0)>0){addCart(mCard,mQty);closeM();}}
-function qAdd(c){if((c.qty||0)>0)addCart(c,1);}
+function closeM(){document.getElementById('modal').classList.remove('open');document.body.style.overflow=''}
+function dq(d){mQty=Math.max(1,mQty+d);document.getElementById('mQ').textContent=mQty}
+function addFromM(){if(mCard&&(mCard.qty||0)>0){addCart(mCard,mQty);closeM()}}
+function qAdd(s){const c=decC(s);if((c.qty||0)>0)addCart(c,1)}
 
-// ── CART ──
 function addCart(c,qty){
-  const price = c.price||calcPrice(c.usd||0.10,c.foil);
-  const k=c.set+'_'+c.num+(c.foil?'_f':'_n');
+  const price=c.price||calcPrice(c.usd||0.10,c.foil);
+  const k=c.set+'|'+c.num+'|'+(c.foil?'1':'0');
   if(cart[k])cart[k].qty+=qty;else cart[k]={...c,qty,price};
-  updCart(); toast(c.name+' added');
+  updCart();toast(c.name+' added to cart');
 }
 function updCart(){
   const items=Object.values(cart);
   document.getElementById('cN').textContent=items.reduce((s,c)=>s+c.qty,0);
   const body=document.getElementById('cBody'),foot=document.getElementById('cFoot');
-  if(!items.length){body.innerHTML='<div class="c-empty">Your cart is empty</div>';foot.style.display='none';return;}
-  body.innerHTML=items.map(c=>`<div class="ci">
-    ${c.img?`<img class="ci-img" src="${c.img}" alt="">`:'<div class="ci-img"></div>'}
-    <div class="ci-info">
-      <div class="ci-name">${c.name}</div>
-      <div class="ci-set">${c.set} #${c.num}${c.foil?' · Foil':''}</div>
-      <div class="ci-row">
-        <span class="ci-p">${fmt(c.price*c.qty)} <span style="font-size:9px;color:var(--txt3)">×${c.qty}</span></span>
-        <button class="ci-rm" onclick="rmCart('${c.set}_${c.num}${c.foil?'_f':'_n'}')">✕</button>
-      </div>
-    </div>
-  </div>`).join('');
+  if(!items.length){body.innerHTML='<div class="c-empty">Your cart is empty</div>';foot.style.display='none';return}
+  body.innerHTML=items.map(c=>{
+    const k=c.set+'|'+c.num+'|'+(c.foil?'1':'0');
+    return`<div class="ci">
+${c.img?`<img class="ci-img" src="${c.img}" alt="">`:'<div class="ci-img"></div>'}
+<div class="ci-info">
+<div class="ci-name">${c.name}</div>
+<div class="ci-set">${c.set} #${c.num}${c.foil?' · Foil':''}</div>
+<div class="ci-row">
+<span class="ci-p">${fmt(c.price*c.qty)} <span style="font-size:9px;color:var(--ash)">×${c.qty}</span></span>
+<button class="ci-rm" onclick="rmCart('${k}')">✕</button>
+</div></div></div>`;
+  }).join('');
   document.getElementById('cTot').textContent=fmt(items.reduce((s,c)=>s+c.price*c.qty,0));
   foot.style.display='block';
 }
-function rmCart(k){delete cart[k];updCart();}
-function openCart(){document.getElementById('cDrw').classList.add('open');document.getElementById('cOv').classList.add('open');document.body.style.overflow='hidden';}
-function closeCart(){document.getElementById('cDrw').classList.remove('open');document.getElementById('cOv').classList.remove('open');document.body.style.overflow='';}
+function rmCart(k){delete cart[k];updCart()}
+function openCart(){document.getElementById('cDrw').classList.add('open');document.getElementById('cOv').classList.add('open');document.body.style.overflow='hidden'}
+function closeCart(){document.getElementById('cDrw').classList.remove('open');document.getElementById('cOv').classList.remove('open');document.body.style.overflow=''}
 function checkout(){
   const items=Object.values(cart);if(!items.length)return;
   const sub=items.reduce((s,c)=>s+c.price*c.qty,0);
@@ -724,22 +527,19 @@ function checkout(){
   const body=encodeURIComponent('Hi,\n\nI\'d like to order:\n\n'+items.map(c=>`${c.qty}x ${c.name} (${c.set} #${c.num}${c.foil?' Foil':''}) — ${fmt(c.price*c.qty)} CAD`).join('\n')+'\n\nSubtotal: '+fmt(sub)+' CAD\n\nThanks!');
   window.location.href=`mailto:brentlysnow@gmail.com?subject=${subj}&body=${body}`;
 }
-
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}
-
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
 function goHome(){
-  document.getElementById('srch').value='';
-  srchQ='';
-  working=Object.values(inv);
-  filt={stock:'instock',sort:'stock',color:'',rarity:'',type:'',format:''};
+  document.getElementById('srch').value='';srchQ='';
+  filt={stock:'instock',sort:'stock',set:'',color:'',rarity:'',type:'',format:''};
   document.querySelectorAll('.sb-btn').forEach(b=>b.classList.remove('on'));
-  document.querySelector('[onclick="sf(\'stock\',\'instock\',this)"]').classList.add('on');
-  document.querySelector('[onclick="sf(\'sort\',\'stock\',this)"]').classList.add('on');
+  document.querySelectorAll('.sb-sec').forEach(sec=>{const f=sec.querySelector('.sb-btn');if(f)f.classList.add('on')});
   document.querySelectorAll('.rchip').forEach(b=>b.classList.remove('on'));
   document.querySelector('.rchip').classList.add('on');
-  page=1; applyF();
+  document.getElementById('stIn').classList.add('on');
+  document.getElementById('stAll').classList.remove('on');
+  document.getElementById('sortSel').value='stock';
+  page=1;applyF();
 }
-
 init();
 </script>
 </body>
