@@ -18132,6 +18132,33 @@
   },
   {
     "set": "TLA",
+    "num": "327",
+    "name": "Diligent Zookeeper",
+    "rar": "rare",
+    "type": "Creature \u2014 Human Citizen Ally",
+    "usd": 0.46,
+    "fusd": 0.55,
+    "qty": 1,
+    "foil": false,
+    "cond": "LP",
+    "colors": [
+      "G"
+    ],
+    "leg": {
+      "standard": 1,
+      "historic": 1,
+      "pioneer": 1,
+      "modern": 1,
+      "legacy": 1,
+      "pauper": 0,
+      "vintage": 1,
+      "commander": 1
+    },
+    "img": "https://cards.scryfall.io/normal/front/5/f/5f7e8f5d-c9d6-4f25-af92-f1a6b815f0c1.jpg?1764122357",
+    "added": "2026-03-21"
+  },
+  {
+    "set": "TLA",
     "num": "181",
     "name": "Great Divide Guide",
     "rar": "rare",
@@ -18456,6 +18483,33 @@
   },
   {
     "set": "TLA",
+    "num": "117",
+    "name": "The Rise of Sozin // Fire Lord Sozin",
+    "rar": "mythic",
+    "type": "Enchantment \u2014 Saga // Legendary Creature \u2014 Human Noble",
+    "usd": 2.14,
+    "fusd": 2.48,
+    "qty": 1,
+    "foil": false,
+    "cond": "LP",
+    "colors": [
+      "B"
+    ],
+    "leg": {
+      "standard": 1,
+      "historic": 1,
+      "pioneer": 1,
+      "modern": 1,
+      "legacy": 1,
+      "pauper": 0,
+      "vintage": 1,
+      "commander": 1
+    },
+    "img": "https://cards.scryfall.io/normal/front/1/4/14eadf46-90c2-4376-8183-6a922a60174d.jpg?1768466342",
+    "added": "2026-03-21"
+  },
+  {
+    "set": "TLA",
     "num": "336",
     "name": "Aang's Iceberg",
     "rar": "rare",
@@ -18695,33 +18749,6 @@
       "commander": 1
     },
     "img": "https://cards.scryfall.io/normal/front/f/9/f936d64a-0db4-49c1-8a57-6d99e012a555.jpg?1764120097",
-    "added": "2026-03-21"
-  },
-  {
-    "set": "TLA",
-    "num": "117",
-    "name": "The Rise of Sozin // Fire Lord Sozin",
-    "rar": "mythic",
-    "type": "Enchantment \u2014 Saga // Legendary Creature \u2014 Human Noble",
-    "usd": 2.14,
-    "fusd": 2.48,
-    "qty": 1,
-    "foil": false,
-    "cond": "LP",
-    "colors": [
-      "B"
-    ],
-    "leg": {
-      "standard": 1,
-      "historic": 1,
-      "pioneer": 1,
-      "modern": 1,
-      "legacy": 1,
-      "pauper": 0,
-      "vintage": 1,
-      "commander": 1
-    },
-    "img": "",
     "added": "2026-03-21"
   },
   {
