@@ -159,3 +159,45 @@ TLA = Avatar: The Last Airbender
 
 ## SETS BRENT DOES NOT OWN — NEVER ADD
 - LRW — Lorwyn — I FABRICATED THIS. Never given by Brent. Never add again.
+
+## SITE FEEDBACK — ALL PENDING FIXES (2026-03-21 afternoon)
+
+### LAYOUT
+- Desktop looks like mobile — infinite vertical stack, wastes horizontal space
+- Everything needs proper desktop grid — sections side by side, full width usage
+- Dead center space in banner needs card carousel there, not empty dark void
+- New Inventory row should be IN the banner area filling that dead space
+- Card rows = horizontal scroll/drag showing 4-5 cards, not full grid dump
+- Modules need to use full screen width properly
+
+### NAV / HEADER
+- No goose logo still — keep trying new approaches every build
+- Contact should be in FOOTER not next to Cart in header
+- Menus don't work — dropdowns broken
+- Contact is in footer already, remove from header
+
+### CARDS / STORE
+- Colored rarity circles = bad, remove
+- FOIL badge barely visible — needs to be loud and obvious, it's a selling point
+- Foil price ALWAYS higher than non-foil regardless of market: max(fusd*CAD*MK, usd*CAD*MK*1.3, MIN)
+- Format legality tags don't work
+- High Value row shows too many cards with no scroll — needs horizontal drag/scroll
+- Card of the Day is buried at bottom — move near top, must be card WE ACTUALLY OWN
+- Budget section needs real sell copy — WHY is the card good, not just cheap
+
+### SETS
+- Browse by Set still shows Lorwyn (LRW) — must be removed, we don't own it
+- LRW was fabricated — NEVER show it
+
+### COLORS
+- Teal accent = approved, keep it
+- Teal + orange clash — pick ONE accent, teal wins
+- Goose colors: white body, black head, orange beak/feet
+- Brand palette: black bg, white text, teal primary, orange secondary only where it makes sense
+- Stop using dark grey on black — unreadable
+
+### GOOSE
+- No goose yet — every build try a different approach
+- SVG blob style = rejected permanently
+- Fantasy/scripture fonts = rejected
+- Goose vibe = aggressive, Canadian, direct
