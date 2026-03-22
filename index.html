@@ -49,6 +49,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
   position:sticky;top:0;height:var(--nh);
   box-shadow:0 2px 20px rgba(0,0,0,.8);
   overflow:visible;
+  background:rgba(6,8,12,.98);
 }
 
 /* 4 diagonal art panels — 2 left, 2 right, goose center */
@@ -156,7 +157,6 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
   height:var(--nh);
   background:rgba(6,8,12,.93);
   border-top:1px solid rgba(232,184,74,.18);
-  backdrop-filter:blur(16px);
   display:flex;align-items:center;
   padding:0 10px;gap:3px;
 }
@@ -230,9 +230,9 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 
 /* Autocomplete */
 .ac-drop{
-  position:absolute;top:calc(100% + 4px);left:0;right:0;
+  position:fixed;top:auto;left:auto;right:auto;width:420px;
   background:var(--bg3);border:1px solid var(--br2);border-radius:var(--r);
-  max-height:320px;overflow-y:auto;z-index:9999;
+  max-height:320px;overflow-y:auto;z-index:99999;
   display:none;box-shadow:0 8px 32px rgba(0,0,0,.8);
 }
 .ac-drop.show{display:block}
@@ -1115,41 +1115,38 @@ function buildCar(trackId,dotsId,cards,showPitch){
 
   const wrap=track.closest('.car-wrap');
   if(!wrap)return;
-  // Mouse wheel
-  wrap.addEventListener('wheel',e=>{e.preventDefault();moveCar(trackId,e.deltaY>0?1:-1);},{passive:false});
-  // Drag — click anywhere on track, drag freely
-  let sx=0,drag=false,vx=0,lx=0,lt=0;
+  // Mouse wheel scrolls carousel
+  wrap.addEventListener('wheel',e=>{
+    e.preventDefault();
+    moveCar(trackId,e.deltaY>0?1:-1);
+  },{passive:false});
+  // Drag to slide
+  let _sx=0,_dragging=false,_moved=false;
   track.addEventListener('mousedown',e=>{
-    drag=true;sx=e.clientX;vx=0;lx=e.clientX;lt=Date.now();
-    track.classList.add('nt');e.preventDefault();
+    _sx=e.clientX;_dragging=true;_moved=false;
+    track.style.cursor='grabbing';
+    e.preventDefault();
   });
-  window.addEventListener('mousemove',e=>{
-    if(!drag)return;
-    const now=Date.now(),dt=now-lt||1;
-    vx=(e.clientX-lx)/dt*16;lx=e.clientX;lt=now;
-    // Live drag — move track directly
-    const pos=carPos[trackId]||2;
-    const dx=e.clientX-sx;
-    if(Math.abs(dx)>4){
-      const perCard=120;
-      const offset=dx/perCard;
-      _applyTrackOffset(trackId,offset);
+  document.addEventListener('mousemove',e=>{
+    if(!_dragging)return;
+    if(Math.abs(e.clientX-_sx)>8)_moved=true;
+  });
+  document.addEventListener('mouseup',e=>{
+    if(!_dragging)return;
+    _dragging=false;
+    track.style.cursor='';
+    const diff=e.clientX-_sx;
+    if(Math.abs(diff)>40){
+      const steps=Math.max(1,Math.round(Math.abs(diff)/80));
+      moveCar(trackId,diff<0?steps:-steps);
     }
   });
-  window.addEventListener('mouseup',e=>{
-    if(!drag)return;drag=false;
-    track.classList.remove('nt');
-    const diff=e.clientX-sx;
-    const steps=Math.round((Math.abs(diff)+Math.abs(vx)*8)/100);
-    if(Math.abs(diff)>20)moveCar(trackId,diff<0?steps:-steps);
-    else renderCar(trackId,dotsId,cards,showPitch);// snap back
-  });
-  // Touch
-  let tx=0;
-  wrap.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+  // Touch swipe
+  let _tx=0;
+  wrap.addEventListener('touchstart',e=>{_tx=e.touches[0].clientX;},{passive:true});
   wrap.addEventListener('touchend',e=>{
-    const diff=e.changedTouches[0].clientX-tx;
-    if(Math.abs(diff)>30)moveCar(trackId,diff<0?1:-1);
+    const diff=e.changedTouches[0].clientX-_tx;
+    if(Math.abs(diff)>40)moveCar(trackId,diff<0?1:-1);
   },{passive:true});
 }
 
@@ -1249,6 +1246,13 @@ srchInput.addEventListener('keydown',function(e){
 });
 
 async function showAC(q){
+  // Position fixed dropdown under the search input
+  const inp=document.getElementById('srch');
+  const drop=document.getElementById('acDrop');
+  const rect=inp.getBoundingClientRect();
+  drop.style.top=(rect.bottom+4)+'px';
+  drop.style.left=rect.left+'px';
+  drop.style.width=rect.width+'px';
   const ql=q.toLowerCase();
   const dbM=db.filter(c=>c.name.toLowerCase().startsWith(ql)).slice(0,5);
   const ownedN=new Set(db.filter(c=>(c.qty||0)>0).map(c=>c.name.toLowerCase()));
@@ -1369,7 +1373,12 @@ ${owned?`<div class="cp">${fmt(c.price||0)}<sup> cad</sup></div><button class="a
 </div></div></div>`;
 }
 
+let _lastMouseX=0,_lastMouseY=0;
+document.addEventListener('mousedown',e=>{_lastMouseX=e.clientX;_lastMouseY=e.clientY;});
 function openM(s){
+  // Don't open if user just dragged (moved more than 8px)
+  // This check uses the event that triggered the click
+  if(event&&(Math.abs(event.clientX-_lastMouseX)>8||Math.abs(event.clientY-_lastMouseY)>8))return;
   const c=typeof s==='string'?decC(s):s;if(!c)return;
   mCard=c;mQty=1;
   rv=rv.filter(r=>!(r.set===c.set&&r.num===c.num));rv.unshift(c);if(rv.length>5)rv.pop();
