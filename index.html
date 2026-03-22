@@ -455,22 +455,37 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .mbg.open{display:flex}
 .mdl{
   background:var(--bg2);border:1px solid var(--br2);border-radius:6px;
-  max-width:860px;width:100%;max-height:90vh;overflow:hidden;position:relative;
-  display:grid;grid-template-columns:240px 1fr;
+  max-width:900px;width:100%;max-height:92vh;overflow:hidden;position:relative;
+  display:grid;grid-template-columns:170px 260px 1fr;
   box-shadow:0 0 0 1px rgba(232,184,74,.1),0 40px 80px rgba(0,0,0,.9);
 }
 .mdl::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(to right,transparent,var(--glowbr),transparent);z-index:1}
 .mclose{position:absolute;top:12px;right:12px;background:var(--bg3);border:1px solid var(--br);border-radius:3px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--t2);font-size:12px;z-index:1;transition:all .15s}
 .mclose:hover{color:var(--t0);border-color:var(--br3);background:var(--bg4)}
-.ml{background:var(--bg3);padding:16px;border-right:1px solid var(--br);display:flex;flex-direction:column;gap:12px;overflow-y:auto;max-height:90vh}
-.ml img{width:100%;max-height:300px;object-fit:contain;border-radius:var(--r);display:block;box-shadow:0 8px 32px rgba(0,0,0,.6)}
-.leg-hdr{font-family:'DM Mono',monospace;font-size:8px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--t2);margin-bottom:6px}
-.lr{display:flex;align-items:center;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--br);font-size:11px}
+.ml{background:var(--bg3);padding:14px 12px;border-right:1px solid var(--br);display:flex;flex-direction:column;gap:0;overflow-y:auto;max-height:92vh}
+.ml img{display:none}
+.mc-col{background:var(--bg4);border-right:1px solid var(--br);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:20px 14px;position:relative;overflow-y:auto;max-height:92vh}
+.mc-col img{width:100%;max-width:220px;border-radius:6px;display:block;box-shadow:0 8px 32px rgba(0,0,0,.7),0 0 20px rgba(232,184,74,.08);cursor:pointer;transition:transform .2s}
+.mc-col img:hover{transform:scale(1.03)}
+.mflip{background:var(--bg3);border:1px solid var(--br2);border-radius:var(--r);padding:5px 12px;font-family:'DM Mono',monospace;font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--t1);cursor:pointer;transition:all .15s;display:none}
+.mflip.show{display:block}
+.mflip:hover{border-color:var(--gold);color:var(--gold)}
+.m-prints{width:100%;margin-top:4px}
+.m-prints-lbl{font-family:'DM Mono',monospace;font-size:7px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--t2);margin-bottom:6px;display:block}
+.m-print{display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:3px;cursor:pointer;transition:background .1s;border:none;background:none;width:100%;text-align:left}
+.m-print:hover{background:var(--bg3)}
+.m-print img{width:28px;height:39px;object-fit:cover;border-radius:2px;flex-shrink:0}
+.m-print-info{min-width:0}
+.m-print-set{font-family:'DM Mono',monospace;font-size:8px;color:var(--t2)}
+.m-print-price{font-family:'Bebas Neue',sans-serif;font-size:12px;color:var(--gold)}
+.m-print.cur{background:var(--glow);border:1px solid var(--glowbr)}
+.leg-hdr{font-family:'DM Mono',monospace;font-size:8px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--t2);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--br)}
+.lr{display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--br);font-size:10px}
 .lr:last-child{border:none}
 .lf{color:var(--t1);font-weight:500}
-.ltag{font-family:'DM Mono',monospace;font-size:8px;font-weight:500;letter-spacing:.3px;padding:2px 6px;border-radius:3px;text-transform:uppercase}
+.ltag{font-family:'DM Mono',monospace;font-size:7px;font-weight:600;letter-spacing:.3px;padding:2px 5px;border-radius:3px;text-transform:uppercase}
 .ly{background:rgba(56,184,112,.15);color:var(--grn)}.ln{background:rgba(16,22,32,.8);color:var(--t3)}.lb{background:rgba(208,64,80,.15);color:var(--red)}
-.mr{padding:22px 24px;overflow-y:auto;max-height:90vh}
+.mr{padding:20px 22px;overflow-y:auto;max-height:92vh}
 .m-eye{font-family:'DM Mono',monospace;font-size:9px;color:var(--t2);margin-bottom:5px}
 .m-name{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:1.5px;line-height:1;margin-bottom:4px}
 .m-type{font-size:12px;color:var(--t2);margin-bottom:16px}
@@ -863,8 +878,16 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
   <div class="mdl">
     <button class="mclose" onclick="closeM()">✕</button>
     <div class="ml">
-      <img id="mImg" src="" alt="">
-      <div><div class="leg-hdr">Where It's Legal</div><div id="mLeg"></div></div>
+      <div class="leg-hdr">Where It's Legal</div>
+      <div id="mLeg"></div>
+    </div>
+    <div class="mc-col">
+      <img id="mImg" src="" alt="" onclick="mImgClick()">
+      <button class="mflip" id="mFlip" onclick="flipCard()">↺ Flip Card</button>
+      <div class="m-prints" id="mPrints" style="display:none">
+        <span class="m-prints-lbl">Other Printings</span>
+        <div id="mPrintsList"></div>
+      </div>
     </div>
     <div class="mr">
       <div class="m-eye" id="mEye"></div>
@@ -1434,6 +1457,29 @@ function openM(s){
   document.getElementById('mQ').textContent=1;
   const btn=document.getElementById('mAdd');btn.disabled=!owned;btn.textContent=owned?'Add to Cart':'Out of Stock';
   document.getElementById('mWait').classList.toggle('hidden',owned);
+  // Flip button — show if card has two faces
+  const isFlip = c.img && c.img2;
+  const flipBtn = document.getElementById('mFlip');
+  if(flipBtn) flipBtn.classList.toggle('show', !!isFlip);
+  window._mFace = 0;
+  // Other printings — search DB for same card name, different set
+  const name = (c.name||'').toLowerCase();
+  const prints = db.filter(x=>x.name.toLowerCase()===name && !(x.set===c.set&&x.num===c.num));
+  const printsEl = document.getElementById('mPrints');
+  const printsList = document.getElementById('mPrintsList');
+  if(prints.length && printsEl && printsList) {
+    printsEl.style.display='block';
+    printsList.innerHTML = prints.slice(0,6).map(p=>`
+      <button class="m-print${p.set===c.set&&p.num===c.num?' cur':''}" onclick="openM('${encC(p)}')">
+        <img src="${p.img||''}" alt="" loading="lazy">
+        <div class="m-print-info">
+          <div class="m-print-set">${p.set} #${p.num}${p.foil?' · Foil':''}</div>
+          <div class="m-print-price">${fmt(p.price||0)}</div>
+        </div>
+      </button>`).join('');
+  } else if(printsEl) {
+    printsEl.style.display='none';
+  }
   const leg=c.leg||{};
   document.getElementById('mLeg').innerHTML=FMTS.map(f=>{const v=leg[f];const legal=v===true||v===1;const banned=v===2;return`<div class="lr"><span class="lf">${f[0].toUpperCase()+f.slice(1)}</span><span class="ltag ${legal?'ly':banned?'lb':'ln'}">${legal?'Legal':banned?'Banned':'Not Legal'}</span></div>`;}).join('');
   document.getElementById('modal').classList.add('open');document.body.style.overflow='hidden';
@@ -1443,6 +1489,14 @@ function closeM(){document.getElementById('modal').classList.remove('open');docu
 function dq(d){mQty=Math.max(1,mQty+d);document.getElementById('mQ').textContent=mQty}
 function addFromM(){if(mCard&&(mCard.qty||0)>0){addCart(mCard,mQty);closeM();}}
 function qAdd(s){const c=decC(s);if(c&&(c.qty||0)>0)addCart(c,1)}
+function flipCard(){
+  if(!mCard||!mCard.img2)return;
+  window._mFace=(window._mFace||0)===0?1:0;
+  document.getElementById('mImg').src=window._mFace===0?mCard.img:mCard.img2;
+}
+function mImgClick(){
+  if(mCard&&mCard.img2)flipCard();
+}
 function doWait(){if(!mCard)return;doWaitForCard(mCard)}
 function doWaitForCard(c){
   const sub=encodeURIComponent('Waitlist — '+c.name);
