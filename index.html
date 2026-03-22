@@ -167,10 +167,10 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .ddbtn svg{width:8px;height:8px;transition:transform .15s}
 .ddbtn.open svg{transform:rotate(180deg)}
 .ddmenu{
-  position:absolute;bottom:calc(100% + 4px);left:0;
+  position:absolute;top:calc(100% + 4px);left:0;
   background:var(--bg3);border:1px solid var(--br2);border-radius:var(--r);
-  padding:8px;display:none;z-index:400;
-  box-shadow:0 -20px 60px rgba(0,0,0,.85);min-width:200px;
+  padding:8px;display:none;z-index:9999;
+  box-shadow:0 20px 60px rgba(0,0,0,.85);min-width:200px;
 }
 .ddmenu.show{display:block}
 .ddmenu.g2{display:none;grid-template-columns:1fr 1fr}
@@ -678,6 +678,15 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
       GOADED GOOSE
     </div>
 
+    <!-- Module quick-links -->
+    <div class="nav-chips" style="gap:2px;flex-shrink:0">
+      <button class="nchip mod-link-btn" onclick="scrollMod('cotd')" title="Card of the Day">COTD</button>
+      <button class="nchip mod-link-btn" onclick="scrollMod('recent')" title="Recently Added">New</button>
+      <button class="nchip mod-link-btn" onclick="scrollMod('hv')" title="High Value">💰</button>
+      <button class="nchip mod-link-btn" onclick="scrollMod('budget')" title="Budget Picks">Budget</button>
+      <button class="nchip mod-link-btn" onclick="scrollMod('sleep')" title="Sleepers">💤</button>
+      <button class="nchip mod-link-btn" onclick="scrollMod('fav')" title="Fan Favorites">⭐</button>
+    </div>
     <!-- Sets dropdown -->
     <div class="dd" id="ddSets">
       <button class="ddbtn" onclick="toggleDD('ddSets')">Sets <svg viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
@@ -1312,7 +1321,7 @@ async function showAC(q){
   drop.style.left=rect.left+'px';
   drop.style.width=rect.width+'px';
   const ql=q.toLowerCase();
-  const dbM=db.filter(c=>c.name.toLowerCase().startsWith(ql)).slice(0,5);
+  const dbM=db.filter(c=>c.name.toLowerCase().includes(ql)).slice(0,8);
   const ownedN=new Set(db.filter(c=>(c.qty||0)>0).map(c=>c.name.toLowerCase()));
   let html=dbM.map(c=>`<div class="acitem" onclick="selectAC('${c.name.replace(/'/g,"\\'")}')">
 ${c.img?`<img class="acimg" src="${c.img}" alt="" loading="lazy">`:'<div class="acimg"></div>'}
@@ -1322,7 +1331,7 @@ ${c.img?`<img class="acimg" src="${c.img}" alt="" loading="lazy">`:'<div class="
   try{
     const r=await fetch(SF_AC+encodeURIComponent(q),{headers:{'User-Agent':'GoadedGoose/1.0'}});
     const d=await r.json();
-    const sfN=(d.data||[]).filter(n=>!dbM.some(c=>c.name.toLowerCase()===n.toLowerCase())).slice(0,6);
+    const sfN=(d.data||[]).filter(n=>!dbM.some(c=>c.name.toLowerCase()===n.toLowerCase())).slice(0,10);
     html+=sfN.map(name=>`<div class="acitem" onclick="selectAC('${name.replace(/'/g,"\\'")}')">
 <div class="acimg"></div>
 <div style="flex:1;min-width:0"><div class="acname">${name}</div><div class="acmeta">All printings · Scryfall</div></div>
@@ -1339,7 +1348,7 @@ async function doSearch(q){
   const owned=db.filter(c=>c.name.toLowerCase().includes(ql)||(c.set||'').toLowerCase()===ql||(c.type||'').toLowerCase().includes(ql));
   let sf=[];
   try{
-    const r=await fetch(SF_S+encodeURIComponent(q)+'&order=released&unique=cards',{headers:{'User-Agent':'GoadedGoose/1.0','Accept':'application/json'}});
+    const r=await fetch(SF_S+encodeURIComponent(q)+'&order=released&unique=prints',{headers:{'User-Agent':'GoadedGoose/1.0','Accept':'application/json'}});
     if(r.ok){
       const d=await r.json();
       const on=new Set(owned.map(c=>c.name.toLowerCase()));
@@ -1352,7 +1361,7 @@ async function doSearch(q){
           price:calcP({usd:parseFloat(c.prices?.usd||0),foil:false}),
           leg:{standard:leg.standard==='legal',pioneer:leg.pioneer==='legal',modern:leg.modern==='legal',legacy:leg.legacy==='legal',vintage:leg.vintage==='legal',commander:leg.commander==='legal',pauper:leg.pauper==='legal',historic:leg.historic==='legal'},
           qty:0,foil:false,cond:'',_sf:true};
-      }).filter(c=>!on.has(c.name.toLowerCase()));
+      }).filter(c=>!on.has(c.name.toLowerCase()+c.set.toLowerCase()));
     }
   }catch(e){}
   fil=[...owned,...sf];
@@ -1544,8 +1553,20 @@ function checkout(){
 }
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
 
+function scrollMod(id){
+  const map={cotd:'ctRecent',recent:'ctRecent',hv:'ctHV',budget:'ctBudget',sleep:'ctSleep',fav:'ctFav'};
+  const el=document.getElementById(map[id]);
+  if(el){
+    const mod=el.closest('.module');
+    if(mod){
+      mod.scrollIntoView({behavior:'smooth',block:'nearest'});
+      mod.style.boxShadow='0 0 0 2px var(--gold),0 0 30px rgba(232,184,74,.4)';
+      setTimeout(()=>mod.style.boxShadow='',1400);
+    }
+  }
+}
 init();
-
+updateArtModeUI();
 </script>
 </body>
 </html>
