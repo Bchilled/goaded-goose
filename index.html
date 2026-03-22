@@ -121,27 +121,11 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .b-goose-wrap{
   display:flex;align-items:center;justify-content:center;
   position:relative;
+  margin:48px 0;
 }
 
 /* TITLE — arched/curved feel via letter-spacing variation */
-.b-title{
-  font-family:'Bebas Neue',sans-serif;
-  color:var(--gold);
-  letter-spacing:6px;
-  line-height:1;
-  text-align:center;
-  text-shadow:0 0 30px rgba(232,184,74,.4),0 2px 8px rgba(0,0,0,.9);
-  position:absolute;
-  white-space:nowrap;
-}
-.b-title-top{
-  font-size:28px;
-  top:-8px;left:50%;transform:translateX(-50%);
-}
-.b-title-bottom{
-  font-size:28px;
-  bottom:-8px;left:50%;transform:translateX(-50%);
-}
+/* b-title replaced by SVG arch */
 
 /* Auto-rotate dots */
 .b-dots{
@@ -221,12 +205,13 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .nav-search{position:relative;flex:1;max-width:420px;margin:0 6px;z-index:9999;}
 .nav-search input{
   width:100%;background:var(--bg3);border:1px solid var(--br2);border-radius:var(--r);
-  padding:7px 12px 7px 30px;color:var(--t0);font-size:12px;outline:none;
+  padding:7px 12px 7px 32px;color:var(--t0);font-size:12px;outline:none;
   font-family:'DM Sans',sans-serif;transition:border-color .15s,background .15s;
 }
 .nav-search input:focus{border-color:var(--gold);background:var(--bg4)}
 .nav-search input::placeholder{color:var(--t3)}
-.srch-ico{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--t2);font-size:13px;pointer-events:none}
+.srch-ico-btn{position:absolute;left:5px;top:50%;transform:translateY(-50%);color:var(--t2);font-size:15px;background:none;border:none;cursor:pointer;padding:4px 5px;border-radius:3px;transition:color .15s;line-height:1}
+.srch-ico-btn:hover{color:var(--gold)}
 
 /* Autocomplete */
 .ac-drop{
@@ -279,7 +264,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .main{max-width:1560px;margin:0 auto;padding:16px 16px 80px}
 
 /* ═══ MODULES ═══ */
-.mod-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;align-items:start}
+.mod-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
 
 .module{
   background:var(--bg2);
@@ -312,7 +297,8 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 
 /* COTD — compact, same height as carousel */
 .cotd-body{
-  display:flex;gap:14px;padding:12px 14px;align-items:flex-start;
+  display:flex;gap:14px;padding:14px 14px;align-items:center;
+  min-height:200px;
 }
 .cotd-img{
   width:90px;flex-shrink:0;
@@ -386,8 +372,17 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .mc-pip{position:absolute;bottom:4px;left:4px;width:7px;height:7px;border-radius:50%;border:1px solid rgba(0,0,0,.5)}
 .mc-qty{position:absolute;top:4px;right:4px;background:rgba(6,8,12,.9);border:1px solid var(--br2);color:var(--t2);font-size:7px;padding:1px 4px;border-radius:2px;font-family:'DM Mono',monospace}
 .mc-qty.hi{border-color:var(--gold);color:var(--gold)}
-.mc-oos{position:absolute;inset:0;background:rgba(6,8,12,.55)}
-.mc-oos-lbl{position:absolute;bottom:0;left:0;right:0;background:rgba(6,8,12,.88);font-family:'DM Mono',monospace;font-size:6px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--t2);text-align:center;padding:2px 0}
+.mc-oos{position:absolute;inset:0;background:rgba(6,8,12,.25)}
+.mc-oos-lbl{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%) rotate(-35deg);
+  background:rgba(208,64,80,.85);
+  color:#fff;font-family:'DM Mono',monospace;
+  font-size:7px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  padding:3px 20px;white-space:nowrap;
+  box-shadow:0 2px 8px rgba(0,0,0,.5);
+}
 .mc-body{padding:6px 7px 7px}
 .mc-set{font-family:'DM Mono',monospace;font-size:7px;color:var(--t2);margin-bottom:1px}
 .mc-name{font-size:10px;font-weight:600;color:var(--t0);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.25;margin-bottom:2px}
@@ -426,8 +421,17 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .fb{position:absolute;top:0;left:0;background:linear-gradient(135deg,#907018,#e8c040,#907018);color:#1a0800;font-size:6px;font-weight:700;padding:2px 6px 2px 4px;letter-spacing:.8px;font-family:'DM Mono',monospace;clip-path:polygon(0 0,100% 0,84% 100%,0 100%)}
 .qb{position:absolute;top:4px;right:4px;background:rgba(6,8,12,.9);border:1px solid var(--br2);color:var(--t2);font-size:8px;padding:1px 4px;border-radius:2px;font-family:'DM Mono',monospace}
 .qb.hi{border-color:var(--gold);color:var(--gold)}
-.oo{position:absolute;inset:0;background:rgba(6,8,12,.55)}
-.ol{position:absolute;bottom:0;left:0;right:0;background:rgba(6,8,12,.88);font-family:'DM Mono',monospace;font-size:7px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--t2);text-align:center;padding:3px 0}
+.oo{position:absolute;inset:0;background:rgba(6,8,12,.22)}
+.ol{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%) rotate(-35deg);
+  background:rgba(208,64,80,.85);
+  color:#fff;font-family:'DM Mono',monospace;
+  font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  padding:4px 24px;white-space:nowrap;
+  box-shadow:0 2px 8px rgba(0,0,0,.5);
+}
 .cb{padding:7px 9px 9px}
 .cm{font-family:'DM Mono',monospace;font-size:7px;color:var(--t2);margin-bottom:2px}
 .cn2{font-size:11px;font-weight:600;color:var(--t0);line-height:1.2;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -452,22 +456,22 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .mbg.open{display:flex}
 .mdl{
   background:var(--bg2);border:1px solid var(--br2);border-radius:6px;
-  max-width:800px;width:100%;max-height:92vh;overflow-y:auto;position:relative;
-  display:grid;grid-template-columns:260px 1fr;
+  max-width:860px;width:100%;max-height:90vh;overflow:hidden;position:relative;
+  display:grid;grid-template-columns:240px 1fr;
   box-shadow:0 0 0 1px rgba(232,184,74,.1),0 40px 80px rgba(0,0,0,.9);
 }
 .mdl::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(to right,transparent,var(--glowbr),transparent);z-index:1}
 .mclose{position:absolute;top:12px;right:12px;background:var(--bg3);border:1px solid var(--br);border-radius:3px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--t2);font-size:12px;z-index:1;transition:all .15s}
 .mclose:hover{color:var(--t0);border-color:var(--br3);background:var(--bg4)}
-.ml{background:var(--bg3);padding:20px;border-right:1px solid var(--br);display:flex;flex-direction:column;gap:14px}
-.ml img{width:100%;border-radius:var(--r);display:block;box-shadow:0 8px 32px rgba(0,0,0,.6)}
+.ml{background:var(--bg3);padding:16px;border-right:1px solid var(--br);display:flex;flex-direction:column;gap:12px;overflow-y:auto;max-height:90vh}
+.ml img{width:100%;max-height:300px;object-fit:contain;border-radius:var(--r);display:block;box-shadow:0 8px 32px rgba(0,0,0,.6)}
 .leg-hdr{font-family:'DM Mono',monospace;font-size:8px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--t2);margin-bottom:6px}
 .lr{display:flex;align-items:center;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--br);font-size:11px}
 .lr:last-child{border:none}
 .lf{color:var(--t1);font-weight:500}
 .ltag{font-family:'DM Mono',monospace;font-size:8px;font-weight:500;letter-spacing:.3px;padding:2px 6px;border-radius:3px;text-transform:uppercase}
 .ly{background:rgba(56,184,112,.15);color:var(--grn)}.ln{background:rgba(16,22,32,.8);color:var(--t3)}.lb{background:rgba(208,64,80,.15);color:var(--red)}
-.mr{padding:22px 24px}
+.mr{padding:22px 24px;overflow-y:auto;max-height:90vh}
 .m-eye{font-family:'DM Mono',monospace;font-size:9px;color:var(--t2);margin-bottom:5px}
 .m-name{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:1.5px;line-height:1;margin-bottom:4px}
 .m-type{font-size:12px;color:var(--t2);margin-bottom:16px}
@@ -616,8 +620,13 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
   <!-- CENTER BRAND — big goose wrapping the name -->
   <div class="b-brand" onclick="goHome()">
     <div class="b-goose-wrap" style="position:relative">
-      <!-- GOADED top arc -->
-      <div class="b-title b-title-top">GOADED</div>
+      <!-- GOADED arched top -->
+      <svg viewBox="0 0 320 52" style="position:absolute;top:-42px;left:50%;transform:translateX(-50%);width:320px;height:52px;overflow:visible;pointer-events:none">
+        <defs><path id="arcTop" d="M 10,50 A 150,150 0 0,1 310,50"/></defs>
+        <text font-family="'Bebas Neue',sans-serif" fill="#e8b84a" style="filter:drop-shadow(0 0 10px rgba(232,184,74,.55))">
+          <textPath href="#arcTop" startOffset="50%" text-anchor="middle" font-size="34" letter-spacing="9">GOADED</textPath>
+        </text>
+      </svg>
       <!-- GOOSE: cartoon Canadian goose, thick outlines, clear black eye, thumbs up -->
       <svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" style="width:110px;height:121px;filter:drop-shadow(0 0 16px rgba(232,184,74,.5))">
         <!-- Shadow -->
@@ -664,8 +673,13 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
         <path d="M98 24 L102 14 M108 22 L114 13 M116 28 L123 20" stroke="#e8b84a" stroke-width="3" stroke-linecap="round"/>
         <path d="M66 32 L57 24 M62 42 L53 39" stroke="#e8b84a" stroke-width="2.5" stroke-linecap="round"/>
       </svg>
-      <!-- GOOSE bottom arc -->
-      <div class="b-title b-title-bottom">GOOSE</div>
+      <!-- GOOSE arched bottom -->
+      <svg viewBox="0 0 320 52" style="position:absolute;bottom:-42px;left:50%;transform:translateX(-50%);width:320px;height:52px;overflow:visible;pointer-events:none">
+        <defs><path id="arcBot" d="M 10,2 A 150,150 0 0,0 310,2"/></defs>
+        <text font-family="'Bebas Neue',sans-serif" fill="#e8b84a" style="filter:drop-shadow(0 0 10px rgba(232,184,74,.55))">
+          <textPath href="#arcBot" startOffset="50%" text-anchor="middle" font-size="34" letter-spacing="9">GOOSE</textPath>
+        </text>
+      </svg>
     </div>
   </div>
 
@@ -737,7 +751,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 
     <!-- SEARCH CENTER -->
     <div class="nav-search">
-      <span class="srch-ico">⌕</span>
+      <button class="srch-ico-btn" onclick="doSearch(document.getElementById('srch').value.trim())" tabindex="-1">⌕</button>
       <input id="srch" type="text" placeholder="Search any card ever printed…" autocomplete="off">
       <div class="ac-drop" id="acDrop"></div>
     </div>
@@ -946,7 +960,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 
 <script>
 // ── ART MODE — defined first so getCardImg() works on initial render ──
-let _artMode = localStorage.getItem('gg_artmode') !== 'card';
+let _artMode = localStorage.getItem('gg_artmode') === 'art'; // default: card mode ON
 
 function getCardImg(c) {
   if (!c || !c.img) return '';
