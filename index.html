@@ -272,6 +272,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
   border-radius:6px;
   overflow:hidden;
   position:relative;
+  display:flex;flex-direction:column;
   box-shadow:
     0 0 0 1px rgba(0,0,0,.4),
     0 4px 24px rgba(0,0,0,.4),
@@ -296,8 +297,8 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 
 /* COTD — compact, same height as carousel */
 .cotd-body{
-  display:flex;gap:14px;padding:12px 14px;align-items:center;
-  min-height:180px;
+  display:flex;gap:14px;padding:12px 14px;align-items:flex-start;
+  min-height:0;
 }
 .cotd-img{
   width:90px;flex-shrink:0;
@@ -326,9 +327,9 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 
 /* Carousel */
 .car-outer{position:relative;padding:0 28px}
-.car-wrap{overflow:hidden;padding:12px 0 8px}
+.car-wrap{overflow:hidden;padding:10px 0 6px;display:flex;align-items:center}
 .car-track{
-  display:flex;gap:8px;align-items:center;
+  display:flex;gap:8px;align-items:center;justify-content:center;
   transition:transform .32s cubic-bezier(.4,0,.2,1);
   will-change:transform;cursor:grab;user-select:none;
 }
@@ -489,7 +490,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .ft-lbl{
   font-family:'DM Mono',monospace;font-size:8px;font-weight:500;
   letter-spacing:2px;text-transform:uppercase;
-  color:var(--t2);flex-shrink:0;white-space:nowrap;
+  color:var(--t1);flex-shrink:0;white-space:nowrap;
   line-height:1.3;
 }
 .ft-cards{display:flex;gap:6px;overflow:hidden}
@@ -511,12 +512,12 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .ft-sep{width:1px;height:40px;background:var(--br2);flex-shrink:0}
 .ft-cart-wrap{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
 .ft-total-n{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gold);letter-spacing:1px;line-height:1}
-.ft-total-l{font-family:'DM Mono',monospace;font-size:7px;color:var(--t2);margin-top:1px}
+.ft-total-l{font-family:'DM Mono',monospace;font-size:7px;color:var(--t1);margin-top:1px}
 .ft-co{background:var(--gold);color:#080400;border:none;border-radius:var(--r);padding:7px 14px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;cursor:pointer;transition:background .15s,box-shadow .15s}
 .ft-co:hover{background:var(--gold2);box-shadow:0 0 12px rgba(232,184,74,.4)}
 .ft-site{margin-left:8px;text-align:right;flex-shrink:0}
-.ft-site-n{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:2px;color:var(--t2);line-height:1}
-.ft-site-i{font-family:'DM Mono',monospace;font-size:7px;color:var(--t3);margin-top:1px}
+.ft-site-n{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:2px;color:var(--t1);line-height:1}
+.ft-site-i{font-family:'DM Mono',monospace;font-size:7px;color:var(--t2);margin-top:1px}
 
 /* ═══ CART ═══ */
 .cov{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;display:none}.cov.open{display:block}
@@ -573,7 +574,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
     </div>
     <!-- RIGHT 2: TMT, FIN -->
     <div class="b-panel" onclick="fSet('TMT')">
-      <div class="b-panel-img" style="background-image:url('https://cards.scryfall.io/art_crop/front/4/9/49293f77-5d7b-4106-b485-db6ce0ed37e6.jpg?1769006383')"></div>
+      <div class="b-panel-img" style="background-image:url('https://cards.scryfall.io/art_crop/front/7/4/74c11ee3-19d1-4ad5-a727-1d74c565d6a5.jpg?1769005535')"></div>
       <div class="b-panel-info">
         <div class="b-panel-code">TMT</div>
         <div class="b-panel-name">TMNT</div>
@@ -604,52 +605,46 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
     <div class="b-goose-wrap" style="position:relative">
       <!-- GOADED top arc -->
       <div class="b-title b-title-top">GOADED</div>
-      <!-- ANGRY CANADIAN GOOSE SVG — big, centered, black eye clearly visible -->
-      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width:130px;height:130px;filter:drop-shadow(0 0 16px rgba(232,184,74,.45))">
-        <!-- Body — white/cream -->
-        <ellipse cx="108" cy="138" rx="58" ry="44" fill="#e8e8dc"/>
-        <ellipse cx="110" cy="135" rx="44" ry="32" fill="#d8d8cc"/>
-        <!-- Wing left (normal) -->
-        <path d="M55 132 Q35 110 40 88 Q46 70 60 78 Q66 108 68 134Z" fill="#ccc8bc"/>
-        <!-- Wing right — RAISED THUMBS UP -->
-        <path d="M145 118 Q162 98 165 78 Q168 60 160 58 Q152 56 150 66 Q152 56 146 52 Q140 48 138 60 Q140 50 134 48 Q128 46 129 58 Q128 52 123 56 Q120 62 124 72 L122 118Z" fill="#d4c890"/>
-        <!-- Thumb knuckle lines -->
-        <path d="M160 58 L150 66" stroke="#b8a860" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-        <path d="M146 52 L138 60" stroke="#b8a860" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-        <path d="M134 48 L129 58" stroke="#b8a860" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-        <!-- Thumb -->
-        <ellipse cx="166" cy="54" rx="8" ry="11" fill="#d4c890" transform="rotate(-20,166,54)"/>
-        <!-- Neck — black -->
-        <path d="M88 118 Q82 98 84 74 Q86 54 94 58 Q102 62 100 84 Q98 104 94 120Z" fill="#181414"/>
-        <!-- Head — black -->
-        <ellipse cx="92" cy="58" rx="20" ry="18" fill="#181414"/>
-        <!-- White cheek patch — Canada Goose marking -->
-        <ellipse cx="80" cy="62" rx="11" ry="7" fill="#ece8d8"/>
-        <!-- BLACK EYE — large, clearly visible, bruised -->
-        <ellipse cx="84" cy="50" rx="10" ry="9" fill="#2a0808"/>
-        <circle cx="84" cy="50" r="5.5" fill="#0c0606"/>
-        <circle cx="86" cy="48" r="2" fill="#3a2828"/>
-        <!-- Bruising around eye -->
-        <ellipse cx="78" cy="48" rx="8" ry="4" fill="#3a1010" opacity=".65" transform="rotate(-20,78,48)"/>
-        <ellipse cx="90" cy="54" rx="6" ry="3" fill="#2a0808" opacity=".5"/>
-        <!-- Angry brow — prominent V shape -->
-        <path d="M73 42 Q80 38 88 41 Q84 40 90 38" stroke="#5a1818" stroke-width="3" stroke-linecap="round" fill="none"/>
-        <!-- Beak — open, angry, orange -->
-        <path d="M68 60 L54 56 L54 62 L68 66Z" fill="#d47020"/>
-        <path d="M68 60 L54 57 L54 61 L68 62Z" fill="#a85010"/>
-        <!-- Tongue hint -->
-        <ellipse cx="58" cy="61" rx="4" ry="2" fill="#c84040" opacity=".7"/>
-        <!-- Tail feathers -->
-        <path d="M162 132 Q178 122 176 136 Q172 148 158 142Z" fill="#ccc8bc"/>
-        <path d="M164 126 Q180 118 178 132 Q174 144 160 138Z" fill="#d8d4c8"/>
-        <!-- Feet -->
-        <path d="M90 180 L86 192 M98 182 L98 192 M106 180 L110 192" stroke="#d47020" stroke-width="3.5" stroke-linecap="round"/>
-        <path d="M86 192 L80 197 M86 192 L89 197 M98 192 L93 197 M98 192 L103 197 M110 192 L105 197 M110 192 L114 197" stroke="#d47020" stroke-width="2" stroke-linecap="round"/>
-        <!-- GOLD RAGE LINES around head -->
-        <path d="M98 30 L101 22 M106 28 L110 20 M113 32 L118 25" stroke="#e8b84a" stroke-width="2" stroke-linecap="round" opacity=".85"/>
-        <path d="M72 36 L66 30 M68 44 L61 40" stroke="#e8b84a" stroke-width="1.8" stroke-linecap="round" opacity=".7"/>
-        <!-- Stars around the black eye -->
-        <path d="M75 38 L74 34 M72 41 L68 40 M74 44 L72 47" stroke="#ffdd88" stroke-width="1.5" stroke-linecap="round" opacity=".8"/>
+      <!-- GOOSE: angry Canadian goose, thick outlines, BLACK EYE clearly visible, thumbs up -->
+      <svg viewBox="0 0 180 200" xmlns="http://www.w3.org/2000/svg" style="width:120px;height:134px;filter:drop-shadow(0 0 14px rgba(232,184,74,.5))">
+        <!-- BODY - white, chunky, cartoon -->
+        <ellipse cx="95" cy="148" rx="56" ry="42" fill="#f0ede0" stroke="#1a1a1a" stroke-width="3"/>
+        <!-- Wing RIGHT - raised thumbs up, chunky cartoon -->
+        <path d="M136 120 Q155 100 158 82 Q161 65 153 63 Q145 61 143 73 Q145 62 138 58 Q131 55 130 68 Q132 57 126 56 Q120 54 121 67 L118 118Z" fill="#e8d890" stroke="#1a1a1a" stroke-width="2.5"/>
+        <!-- Thumb up -->
+        <ellipse cx="157" cy="59" rx="7" ry="10" fill="#e8d890" stroke="#1a1a1a" stroke-width="2" transform="rotate(-20,157,59)"/>
+        <!-- Wing LEFT - normal, tucked -->
+        <path d="M46 132 Q28 112 33 90 Q38 72 52 80 Q57 108 60 134Z" fill="#e0ddd0" stroke="#1a1a1a" stroke-width="2.5"/>
+        <!-- NECK - solid black, Canada goose style -->
+        <path d="M82 120 Q76 100 79 78 Q81 60 90 64 Q99 68 97 88 Q95 108 90 122Z" fill="#1a1a1a"/>
+        <!-- HEAD - solid black, big and round -->
+        <circle cx="88" cy="62" r="22" fill="#1a1a1a"/>
+        <!-- WHITE CHEEK PATCH - Canada goose marking, thick -->
+        <ellipse cx="74" cy="68" rx="14" ry="9" fill="#f5f0e0"/>
+        <!-- BLACK EYE AREA - big bruised black circle, very visible -->
+        <circle cx="80" cy="55" r="13" fill="#1a0000"/>
+        <!-- Eye itself -->
+        <circle cx="80" cy="55" r="8" fill="#000000"/>
+        <!-- Eye shine -->
+        <circle cx="83" cy="52" r="3" fill="#333333"/>
+        <circle cx="84" cy="51" r="1.5" fill="#666"/>
+        <!-- ANGRY BROW - thick V shape, very prominent -->
+        <path d="M68 44 Q76 39 85 42" stroke="#4a0000" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <!-- Stars/lines showing bruised eye -->
+        <path d="M70 44 L67 40 M67 48 L63 47 M70 52 L66 53" stroke="#ffdd44" stroke-width="2" stroke-linecap="round"/>
+        <!-- BEAK - wide open, angry, orange -->
+        <path d="M63 64 L46 59 L46 67 L63 72Z" fill="#e87820" stroke="#1a1a1a" stroke-width="2"/>
+        <path d="M63 64 L46 60 L46 65 L63 66Z" fill="#c05810"/>
+        <!-- Tongue -->
+        <ellipse cx="51" cy="65" rx="5" ry="3" fill="#cc3333"/>
+        <!-- TAIL -->
+        <path d="M148 136 Q165 125 163 140 Q159 153 145 147Z" fill="#e0ddd0" stroke="#1a1a1a" stroke-width="2"/>
+        <!-- FEET -->
+        <path d="M80 188 L76 198 M90 190 L90 200 M100 188 L104 198" stroke="#e87820" stroke-width="4" stroke-linecap="round"/>
+        <path d="M76 198 L70 203 M76 198 L79 203 M90 200 L84 203 M90 200 L95 203 M104 198 L99 203 M104 198 L108 203" stroke="#e87820" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- GOLD RAGE LINES -->
+        <path d="M96 32 L99 24 M104 30 L108 22 M112 36 L117 29" stroke="#e8b84a" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M68 38 L61 32 M65 46 L57 43" stroke="#e8b84a" stroke-width="2" stroke-linecap="round"/>
       </svg>
       <!-- GOOSE bottom arc -->
       <div class="b-title b-title-bottom">GOOSE</div>
@@ -893,14 +888,14 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
     <span class="ft-lbl">Recently<br>Viewed</span>
   </div>
   <div class="ft-cards" id="ftRV">
-    <div style="font-size:10px;color:var(--t2)">Open cards to see history</div>
+    <div style="font-size:10px;color:var(--t1)">Open cards to see history</div>
   </div>
   <div class="ft-sep"></div>
   <div style="display:flex;flex-direction:column;flex-shrink:0">
     <span class="ft-lbl">You May<br>Also Like</span>
   </div>
   <div class="ft-cards" id="ftLike">
-    <div style="font-size:10px;color:var(--t2)">Browse cards first</div>
+    <div style="font-size:10px;color:var(--t1)">Browse cards first</div>
   </div>
   <div class="ft-sep"></div>
   <div class="ft-cart-wrap">
@@ -1175,7 +1170,7 @@ function renderCar(trackId,dotsId,cards,showPitch){
     const pitch=showPitch&&isCtr?`<div class="mc-pitch">${getPitch(c)}</div>`:'';
     return`<div class="mc${isCtr?' ctr':''}" onclick="openM('${safe}')">
 <div class="mc-img">
-${c.img?`<img src="${c.img}" alt="" loading="lazy">`:'<div class="mc-ph">🃏</div>'}
+${c.img?`<img src="${isCtr?c.img:c.img.replace('/normal/','/art_crop/')}" alt="" loading="lazy" style="${isCtr?'':' object-position:center 20%'}">`:'<div class="mc-ph">🃏</div>'}
 ${c.foil?'<span class="mc-foil">Foil</span>':''}
 <div class="mc-pip ${rm[rar]||'rC'}"></div>
 ${owned?`<span class="mc-qty ${(c.qty||0)>=4?'hi':''}">×${c.qty}</span>`:''}
@@ -1339,7 +1334,7 @@ function cardHTML(c){
   const owned=(c.qty||0)>0;const rar=(c.rar||'common')[0].toUpperCase();
   const safe=`'${encC(c)}'`;
   return`<div class="crd ${owned?'owned':'oos'}" onclick="openM(${safe})">
-<div class="ci">${c.img?`<img src="${c.img}" alt="" loading="lazy">`:'<div class="ci-ph">🃏</div>'}
+<div class="ci">${c.img?`<img src="${isCtr?c.img:c.img.replace('/normal/','/art_crop/')}" alt="" loading="lazy" style="${isCtr?'':' object-position:center 20%'}">`:'<div class="ci-ph">🃏</div>'}
 <div class="rp ${rm[rar]||'rC'}"></div>
 ${c.foil?'<span class="fb">Foil</span>':''}
 ${owned?`<span class="qb ${(c.qty||0)>=4?'hi':''}">×${c.qty}</span>`:''}
