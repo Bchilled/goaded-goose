@@ -495,7 +495,6 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
   position:fixed;bottom:0;left:0;right:0;z-index:300;
   background:rgba(6,8,12,.97);
   border-top:1px solid var(--br2);
-  backdrop-filter:blur(20px);
   height:66px;
   display:flex;align-items:center;
   padding:0 14px;gap:10px;
@@ -753,7 +752,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
     </select>
 
     <!-- Art/Card mode toggle -->
-    <button class="art-toggle" id="artToggle" onclick="toggleArtMode()">
+    <button class="art-toggle" id="artToggle" onclick="toggleArtMode()" title="Switch between Art View (beautiful) and Card View (full card text)">
       <span id="artToggleIcon">🖼</span> <span id="artToggleLbl">Art View</span>
     </button>
     <!-- Cart -->
@@ -946,6 +945,44 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 <div class="toast" id="toast"></div>
 
 <script>
+// ── ART MODE — defined first so getCardImg() works on initial render ──
+let _artMode = localStorage.getItem('gg_artmode') !== 'card';
+
+function getCardImg(c) {
+  if (!c || !c.img) return '';
+  return _artMode ? c.img.replace('/normal/', '/art_crop/') : c.img;
+}
+
+function toggleArtMode() {
+  _artMode = !_artMode;
+  localStorage.setItem('gg_artmode', _artMode ? 'art' : 'card');
+  updateArtModeUI();
+  Object.keys(carPos).forEach(trackId => {
+    const track = document.getElementById(trackId);
+    if (track && track._cards) renderCar(trackId, track._dotsId, track._cards, track._pitch);
+  });
+  renderG(pg);
+}
+
+function updateArtModeUI() {
+  const btn = document.getElementById('artToggle');
+  const icon = document.getElementById('artToggleIcon');
+  const lbl = document.getElementById('artToggleLbl');
+  if (!btn) return;
+  if (_artMode) {
+    btn.classList.remove('card-mode');
+    if(icon) icon.textContent = '🖼';
+    if(lbl) lbl.textContent = 'Art View';
+    btn.title = 'Art View active — click for Card View';
+  } else {
+    btn.classList.add('card-mode');
+    if(icon) icon.textContent = '🃏';
+    if(lbl) lbl.textContent = 'Card View';
+    btn.title = 'Card View active — click for Art View';
+  }
+}
+
+
 const DB='https://raw.githubusercontent.com/Bchilled/goaded-goose/main/database.json';
 const SF_AC='https://api.scryfall.com/cards/autocomplete?q=';
 const SF_S='https://api.scryfall.com/cards/search?q=';
@@ -1373,12 +1410,11 @@ ${owned?`<div class="cp">${fmt(c.price||0)}<sup> cad</sup></div><button class="a
 </div></div></div>`;
 }
 
-let _lastMouseX=0,_lastMouseY=0;
-document.addEventListener('mousedown',e=>{_lastMouseX=e.clientX;_lastMouseY=e.clientY;});
+let _didDrag=false;
+document.addEventListener('mousedown',()=>{_didDrag=false;});
+document.addEventListener('mousemove',e=>{if(e.buttons)_didDrag=true;});
 function openM(s){
-  // Don't open if user just dragged (moved more than 8px)
-  // This check uses the event that triggered the click
-  if(event&&(Math.abs(event.clientX-_lastMouseX)>8||Math.abs(event.clientY-_lastMouseY)>8))return;
+  if(_didDrag){_didDrag=false;return;}
   const c=typeof s==='string'?decC(s):s;if(!c)return;
   mCard=c;mQty=1;
   rv=rv.filter(r=>!(r.set===c.set&&r.num===c.num));rv.unshift(c);if(rv.length>5)rv.pop();
@@ -1453,51 +1489,7 @@ function checkout(){
 }
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
 
-// ── ART MODE TOGGLE ──
-let _artMode = localStorage.getItem('gg_artmode') !== 'card'; // default: art mode on
-
-function toggleArtMode() {
-  _artMode = !_artMode;
-  localStorage.setItem('gg_artmode', _artMode ? 'art' : 'card');
-  updateArtModeUI();
-  // Re-render all visible carousels
-  Object.keys(carPos).forEach(trackId => {
-    const track = document.getElementById(trackId);
-    if (track && track._cards) {
-      renderCar(trackId, track._dotsId, track._cards, track._pitch);
-    }
-  });
-  // Re-render grid
-  renderG(pg);
-}
-
-function updateArtModeUI() {
-  const btn = document.getElementById('artToggle');
-  const icon = document.getElementById('artToggleIcon');
-  const lbl = document.getElementById('artToggleLbl');
-  if (_artMode) {
-    btn.classList.remove('card-mode');
-    icon.textContent = '🖼';
-    lbl.textContent = 'Art View';
-    btn.title = 'Art View — click to see full card faces';
-  } else {
-    btn.classList.add('card-mode');
-    icon.textContent = '🃏';
-    lbl.textContent = 'Card View';
-    btn.title = 'Card View — click to see art only';
-  }
-}
-
-function getCardImg(c) {
-  if (!c.img) return '';
-  if (_artMode) {
-    return c.img.replace('/normal/', '/art_crop/');
-  }
-  return c.img; // full card face
-}
-
 init();
-updateArtModeUI();
 
 </script>
 </body>
