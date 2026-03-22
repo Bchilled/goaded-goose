@@ -253,6 +253,18 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .nav-sort{background:var(--bg3);border:1px solid var(--br);border-radius:var(--r);padding:5px 7px;color:var(--t2);font-size:10px;outline:none;cursor:pointer;font-family:'DM Sans',sans-serif;flex-shrink:0}
 .nav-sort:focus{border-color:var(--gold)}
 .nav-sort option{background:var(--bg2)}
+.art-toggle{
+  display:flex;align-items:center;gap:5px;
+  background:rgba(232,184,74,.12);border:1px solid var(--glowbr);border-radius:var(--r);
+  padding:5px 11px;font-family:'DM Mono',monospace;font-size:9px;font-weight:600;
+  letter-spacing:1px;text-transform:uppercase;cursor:pointer;
+  color:var(--gold);transition:all .15s;flex-shrink:0;
+  box-shadow:0 0 8px rgba(232,184,74,.1);
+}
+.art-toggle:hover{background:rgba(232,184,74,.2);border-color:var(--gold);box-shadow:0 0 14px rgba(232,184,74,.25)}
+.art-toggle.card-mode{background:var(--bg3);border-color:var(--br2);color:var(--t2);box-shadow:none}
+.art-toggle.card-mode:hover{border-color:var(--gold);color:var(--gold)}
+.art-toggle.card-mode:hover{border-color:var(--gold);color:var(--gold)}
 .nav-cart{
   display:flex;align-items:center;gap:5px;
   background:var(--gold);color:#080400;border:none;border-radius:var(--r);
@@ -740,6 +752,10 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
       <option value="name">Name A–Z</option>
     </select>
 
+    <!-- Art/Card mode toggle -->
+    <button class="art-toggle" id="artToggle" onclick="toggleArtMode()">
+      <span id="artToggleIcon">🖼</span> <span id="artToggleLbl">Art View</span>
+    </button>
     <!-- Cart -->
     <button class="nav-cart" onclick="openCart()">Cart <span class="nav-cart-n" id="nCN">0</span></button>
   </div>
@@ -1066,7 +1082,7 @@ function buildModules(){
   if(pool.length){
     const cotd=pool[new Date().getDate()%pool.length];
     window._cotdCard=cotd;
-    document.getElementById('cotdImg').src=cotd.img||'';
+    document.getElementById('cotdImg').src=getCardImg(cotd)||'';
     document.getElementById('cotdName').textContent=cotd.name;
     document.getElementById('cotdType').textContent=cotd.type||'';
     document.getElementById('cotdSub').textContent=(SET_NAMES[cotd.set]||cotd.set)+' · '+cotd.rar;
@@ -1176,7 +1192,7 @@ function renderCar(trackId,dotsId,cards,showPitch){
     const pitch=showPitch&&isCtr?`<div class="mc-pitch">${getPitch(c)}</div>`:'';
     return`<div class="mc${isCtr?' ctr':''}" onclick="openM('${safe}')">
 <div class="mc-img">
-${c.img?`<img src="${(c.img||'').replace('/normal/','/art_crop/')}" alt="" loading="lazy" style="${isCtr?'':' object-position:center 20%'}">`:'<div class="mc-ph">🃏</div>'}
+${c.img?`<img src="${getCardImg(c)}" alt="" loading="lazy" style="${_artMode ? 'object-position:center 30%;object-fit:cover' : 'object-fit:contain;background:var(--bg4)'}">`:'<div class="mc-ph">🃏</div>'}
 ${c.foil?'<span class="mc-foil">Foil</span>':''}
 <div class="mc-pip ${rm[rar]||'rC'}"></div>
 ${owned?`<span class="mc-qty ${(c.qty||0)>=4?'hi':''}">×${c.qty}</span>`:''}
@@ -1340,7 +1356,7 @@ function cardHTML(c){
   const owned=(c.qty||0)>0;const rar=(c.rar||'common')[0].toUpperCase();
   const safe=`'${encC(c)}'`;
   return`<div class="crd ${owned?'owned':'oos'}" onclick="openM(${safe})">
-<div class="ci">${c.img?`<img src="${(c.img||'').replace('/normal/','/art_crop/')}" alt="" loading="lazy" style="${isCtr?'':' object-position:center 20%'}">`:'<div class="ci-ph">🃏</div>'}
+<div class="ci">${c.img?`<img src="${getCardImg(c)}" alt="" loading="lazy" style="${_artMode ? 'object-position:center 30%;object-fit:cover' : 'object-fit:contain;background:var(--bg4)'}">`:'<div class="ci-ph">🃏</div>'}
 <div class="rp ${rm[rar]||'rC'}"></div>
 ${c.foil?'<span class="fb">Foil</span>':''}
 ${owned?`<span class="qb ${(c.qty||0)>=4?'hi':''}">×${c.qty}</span>`:''}
@@ -1427,7 +1443,53 @@ function checkout(){
   window.location.href=`mailto:brentlysnow@gmail.com?subject=${sub}&body=${bod}`;
 }
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
+
+// ── ART MODE TOGGLE ──
+let _artMode = localStorage.getItem('gg_artmode') !== 'card'; // default: art mode on
+
+function toggleArtMode() {
+  _artMode = !_artMode;
+  localStorage.setItem('gg_artmode', _artMode ? 'art' : 'card');
+  updateArtModeUI();
+  // Re-render all visible carousels
+  Object.keys(carPos).forEach(trackId => {
+    const track = document.getElementById(trackId);
+    if (track && track._cards) {
+      renderCar(trackId, track._dotsId, track._cards, track._pitch);
+    }
+  });
+  // Re-render grid
+  renderG(pg);
+}
+
+function updateArtModeUI() {
+  const btn = document.getElementById('artToggle');
+  const icon = document.getElementById('artToggleIcon');
+  const lbl = document.getElementById('artToggleLbl');
+  if (_artMode) {
+    btn.classList.remove('card-mode');
+    icon.textContent = '🖼';
+    lbl.textContent = 'Art View';
+    btn.title = 'Art View — click to see full card faces';
+  } else {
+    btn.classList.add('card-mode');
+    icon.textContent = '🃏';
+    lbl.textContent = 'Card View';
+    btn.title = 'Card View — click to see art only';
+  }
+}
+
+function getCardImg(c) {
+  if (!c.img) return '';
+  if (_artMode) {
+    return c.img.replace('/normal/', '/art_crop/');
+  }
+  return c.img; // full card face
+}
+
 init();
+updateArtModeUI();
+
 </script>
 </body>
 </html>
