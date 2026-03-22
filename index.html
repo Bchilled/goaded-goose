@@ -950,7 +950,7 @@ async function showSearchResults(q){
   // Then fetch Scryfall results for out-of-stock
   let sfCards=[];
   try{
-    const r=await fetch(SF_SEARCH+encodeURIComponent(q)+'&order=released&unique=cards',
+    const r=await fetch(SF_SEARCH+encodeURIComponent(q)+'&order=released&unique=prints',
       {headers:{'User-Agent':'GoadedGoose/1.0','Accept':'application/json'}});
     if(r.ok){
       const d=await r.json();
