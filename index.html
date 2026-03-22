@@ -16,15 +16,15 @@
   --glow:rgba(232,184,74,.10);--glowbr:rgba(232,184,74,.30);
   --red:#d04555;--grn:#40b878;--blu:#5090d8;
   --M:#e0804a;--R:#6090e0;--U:#68c880;--C:#9099a8;
-  --r:4px;--bh:200px;--nh:48px;
+  --r:4px;--bh:160px;--nh:48px;
 }
 html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM Sans',sans-serif;font-size:14px;overflow-x:hidden}
 ::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--br2);border-radius:2px}
 ::-webkit-scrollbar-thumb:hover{background:var(--br3)}
 
 /* ═══ BANNER ═══ */
-.banner{position:relative;width:100%;height:var(--bh);overflow:hidden;z-index:200;transition:height .3s cubic-bezier(.4,0,.2,1)}
-.banner.stuck{position:sticky;top:0;height:var(--nh)}
+.banner{position:relative;width:100%;height:var(--bh);overflow:hidden;z-index:200}
+.banner.stuck{position:sticky;top:0;height:var(--nh);overflow:visible}
 
 .b-bg{position:absolute;inset:0;display:flex}
 .b-bg-panel{flex:1;background-size:cover;background-position:center 25%;
@@ -35,13 +35,13 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
   linear-gradient(to bottom,rgba(8,11,16,.1) 0%,rgba(8,11,16,.85) 85%,rgba(8,11,16,1) 100%)}
 
 /* Brand — fades out when stuck */
-.b-brand{position:absolute;top:0;left:0;z-index:10;padding:18px 24px;
-  display:flex;align-items:center;gap:16px;transition:opacity .2s}
+.b-brand{position:absolute;top:0;left:0;right:0;z-index:10;padding:14px 24px;
+  display:flex;align-items:center;gap:16px;transition:opacity .2s;bottom:var(--nh)}
 .banner.stuck .b-brand{opacity:0;pointer-events:none}
 .b-goose{width:88px;height:88px;border-radius:50%;object-fit:cover;object-position:center 30%;
   border:2px solid var(--glowbr);box-shadow:0 0 20px rgba(232,184,74,.25),0 0 60px rgba(232,184,74,.1);
   flex-shrink:0}
-.b-name{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:5px;color:var(--gold);line-height:1;
+.b-name{font-family:'Bebas Neue',sans-serif;font-size:52px;letter-spacing:5px;color:var(--gold);line-height:1;
   text-shadow:0 2px 20px rgba(0,0,0,.8),0 0 40px rgba(232,184,74,.15);cursor:pointer}
 .b-tag{font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:3px;
   text-transform:uppercase;color:var(--t2);margin-top:4px}
@@ -217,7 +217,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
   border-radius:var(--r);overflow:hidden;cursor:pointer;
   transition:border-color .15s,box-shadow .15s,transform .2s,width .25s cubic-bezier(.4,0,.2,1)}
 .mc:hover{border-color:var(--br3);box-shadow:0 4px 16px rgba(0,0,0,.5)}
-.mc.ctr{width:148px;border-color:var(--glowbr);
+.mc.ctr{width:180px;border-color:var(--glowbr);
   box-shadow:0 0 0 1px var(--glowbr),0 8px 28px rgba(232,184,74,.15),0 0 40px rgba(232,184,74,.06)}
 .mc.ctr:hover{border-color:var(--gold)}
 .mc-img{aspect-ratio:5/7;position:relative;overflow:hidden;background:var(--bg4)}
@@ -447,9 +447,39 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
   <div class="b-grad"></div>
 
   <div class="b-brand">
-    <img class="b-goose" id="bGoose"
-      src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Canada_goose_on_grass.jpg/640px-Canada_goose_on_grass.jpg"
-      alt="Goose" onclick="goHome()">
+    <svg id="bGoose" onclick="goHome()" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" style="width:90px;height:90px;cursor:pointer;flex-shrink:0;filter:drop-shadow(0 0 12px rgba(232,184,74,.4))">
+  <!-- Body white -->
+  <ellipse cx="65" cy="75" rx="32" ry="24" fill="#e8e8e0"/>
+  <ellipse cx="65" cy="75" rx="25" ry="18" fill="#d8d8d0"/>
+  <!-- Wing raised (left wing up) -->
+  <path d="M38 65 Q22 45 28 30 Q34 20 44 28 Q50 55 48 68Z" fill="#d0d0c8"/>
+  <path d="M38 65 Q18 48 26 34 Q30 24 38 30 Q46 52 46 66Z" fill="#e0e0d8"/>
+  <!-- Tail -->
+  <path d="M93 72 Q104 65 102 76 Q98 85 90 80Z" fill="#d0d0c8"/>
+  <!-- Neck - black -->
+  <path d="M52 55 Q48 42 50 28 Q52 18 58 22 Q64 26 62 40 Q60 52 56 58Z" fill="#1a1a1a"/>
+  <!-- Head - black -->
+  <ellipse cx="56" cy="22" rx="12" ry="10" fill="#1a1a1a"/>
+  <!-- White cheek patch (Canada goose) -->
+  <ellipse cx="50" cy="24" rx="6" ry="4" fill="#f0f0e8"/>
+  <!-- BLACK EYE (bruised/angry) -->
+  <ellipse cx="52" cy="18" rx="5" ry="4" fill="#2a0a0a"/>
+  <circle cx="52" cy="18" r="2.5" fill="#0a0a0a"/>
+  <circle cx="53" cy="17" r="1" fill="#444"/>
+  <!-- Angry brow -->
+  <path d="M47 14 L57 16" stroke="#4a1a1a" stroke-width="2" stroke-linecap="round"/>
+  <!-- Beak open/angry orange -->
+  <path d="M44 22 L36 20 L36 23 L44 25Z" fill="#e07828"/>
+  <path d="M44 22 L36 21 L36 23 L44 23Z" fill="#c05818"/>
+  <!-- Feet orange -->
+  <path d="M55 96 L52 105 M58 97 L57 106 M60 96 L62 105" stroke="#e07828" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M52 105 L48 108 M52 105 L54 109 M57 106 L53 109 M57 106 L60 109" stroke="#e07828" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Thumbs up gesture on right wing -->
+  <path d="M88 68 Q96 60 100 55 Q104 50 102 46 Q99 42 96 46 Q97 42 94 40 Q91 38 89 43 Q90 39 87 38 Q84 37 83 43 Q82 42 80 44 Q79 48 82 52 L82 68Z" fill="#e8b04a"/>
+  <path d="M96 46 L89 43" stroke="#c07828" stroke-width="1"/>
+  <!-- Rage lines -->
+  <path d="M60 10 L62 4 M65 12 L68 6 M70 14 L74 9" stroke="#e8b84a" stroke-width="1.5" stroke-linecap="round" opacity=".7"/>
+</svg>
     <div>
       <div class="b-name" onclick="goHome()">Goaded Goose</div>
       <div class="b-tag">Canadian MTG Singles · All prices in CAD</div>
@@ -459,7 +489,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
   <!-- THE ONLY NAV — bottom of banner -->
   <div class="bnav">
     <div class="nav-logo" onclick="goHome()">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Canada_goose_on_grass.jpg/640px-Canada_goose_on_grass.jpg" alt="">
+      <svg viewBox="0 0 120 120" style="width:22px;height:22px;flex-shrink:0"><ellipse cx="65" cy="75" rx="32" ry="24" fill="#e8e8e0"/><path d="M52 55 Q48 42 50 28 Q52 18 58 22 Q64 26 62 40 Q60 52 56 58Z" fill="#1a1a1a"/><ellipse cx="56" cy="22" rx="12" ry="10" fill="#1a1a1a"/><ellipse cx="50" cy="24" rx="6" ry="4" fill="#f0f0e8"/><circle cx="52" cy="18" r="2.5" fill="#0a0a0a"/><path d="M44 22 L36 20 L36 23 L44 25Z" fill="#e07828"/></svg>
       GOADED GOOSE
     </div>
 
@@ -560,22 +590,8 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
   <!-- HOME: modules always visible -->
   <div id="homeView">
     <div class="mods-wrap">
+      <!-- Row 1: High Value | Budget Picks -->
       <div class="mod-row">
-        <div class="module">
-          <div class="mod-hdr">
-            <span class="mod-title">Recently Added</span>
-            <span class="mod-sub">Latest inventory</span>
-            <span class="mod-link" onclick="fSort('recent',true)">All →</span>
-          </div>
-          <div class="car-wrap" id="cwRecent">
-            <div class="car-track" id="ctRecent"></div>
-            <div class="car-btns">
-              <button class="car-btn" onclick="carNav('ctRecent',-1)">‹</button>
-              <button class="car-btn" onclick="carNav('ctRecent',1)">›</button>
-            </div>
-          </div>
-          <div class="car-dots" id="cdRecent"></div>
-        </div>
         <div class="module">
           <div class="mod-hdr">
             <span class="mod-title">High Value</span>
@@ -591,8 +607,6 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
           </div>
           <div class="car-dots" id="cdHV"></div>
         </div>
-      </div>
-      <div class="mod-row">
         <div class="module">
           <div class="mod-hdr">
             <span class="mod-title">Budget Picks</span>
@@ -607,6 +621,59 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
             </div>
           </div>
           <div class="car-dots" id="cdBudget"></div>
+        </div>
+      </div>
+      <!-- Row 3: Card of the Day | Sleepers -->
+      <div class="mod-row">
+        <div class="module" id="modCOTD">
+          <div class="mod-hdr">
+            <span class="mod-title">🃏 Card of the Day</span>
+            <span class="mod-sub" id="cotdSub">Today's spotlight</span>
+          </div>
+          <div style="display:flex;gap:14px;padding:12px">
+            <img id="cotdImg" src="" style="width:100px;border-radius:4px;flex-shrink:0;box-shadow:0 4px 16px rgba(0,0,0,.5)" alt="">
+            <div style="flex:1;min-width:0">
+              <div id="cotdName" style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:var(--t0);margin-bottom:4px"></div>
+              <div id="cotdType" style="font-size:10px;color:var(--t2);margin-bottom:8px"></div>
+              <div id="cotdPitch" style="font-size:11px;color:var(--t1);line-height:1.5;margin-bottom:10px;font-style:italic"></div>
+              <div style="display:flex;align-items:center;gap:10px">
+                <span id="cotdPrice" style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold)"></span>
+                <button id="cotdBtn" style="background:var(--gold);color:#080400;border:none;border-radius:4px;padding:6px 16px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="module">
+          <div class="mod-hdr">
+            <span class="mod-title">💤 Sleepers</span>
+            <span class="mod-sub">Underplayed · Underpriced</span>
+          </div>
+          <div class="car-wrap" id="cwSleep">
+            <div class="car-track" id="ctSleep"></div>
+            <div class="car-btns">
+              <button class="car-btn" onclick="carNav('ctSleep',-1)">‹</button>
+              <button class="car-btn" onclick="carNav('ctSleep',1)">›</button>
+            </div>
+          </div>
+          <div class="car-dots" id="cdSleep"></div>
+        </div>
+      </div>
+      <!-- Row 2: Recently Added | You Might Also Like -->
+      <div class="mod-row">
+        <div class="module">
+          <div class="mod-hdr">
+            <span class="mod-title">Recently Added</span>
+            <span class="mod-sub">Latest inventory</span>
+            <span class="mod-link" onclick="fSort('recent',true)">All →</span>
+          </div>
+          <div class="car-wrap" id="cwRecent">
+            <div class="car-track" id="ctRecent"></div>
+            <div class="car-btns">
+              <button class="car-btn" onclick="carNav('ctRecent',-1)">‹</button>
+              <button class="car-btn" onclick="carNav('ctRecent',1)">›</button>
+            </div>
+          </div>
+          <div class="car-dots" id="cdRecent"></div>
         </div>
         <div class="module">
           <div class="mod-hdr">
@@ -676,7 +743,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 <div class="footer" id="footer">
   <span class="ft-label">Recently<br>Viewed</span>
   <div class="ft-cards" id="ftCards">
-    <div style="font-size:10px;color:var(--t3)">Open cards to see history</div>
+    <div style="font-size:10px;color:var(--t3)">Loading…</div>
   </div>
   <div class="ft-sep"></div>
   <span class="ft-label">You May<br>Also Like</span>
@@ -750,8 +817,13 @@ function getPitch(c){
 }
 
 // Banner scroll
+let _lastStuck=false;
 window.addEventListener('scroll',()=>{
-  document.getElementById('banner').classList.toggle('stuck',window.scrollY>60);
+  const should=window.scrollY>80;
+  if(should!==_lastStuck){
+    _lastStuck=should;
+    document.getElementById('banner').classList.toggle('stuck',should);
+  }
 },{passive:true});
 
 // Close dropdowns on outside click
@@ -785,6 +857,9 @@ async function init(){
     buildSetMenu();
     buildModules();
     applyF();
+    // Init footer with recently added
+    const recentForFooter=[...db.filter(c=>(c.qty||0)>0)].reverse().slice(0,3);
+    document.getElementById('ftCards').innerHTML=recentForFooter.map(c=>`<div class="ft-card" onclick="openM('${encC(c)}')"><img class="ft-img" src="${c.img||''}" alt="" onerror="this.style.display='none'"><div class="ft-info"><div class="ft-name">${c.name}</div><div class="ft-price">${fmt(c.price||0)}</div></div></div>`).join('') || '<div style="font-size:10px;color:var(--t3)">Open cards to see history</div>';
   }catch(e){console.error('DB load failed',e)}
 }
 
@@ -813,6 +888,23 @@ function buildModules(){
   const budget=[...ins].filter(c=>(c.price||0)<=0.75)
     .sort((a,b)=>{const al=a.leg&&(a.leg.commander||a.leg.modern)?1:0;const bl=b.leg&&(b.leg.commander||b.leg.modern)?1:0;return bl-al}).slice(0,20);
   buildCar('ctBudget','cdBudget',budget,false);
+  // Card of the Day - pick a high-value owned card seeded by today's date
+  const today=new Date();const seed=(today.getDate()*31+today.getMonth()*12)%ins.length;
+  const cotd=ins[seed]||ins[0];
+  if(cotd){
+    document.getElementById('cotdImg').src=cotd.img||'';
+    document.getElementById('cotdName').textContent=cotd.name;
+    document.getElementById('cotdType').textContent=cotd.type||'';
+    document.getElementById('cotdSub').textContent=cotd.set+' · '+cotd.rar;
+    document.getElementById('cotdPitch').textContent=getPitch(cotd)+(cotd.leg?.commander?' · Commander legal':cotd.leg?.modern?' · Modern legal':'');
+    document.getElementById('cotdPrice').textContent=fmt(cotd.price||0)+' CAD';
+    document.getElementById('cotdBtn').onclick=()=>{if((cotd.qty||0)>0)addCart(cotd,1);else doWaitForCard(cotd);};
+    document.getElementById('cotdBtn').textContent=(cotd.qty||0)>0?'Add to Cart':'Request Card';
+  }
+  // Sleepers - commander/legacy legal under $2, sorted by format utility
+  const sleepers=ins.filter(c=>(c.price||0)<=2&&(c.price||0)>0.5&&c.leg&&(c.leg.commander||c.leg.legacy))
+    .sort((a,b)=>(b.price||0)-(a.price||0)).slice(0,20);
+  buildCar('ctSleep','cdSleep',sleepers,false);
 }
 
 function buildCar(trackId,dotsId,cards,showPitch){
@@ -1104,6 +1196,11 @@ function closeM(){document.getElementById('modal').classList.remove('open');docu
 function dq(d){mQty=Math.max(1,mQty+d);document.getElementById('mQ').textContent=mQty}
 function addFromM(){if(mCard&&(mCard.qty||0)>0){addCart(mCard,mQty);closeM();}}
 function qAdd(s){const c=decC(s);if(c&&(c.qty||0)>0)addCart(c,1)}
+function doWaitForCard(c){
+  const sub=encodeURIComponent('Waitlist — '+c.name);
+  const bod=encodeURIComponent('Hi,\n\nI\'d like to be on the waitlist for:\n\n'+c.name+' ('+c.set+' #'+c.num+(c.foil?' Foil':'')+') — '+fmt(c.price||0)+' CAD\n\nThanks!');
+  window.location.href=`mailto:brentlysnow@gmail.com?subject=${sub}&body=${bod}`;
+}
 function doWait(){
   if(!mCard)return;
   const sub=encodeURIComponent('Waitlist — '+mCard.name);
@@ -1115,6 +1212,8 @@ function doWait(){
 function updateFooter(){
   const el=document.getElementById('ftCards');
   const lk=document.getElementById('ftLike');
+  // Always show recently added from DB even if no rv
+  const recentDB=[...db.filter(c=>(c.qty||0)>0)].reverse().slice(0,3);
   if(rv.length){
     el.innerHTML=rv.slice(0,3).map(c=>`<div class="ft-card" onclick="openM('${encC(c)}')"><img class="ft-img" src="${c.img||''}" alt="" onerror="this.style.display='none'"><div class="ft-info"><div class="ft-name">${c.name}</div><div class="ft-price">${fmt(c.price||0)}</div></div></div>`).join('');
     // Similar cards
