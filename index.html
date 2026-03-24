@@ -215,9 +215,9 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 
 /* Autocomplete */
 .ac-drop{
-  position:fixed;top:auto;left:auto;right:auto;width:420px;
+  position:absolute;top:calc(100% + 4px);left:0;right:0;width:auto;
   background:var(--bg3);border:1px solid var(--br2);border-radius:var(--r);
-  max-height:320px;overflow-y:auto;z-index:99999;
+  max-height:60vh;overflow-y:auto;z-index:99999;
   display:none;box-shadow:0 8px 32px rgba(0,0,0,.8);
 }
 .ac-drop.show{display:block}
@@ -578,7 +578,31 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .toast{position:fixed;bottom:74px;right:14px;background:var(--bg4);border:1px solid var(--glowbr);border-left:3px solid var(--gold);border-radius:var(--r);padding:8px 14px;font-size:11px;color:var(--t0);z-index:700;transform:translateY(40px);opacity:0;transition:all .2s;pointer-events:none;font-weight:500}
 .toast.show{transform:translateY(0);opacity:1}
 
-@media(max-width:900px){.mdl{grid-template-columns:1fr}.ml{border-right:none;border-bottom:1px solid var(--br)}.mod-row{grid-template-columns:1fr}.cdrw{width:100%}.ft-site{display:none}}
+@media(max-width:900px){
+  .mdl{grid-template-columns:1fr}
+  .ml{border-right:none;border-bottom:1px solid var(--br)}
+  .mod-row{grid-template-columns:1fr}
+  .cdrw{width:100%}
+  .ft-site{display:none}
+  /* Mobile nav: hide non-essential items */
+  .bnav .nav-chips:first-of-type{display:none} /* module links */
+  #ddSets .ddbtn span:last-child{display:none} /* hide chevron text */
+  .nav-sort{display:none}
+  .art-toggle span:last-child{display:none} /* hide label, keep icon */
+  .art-toggle{padding:5px 8px}
+  .nav-search{max-width:none;flex:1;min-width:0}
+  .bnav{gap:4px;padding:0 8px;flex-wrap:nowrap;overflow:hidden}
+  .nav-logo{margin-right:4px}
+  /* Module nav chips - hide on mobile */
+  .mod-link-btn{display:none}
+}
+@media(max-width:600px){
+  /* Very small screens - further simplify */
+  #ddFilt{display:none}
+  .nav-chips{display:none} /* rarity + color */
+  .nav-logo{font-size:13px;letter-spacing:2px}
+  .nav-cart{padding:6px 8px;font-size:10px}
+}
 </style>
 </head>
 <body>
@@ -749,7 +773,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
     <!-- SEARCH CENTER -->
     <div class="nav-search">
       <button class="srch-ico-btn" onclick="doSearch(document.getElementById('srch').value.trim())" tabindex="-1">⌕</button>
-      <input id="srch" type="text" placeholder="Search any card ever printed…" autocomplete="off">
+      <input id="srch" type="search" placeholder="Search any MTG card…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
       <div class="ac-drop" id="acDrop"></div>
     </div>
 
@@ -1093,6 +1117,10 @@ document.addEventListener('click',e=>{
   if(!e.target.closest('.dd'))closeAllDDs();
   if(!e.target.closest('.nav-search'))document.getElementById('acDrop').classList.remove('show');
 },{passive:true});
+document.addEventListener('touchstart',e=>{
+  if(!e.target.closest('.dd'))closeAllDDs();
+  if(!e.target.closest('.nav-search'))document.getElementById('acDrop').classList.remove('show');
+},{passive:true});
 function closeAllDDs(){document.querySelectorAll('.ddmenu').forEach(d=>d.classList.remove('show'));document.querySelectorAll('.ddbtn').forEach(b=>b.classList.remove('open'))}
 function toggleDD(id){
   const m=document.getElementById(id+'Menu'),b=document.querySelector('#'+id+' .ddbtn');
@@ -1305,6 +1333,7 @@ srchInput.addEventListener('input',function(){
 srchInput.addEventListener('keydown',function(e){
   if(e.key==='Enter'&&this.value.trim()){
     document.getElementById('acDrop').classList.remove('show');
+    this.blur();
     doSearch(this.value.trim());
   }
   if(e.key==='Escape'){
@@ -1312,7 +1341,12 @@ srchInput.addEventListener('keydown',function(e){
     this.blur();
   }
 });
-
+// Mobile: fires when user taps the search/go button on keyboard
+srchInput.addEventListener('input',function(){
+  // Also handle paste on mobile
+  const q=this.value.trim();
+  if(!q){document.getElementById('acDrop').classList.remove('show');applyF();}
+});
 async function showAC(q){
   // Position fixed dropdown under the search input
   const inp=document.getElementById('srch');
