@@ -62,7 +62,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
   position:relative;
   overflow:hidden;
   cursor:pointer;
-  transition:flex .35s ease;
+  transition:flex .25s ease;
   flex:1;
 }
 .b-panel:hover{flex:1.7}
@@ -70,11 +70,11 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .b-panel-img{
   width:120%;height:100%;
   background-size:cover;background-position:center 30%;
-  filter:brightness(.45) saturate(1.6);
+  filter:brightness(.55) saturate(1.7);
   transform:skewX(-4deg) translateX(-5%);
   transition:filter .3s,transform .3s;
 }
-.b-panel:hover .b-panel-img{filter:brightness(.65) saturate(1.8);transform:skewX(-4deg) translateX(-5%) scale(1.06)}
+.b-panel:hover .b-panel-img{filter:brightness(.75) saturate(2.0);transform:skewX(-4deg) translateX(-5%) scale(1.06)}
 /* Slanted overlay edge on each panel */
 .b-panel::after{
   content:'';position:absolute;top:0;bottom:0;right:-14px;width:28px;
@@ -88,11 +88,11 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .b-panel-info{
   position:absolute;bottom:calc(var(--nh) + 6px);left:0;right:0;
   z-index:4;text-align:center;
-  opacity:0;transform:translateY(8px);
-  transition:opacity .2s,transform .2s;
+  opacity:.45;transform:translateY(0);
+  transition:opacity .2s;
   pointer-events:none;
 }
-.b-panel:hover .b-panel-info{opacity:1;transform:translateY(0)}
+.b-panel:hover .b-panel-info{opacity:1}
 .b-panel-code{font-family:'DM Mono',monospace;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:2px;text-shadow:0 1px 4px rgba(0,0,0,.9)}
 .b-panel-name{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;color:var(--t0);margin-bottom:2px;text-shadow:0 1px 6px rgba(0,0,0,.9)}
 .b-panel-count{font-family:'DM Mono',monospace;font-size:9px;color:var(--grn);font-weight:600}
@@ -150,12 +150,10 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .nav-logo{
   font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:3px;
   color:var(--gold);cursor:pointer;white-space:nowrap;
-  opacity:0;transition:opacity .2s;
+  opacity:1;
   display:flex;align-items:center;gap:7px;flex-shrink:0;margin-right:6px;
 }
-.banner.stuck .nav-logo{opacity:1}
-
-/* Dropdown menus */
+./* Dropdown menus */
 .dd{position:relative}
 .ddbtn{
   display:flex;align-items:center;gap:4px;
@@ -691,7 +689,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
   .banner{height:100px}
   .b-goose-wrap svg{width:110px;height:73px}
   .grid{grid-template-columns:repeat(2,1fr);gap:6px}
-  .nav-logo .nav-logo-txt{display:none}
+  .nav-logo{font-size:13px;letter-spacing:1px;opacity:1 !important}
   .nav-search input{font-size:15px}
 }
   .banner{height:110px}
@@ -704,10 +702,10 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 
 <!-- BANNER -->
 <div class="banner" id="banner">
-  <!-- 4 diagonal art panels -->
+  <!-- SET PANELS: 2 left, 2 right of goose -->
   <div class="b-panels">
-    <!-- LEFT 2: TDM, EOE -->
-    <div class="b-panel" onclick="fSet('TDM')">
+    <!-- LEFT 2 panels -->
+    <div class="b-panel" onclick="fSet('TDM')" onmouseenter="panelFocus(0)">
       <div class="b-panel-img" style="background-image:url('https://cards.scryfall.io/art_crop/front/6/4/64a5d494-efa1-446b-bebe-2ad36e154376.jpg?1761770162')"></div>
       <div class="b-panel-info">
         <div class="b-panel-code">TDM</div>
@@ -715,7 +713,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
         <div class="b-panel-count" id="pc-TDM">— in stock</div>
       </div>
     </div>
-    <div class="b-panel" onclick="fSet('EOE')">
+    <div class="b-panel" onclick="fSet('EOE')" onmouseenter="panelFocus(1)">
       <div class="b-panel-img" style="background-image:url('https://cards.scryfall.io/art_crop/front/1/2/1226e575-aa78-4c68-be1d-6e5c2dc6315b.jpg?1752946696')"></div>
       <div class="b-panel-info">
         <div class="b-panel-code">EOE</div>
@@ -723,8 +721,8 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
         <div class="b-panel-count" id="pc-EOE">— in stock</div>
       </div>
     </div>
-    <!-- RIGHT 2: TMT, FIN -->
-    <div class="b-panel" onclick="fSet('TMT')">
+    <!-- RIGHT 2 panels -->
+    <div class="b-panel" onclick="fSet('TMT')" onmouseenter="panelFocus(2)">
       <div class="b-panel-img" style="background-image:url('https://cards.scryfall.io/art_crop/front/7/4/74c11ee3-19d1-4ad5-a727-1d74c565d6a5.jpg?1769005535')"></div>
       <div class="b-panel-info">
         <div class="b-panel-code">TMT</div>
@@ -732,7 +730,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
         <div class="b-panel-count" id="pc-TMT">— in stock</div>
       </div>
     </div>
-    <div class="b-panel" onclick="fSet('FIN')">
+    <div class="b-panel" onclick="fSet('FIN')" onmouseenter="panelFocus(3)">
       <div class="b-panel-img" style="background-image:url('https://cards.scryfall.io/art_crop/front/9/5/95318d85-4a08-47ac-a43d-ea83c0bea81c.jpg?1748705758')"></div>
       <div class="b-panel-info">
         <div class="b-panel-code">FIN</div>
@@ -1266,12 +1264,11 @@ let _panelIdx=0,_panelTimer;
 function panelFocus(idx){
   _panelIdx=idx;
   document.querySelectorAll('.b-dot').forEach((d,i)=>d.classList.toggle('on',i===idx));
-  const panels=document.querySelectorAll('.b-panel');
-  panels.forEach((p,i)=>p.style.flex=i===idx?'1.8':'1');
-  setTimeout(()=>panels.forEach(p=>p.style.flex=''),2500);
+  // No flex changes — panels only expand on CSS :hover
 }
 function startRotation(){
-  _panelTimer=setInterval(()=>{_panelIdx=(_panelIdx+1)%4;panelFocus(_panelIdx);},4500);
+  // No auto-rotation — panels only respond to hover/click
+  // Dots still show which panel was last hovered
 }
 
 // Close dropdowns outside
