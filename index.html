@@ -576,6 +576,21 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .toast{position:fixed;bottom:74px;right:14px;background:var(--bg4);border:1px solid var(--glowbr);border-left:3px solid var(--gold);border-radius:var(--r);padding:8px 14px;font-size:11px;color:var(--t0);z-index:700;transform:translateY(40px);opacity:0;transition:all .2s;pointer-events:none;font-weight:500}
 .toast.show{transform:translateY(0);opacity:1}
 
+.module-overlay{
+  display:none;position:fixed;inset:0;z-index:450;
+  background:var(--bg2);flex-direction:column;
+}
+.module-overlay.open{display:flex}
+.module-overlay-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 16px;border-bottom:1px solid var(--br2);
+  font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:var(--t0);
+}
+.module-overlay-title{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;color:var(--gold)}
+.module-overlay-content{flex:1;overflow-y:auto;padding:14px}
+.browse-item-lg{text-align:center;padding:16px 8px;font-size:12px;line-height:1.8}
+.browse-item-lg span{display:block;font-size:11px;color:var(--t1)}
+
 .browse-overlay{
   display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:400;
 }
@@ -870,6 +885,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 
     <!-- Sort -->
     <select class="nav-sort" id="sortSel" onchange="fSort(this.value)">
+      <option value="wubrg">WUBRG</option>
       <option value="recent">Recently Added</option>
       <option value="price_desc">Most Expensive</option>
       <option value="price_asc">Least Expensive</option>
@@ -1064,14 +1080,14 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
   <div class="browse-sheet-handle"></div>
   <div class="browse-sheet-title">Browse</div>
   <div class="browse-sheet-section">
-    <div class="browse-sheet-lbl">Modules</div>
+    <div class="browse-sheet-lbl">Featured</div>
     <div class="browse-sheet-grid">
-      <button class="browse-item" onclick="scrollModClose('cotd')">🃏 Card of the Day</button>
-      <button class="browse-item" onclick="scrollModClose('recent')">✨ Recently Added</button>
-      <button class="browse-item" onclick="scrollModClose('hv')">💰 High Value</button>
-      <button class="browse-item" onclick="scrollModClose('budget')">🏷 Budget Picks</button>
-      <button class="browse-item" onclick="scrollModClose('sleep')">💤 Sleepers</button>
-      <button class="browse-item" onclick="scrollModClose('fav')">⭐ Fan Favorites</button>
+      <button class="browse-item browse-item-lg" onclick="showModule('cotd');closeBrowseSheet()">🃏<br><span>Card of the Day</span></button>
+      <button class="browse-item browse-item-lg" onclick="showModule('recent');closeBrowseSheet()">✨<br><span>Recently Added</span></button>
+      <button class="browse-item browse-item-lg" onclick="showModule('hv');closeBrowseSheet()">💰<br><span>High Value</span></button>
+      <button class="browse-item browse-item-lg" onclick="showModule('budget');closeBrowseSheet()">🏷<br><span>Budget Picks</span></button>
+      <button class="browse-item browse-item-lg" onclick="showModule('sleep');closeBrowseSheet()">💤<br><span>Sleepers</span></button>
+      <button class="browse-item browse-item-lg" onclick="showModule('fav');closeBrowseSheet()">⭐<br><span>Fan Favorites</span></button>
     </div>
   </div>
   <!-- SORT + FILTER in browse sheet -->
@@ -1105,6 +1121,15 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
     <div class="browse-sheet-lbl">Sets</div>
     <div class="browse-sheet-sets" id="browseSheetSets"></div>
   </div>
+</div>
+
+<!-- MODULE OVERLAY (mobile) -->
+<div class="module-overlay" id="moduleOverlay">
+  <div class="module-overlay-header">
+    <span class="module-overlay-title" id="moduleOverlayTitle"></span>
+    <button onclick="closeModuleOverlay()" style="background:none;border:none;color:var(--t1);font-size:20px;cursor:pointer;padding:4px 8px">✕</button>
+  </div>
+  <div class="module-overlay-content" id="moduleOverlayContent"></div>
 </div>
 
 <!-- STICKY FOOTER -->
@@ -1200,9 +1225,79 @@ const FAMOUS=['Chatterfang','Kenrith','Tymna','Najeela','Edgar Markov','Atraxa',
 const PAGE=60;
 const rm={M:'rM',R:'rR',U:'rU',C:'rC'};
 let db=[],fil=[],pg=1,mCard=null,mQty=1,cart={},rv=[];
-let flt={stock:'instock',sort:'recent',set:'',color:'',rarity:'',type:'',format:'',foil:''};
+let flt={stock:'instock',sort:'wubrg',set:'',color:'',rarity:'',type:'',format:'',foil:''};
 let srchQ='';
 let carPos={};
+
+function wubrgSort(cards){
+  // Assign each card a primary color bucket
+  function colorBucket(c){
+    const cols=c.colors||[];
+    if(cols.length===0)return 5; // Colorless
+    if(cols.length>1)return 5;   // Multi → Colorless column
+    const m={'W':0,'U':1,'B':2,'R':3,'G':4};
+    return m[cols[0]]!==undefined?m[cols[0]]:5;
+  }
+  // Card type priority for sudoku interleave
+  function typeKey(c){
+    const t=(c.type||'').toLowerCase();
+    if(t.includes('planeswalker'))return 0;
+    if(t.includes('creature'))return 1;
+    if(t.includes('instant'))return 2;
+    if(t.includes('sorcery'))return 3;
+    if(t.includes('enchantment'))return 4;
+    if(t.includes('artifact'))return 5;
+    if(t.includes('land'))return 6;
+    return 7;
+  }
+  // Seeded shuffle — different every page load but consistent per session
+  const seed=Date.now()%100000;
+  function seededRand(i){return((seed*1664525+i*1013904223)&0x7fffffff)/0x7fffffff;}
+  
+  // Split into 6 color buckets
+  const buckets=[[],[],[],[],[],[]];
+  cards.forEach(c=>buckets[colorBucket(c)].push(c));
+  
+  // Within each bucket: sort by type then shuffle within type groups
+  buckets.forEach(bucket=>{
+    // Shuffle within each type group
+    const byType={};
+    bucket.forEach(c=>{
+      const k=typeKey(c);
+      if(!byType[k])byType[k]=[];
+      byType[k].push(c);
+    });
+    // Shuffle each type group
+    Object.values(byType).forEach(group=>{
+      for(let i=group.length-1;i>0;i--){
+        const j=Math.floor(seededRand(i)*( i+1));
+        [group[i],group[j]]=[group[j],group[i]];
+      }
+    });
+    // Interleave types sudoku-style: take one from each type in rotation
+    const typeGroups=Object.values(byType).filter(g=>g.length>0);
+    bucket.length=0;
+    let round=0;
+    while(typeGroups.some(g=>g.length>0)){
+      typeGroups.forEach(g=>{if(g.length>0)bucket.push(g.shift());});
+      round++;
+    }
+  });
+  
+  // Interleave the 6 color buckets: W U B R G C columns
+  // To display as columns in a CSS grid, we need to order cards
+  // so they flow column by column: all W first, then U, then B, R, G, C
+  // CSS grid with grid-auto-flow:column would do it but we use row flow
+  // Instead: interleave so row 1 = W,U,B,R,G,C row 2 = W,U,B,R,G,C etc
+  const maxLen=Math.max(...buckets.map(b=>b.length));
+  const result=[];
+  for(let row=0;row<maxLen;row++){
+    buckets.forEach(bucket=>{
+      if(row<bucket.length)result.push(bucket[row]);
+    });
+  }
+  return result;
+}
 
 function calcP(c){
   if(c.price)return c.price;
@@ -1578,10 +1673,10 @@ function selectAC(name){
 function goHome(){
   srchInput.value='';srchQ='';
   document.getElementById('acDrop').classList.remove('show');
-  flt={stock:'instock',sort:'recent',set:'',color:'',rarity:'',type:'',format:'',foil:''};
+  flt={stock:'instock',sort:'wubrg',set:'',color:'',rarity:'',type:'',format:'',foil:''};
   document.querySelectorAll('#rarChips .nchip').forEach((b,i)=>b.classList.toggle('on',i===0));
   document.querySelectorAll('#colChips .nchip').forEach((b,i)=>b.classList.toggle('on',i===0));
-  document.getElementById('sortSel').value='recent';
+  document.getElementById('sortSel').value='wubrg';
   applyF();
 }
 function fSet(v){flt.set=v;closeAllDDs();applyF()}
@@ -1609,9 +1704,10 @@ function applyF(){
   else if(s==='price_asc')cards.sort((a,b)=>(a.price||0)-(b.price||0));
   else if(s==='name')cards.sort((a,b)=>a.name.localeCompare(b.name));
   else if(s==='new_set'){const si=Object.fromEntries(SET_ORDER.map((c,i)=>[c,i]));cards.sort((a,b)=>(si[a.set]||99)-(si[b.set]||99)||(b.price||0)-(a.price||0));}
-  else{const idx=new Map(db.map((c,i)=>[c.set+'|'+c.num+'|'+(c.foil?'1':'0'),i]));cards.sort((a,b)=>(idx.get(b.set+'|'+b.num+'|'+(b.foil?'1':'0'))||0)-(idx.get(a.set+'|'+a.num+'|'+(a.foil?'1':'0'))||0));}
+  else if(s==='recent'){const idx=new Map(db.map((c,i)=>[c.set+'|'+c.num+'|'+(c.foil?'1':'0'),i]));cards.sort((a,b)=>(idx.get(b.set+'|'+b.num+'|'+(b.foil?'1':'0'))||0)-(idx.get(a.set+'|'+a.num+'|'+(a.foil?'1':'0'))||0));}
+  else{cards=wubrgSort(cards);}  // default: WUBRG columns
   fil=cards;
-  const title=flt.set?(SET_NAMES[flt.set]||flt.set):flt.stock==='instock'?'In Stock':'All Cards';
+  const title=flt.set?(SET_NAMES[flt.set]||flt.set):flt.sort==='wubrg'?'Cards by Color':flt.stock==='instock'?'In Stock':'All Cards';
   document.getElementById('gridTitle').textContent=title;
   document.getElementById('gridCount').textContent=fil.length.toLocaleString()+' cards';
   document.getElementById('nr').style.display=fil.length?'none':'block';
@@ -1779,6 +1875,47 @@ function fRarMob(v,el){
 }
 function setArtMode(on){
   if(_artMode!==on){toggleArtMode();}
+}
+// Module overlay — shows module in a full-screen slide-up
+function showModule(id){
+  const map={
+    cotd:'ctRecent',recent:'ctRecent',hv:'ctHV',budget:'ctBudget',sleep:'ctSleep',fav:'ctFav'
+  };
+  const modMap={
+    cotd:0,recent:0,hv:1,budget:1,sleep:2,fav:2
+  };
+  // Find the module and scroll to it on desktop
+  // On mobile show it in a dedicated overlay
+  const trackId=map[id];
+  const track=document.getElementById(trackId);
+  if(!track)return;
+  const mod=track.closest('.module');
+  if(!mod)return;
+  
+  // Show module overlay on mobile
+  if(window.innerWidth<=900){
+    const ov=document.getElementById('moduleOverlay');
+    const oc=document.getElementById('moduleOverlayContent');
+    const ot=document.getElementById('moduleOverlayTitle');
+    if(!ov)return;
+    // Clone module into overlay
+    const clone=mod.cloneNode(true);
+    oc.innerHTML='';
+    oc.appendChild(clone);
+    const titles={cotd:'Card of the Day',recent:'Recently Added',hv:'High Value',budget:'Budget Picks',sleep:'Sleepers',fav:'Fan Favorites'};
+    ot.textContent=titles[id]||id;
+    ov.classList.add('open');
+    document.body.style.overflow='hidden';
+    // Re-init carousels in clone won't work — just show the module
+  } else {
+    mod.scrollIntoView({behavior:'smooth',block:'start'});
+    mod.style.boxShadow='0 0 0 2px var(--gold),0 0 30px rgba(232,184,74,.4)';
+    setTimeout(()=>mod.style.boxShadow='',1400);
+  }
+}
+function closeModuleOverlay(){
+  document.getElementById('moduleOverlay').classList.remove('open');
+  document.body.style.overflow='';
 }
 function scrollModClose(id){
   closeBrowseSheet();
