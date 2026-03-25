@@ -240,15 +240,15 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .nav-sort option{background:var(--bg2)}
 .art-toggle{
   display:flex;align-items:center;gap:5px;
-  background:rgba(232,184,74,.12);border:1px solid var(--glowbr);border-radius:var(--r);
-  padding:5px 11px;font-family:'DM Mono',monospace;font-size:9px;font-weight:600;
+  background:var(--gold);border:2px solid var(--gold);border-radius:var(--r);
+  padding:5px 12px;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;
   letter-spacing:1px;text-transform:uppercase;cursor:pointer;
-  color:var(--gold);transition:all .15s;flex-shrink:0;
-  box-shadow:0 0 8px rgba(232,184,74,.1);
+  color:#080400;transition:all .15s;flex-shrink:0;
+  box-shadow:0 0 12px rgba(232,184,74,.4);
 }
-.art-toggle:hover{background:rgba(232,184,74,.2);border-color:var(--gold);box-shadow:0 0 14px rgba(232,184,74,.25)}
-.art-toggle.card-mode{background:var(--bg3);border-color:var(--br2);color:var(--t2);box-shadow:none}
-.art-toggle.card-mode:hover{border-color:var(--gold);color:var(--gold)}
+.art-toggle:hover{background:var(--gold2);box-shadow:0 0 20px rgba(232,184,74,.55)}
+.art-toggle.card-mode{background:var(--bg3);border-color:var(--br2);color:var(--t1);box-shadow:none;border-width:1px}
+.art-toggle.card-mode:hover{border-color:var(--gold);color:var(--gold);background:var(--glow)}
 .art-toggle.card-mode:hover{border-color:var(--gold);color:var(--gold)}
 .nav-cart{
   display:flex;align-items:center;gap:5px;
@@ -578,6 +578,55 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .toast{position:fixed;bottom:74px;right:14px;background:var(--bg4);border:1px solid var(--glowbr);border-left:3px solid var(--gold);border-radius:var(--r);padding:8px 14px;font-size:11px;color:var(--t0);z-index:700;transform:translateY(40px);opacity:0;transition:all .2s;pointer-events:none;font-weight:500}
 .toast.show{transform:translateY(0);opacity:1}
 
+.browse-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:400;
+}
+.browse-overlay.open{display:block}
+.browse-sheet{
+  position:fixed;bottom:-100%;left:0;right:0;z-index:401;
+  background:var(--bg2);border-top:1px solid var(--br2);border-radius:16px 16px 0 0;
+  padding:12px 16px 80px;
+  transition:bottom .28s cubic-bezier(.4,0,.2,1);
+  max-height:80vh;overflow-y:auto;
+}
+.browse-sheet.open{bottom:0}
+.browse-sheet-handle{
+  width:40px;height:4px;background:var(--br2);border-radius:2px;
+  margin:0 auto 14px;
+}
+.browse-sheet-title{
+  font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;
+  color:var(--t0);margin-bottom:14px;
+}
+.browse-sheet-section{margin-bottom:18px}
+.browse-sheet-lbl{
+  font-family:'DM Mono',monospace;font-size:8px;font-weight:600;
+  letter-spacing:2px;text-transform:uppercase;color:var(--t2);
+  margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--br);
+}
+.browse-sheet-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.browse-item{
+  background:var(--bg3);border:1px solid var(--br2);border-radius:var(--r);
+  padding:12px 10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
+  color:var(--t1);cursor:pointer;text-align:left;transition:all .15s;
+}
+.browse-item:active{background:var(--glow);border-color:var(--glowbr);color:var(--gold)}
+.browse-sheet-sets{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.browse-set-btn{
+  background:var(--bg3);border:1px solid var(--br);border-radius:var(--r);
+  padding:8px 10px;text-align:left;cursor:pointer;transition:all .15s;
+}
+.browse-set-btn:active{border-color:var(--gold)}
+.browse-set-code{font-family:'DM Mono',monospace;font-size:10px;font-weight:700;color:var(--gold)}
+.browse-set-name{font-size:10px;color:var(--t2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.browse-set-count{font-family:'DM Mono',monospace;font-size:9px;color:var(--grn);margin-top:1px}
+
+/* ART button — bright gold on mobile so it's visible */
+.mob-art-btn{background:rgba(232,184,74,.15) !important;border-top:2px solid var(--gold) !important}
+.mob-art-btn .mob-tab-lbl{color:var(--gold) !important;font-weight:700}
+.mob-art-btn.art-off{background:var(--bg2) !important;border-top-color:var(--br) !important}
+.mob-art-btn.art-off .mob-tab-lbl{color:var(--t2) !important;font-weight:500}
+
 .mob-nav{
   display:none;
   position:fixed;bottom:0;left:0;right:0;z-index:350;
@@ -611,7 +660,56 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
   .footer{display:none} /* hide desktop footer on mobile — use mob-nav instead */
   
   /* Show mobile bottom nav */
-  .mob-nav{display:grid}
+  .browse-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:400;
+}
+.browse-overlay.open{display:block}
+.browse-sheet{
+  position:fixed;bottom:-100%;left:0;right:0;z-index:401;
+  background:var(--bg2);border-top:1px solid var(--br2);border-radius:16px 16px 0 0;
+  padding:12px 16px 80px;
+  transition:bottom .28s cubic-bezier(.4,0,.2,1);
+  max-height:80vh;overflow-y:auto;
+}
+.browse-sheet.open{bottom:0}
+.browse-sheet-handle{
+  width:40px;height:4px;background:var(--br2);border-radius:2px;
+  margin:0 auto 14px;
+}
+.browse-sheet-title{
+  font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;
+  color:var(--t0);margin-bottom:14px;
+}
+.browse-sheet-section{margin-bottom:18px}
+.browse-sheet-lbl{
+  font-family:'DM Mono',monospace;font-size:8px;font-weight:600;
+  letter-spacing:2px;text-transform:uppercase;color:var(--t2);
+  margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--br);
+}
+.browse-sheet-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.browse-item{
+  background:var(--bg3);border:1px solid var(--br2);border-radius:var(--r);
+  padding:12px 10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
+  color:var(--t1);cursor:pointer;text-align:left;transition:all .15s;
+}
+.browse-item:active{background:var(--glow);border-color:var(--glowbr);color:var(--gold)}
+.browse-sheet-sets{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.browse-set-btn{
+  background:var(--bg3);border:1px solid var(--br);border-radius:var(--r);
+  padding:8px 10px;text-align:left;cursor:pointer;transition:all .15s;
+}
+.browse-set-btn:active{border-color:var(--gold)}
+.browse-set-code{font-family:'DM Mono',monospace;font-size:10px;font-weight:700;color:var(--gold)}
+.browse-set-name{font-size:10px;color:var(--t2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.browse-set-count{font-family:'DM Mono',monospace;font-size:9px;color:var(--grn);margin-top:1px}
+
+/* ART button — bright gold on mobile so it's visible */
+.mob-art-btn{background:rgba(232,184,74,.15) !important;border-top:2px solid var(--gold) !important}
+.mob-art-btn .mob-tab-lbl{color:var(--gold) !important;font-weight:700}
+.mob-art-btn.art-off{background:var(--bg2) !important;border-top-color:var(--br) !important}
+.mob-art-btn.art-off .mob-tab-lbl{color:var(--t2) !important;font-weight:500}
+
+.mob-nav{display:grid}
   
   /* Main content needs padding for bottom nav */
   .main{padding-bottom:70px}
@@ -1002,30 +1100,44 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 
 <!-- MOBILE BOTTOM NAV BAR -->
 <div class="mob-nav">
-  <button class="mob-tab" onclick="scrollMod('cotd')">
-    <span class="mob-tab-icon">🃏</span>
-    <span class="mob-tab-lbl">Daily</span>
+  <button class="mob-tab" onclick="document.getElementById('srch').focus()">
+    <span class="mob-tab-icon">🔍</span>
+    <span class="mob-tab-lbl">Search</span>
   </button>
-  <button class="mob-tab" onclick="scrollMod('recent')">
-    <span class="mob-tab-icon">✨</span>
-    <span class="mob-tab-lbl">New</span>
+  <button class="mob-tab" onclick="openBrowseSheet()">
+    <span class="mob-tab-icon">☰</span>
+    <span class="mob-tab-lbl">Browse</span>
   </button>
-  <button class="mob-tab" onclick="scrollMod('hv')">
-    <span class="mob-tab-icon">💰</span>
-    <span class="mob-tab-lbl">Value</span>
-  </button>
-  <button class="mob-tab" onclick="scrollMod('budget')">
-    <span class="mob-tab-icon">🏷</span>
-    <span class="mob-tab-lbl">Budget</span>
-  </button>
-  <button class="mob-tab" onclick="scrollMod('sleep')">
-    <span class="mob-tab-icon">💤</span>
-    <span class="mob-tab-lbl">Sleepers</span>
+  <button class="mob-tab mob-art-btn" id="mobArtBtn" onclick="toggleArtMode()">
+    <span class="mob-tab-icon" id="mobArtIcon">🖼</span>
+    <span class="mob-tab-lbl" id="mobArtLbl">Art View</span>
   </button>
   <button class="mob-tab" onclick="openCart()">
     <span class="mob-tab-icon">🛒</span>
     <span class="mob-tab-lbl" id="mobCartN">Cart</span>
   </button>
+</div>
+
+<!-- BROWSE SLIDE-UP SHEET -->
+<div class="browse-overlay" id="browseOverlay" onclick="closeBrowseSheet()"></div>
+<div class="browse-sheet" id="browseSheet">
+  <div class="browse-sheet-handle"></div>
+  <div class="browse-sheet-title">Browse</div>
+  <div class="browse-sheet-section">
+    <div class="browse-sheet-lbl">Modules</div>
+    <div class="browse-sheet-grid">
+      <button class="browse-item" onclick="scrollModClose('cotd')">🃏 Card of the Day</button>
+      <button class="browse-item" onclick="scrollModClose('recent')">✨ Recently Added</button>
+      <button class="browse-item" onclick="scrollModClose('hv')">💰 High Value</button>
+      <button class="browse-item" onclick="scrollModClose('budget')">🏷 Budget Picks</button>
+      <button class="browse-item" onclick="scrollModClose('sleep')">💤 Sleepers</button>
+      <button class="browse-item" onclick="scrollModClose('fav')">⭐ Fan Favorites</button>
+    </div>
+  </div>
+  <div class="browse-sheet-section">
+    <div class="browse-sheet-lbl">Sets</div>
+    <div class="browse-sheet-sets" id="browseSheetSets"></div>
+  </div>
 </div>
 
 <!-- STICKY FOOTER -->
@@ -1670,6 +1782,35 @@ function checkout(){
   window.location.href=`mailto:brentlysnow@gmail.com?subject=${sub}&body=${bod}`;
 }
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
+
+function openBrowseSheet(){
+  // Populate sets list
+  const setsEl = document.getElementById('browseSheetSets');
+  if(setsEl && db.length){
+    const inStock = {};
+    db.forEach(c=>{if((c.qty||0)>0)inStock[c.set]=(inStock[c.set]||0)+1});
+    const SET_ORDER_MOB=['EOE','TDM','FIN','ECL','DFT','FDN','DSK','BLB','SPM','TLA','TMT','OTJ','MKM','LCI','WOE','VOW','TSR','THB','WAR','MH1','M15','MH2','MH3','A25','2X2','2XM','40K','KLD','STX','KTK','KHM','CMR','CLB','RNA','SNC','ZNR','XLN','UMA','CM2'];
+    const available = SET_ORDER_MOB.filter(s=>inStock[s]>0);
+    setsEl.innerHTML = available.map(s=>`
+      <button class="browse-set-btn" onclick="fSet('${s}');closeBrowseSheet()">
+        <div class="browse-set-code">${s}</div>
+        <div class="browse-set-name">${SET_NAMES[s]||s}</div>
+        <div class="browse-set-count">${inStock[s]} in stock</div>
+      </button>`).join('');
+  }
+  document.getElementById('browseSheet').classList.add('open');
+  document.getElementById('browseOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeBrowseSheet(){
+  document.getElementById('browseSheet').classList.remove('open');
+  document.getElementById('browseOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function scrollModClose(id){
+  closeBrowseSheet();
+  setTimeout(()=>scrollMod(id),300);
+}
 
 function scrollMod(id){
   const map={cotd:'ctRecent',recent:'ctRecent',hv:'ctHV',budget:'ctBudget',sleep:'ctSleep',fav:'ctFav'};
