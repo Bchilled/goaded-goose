@@ -426,6 +426,19 @@ body.art-mode .ci img{transform:scale(1.02)}
 .r-hdr{color:#f44;background:rgba(255,68,68,.07)}
 .g-hdr{color:#5a9;background:rgba(85,170,100,.07)}
 .c-hdr{color:#c8b89a;background:rgba(200,184,154,.07)}
+@media(max-width:900px){
+  .banner{height:200px}
+  .hero-set-name{font-size:28px}
+  .hero-content{padding:0 16px 14px}
+  .hero-arr{display:none}
+  .hero-brand{font-size:14px;letter-spacing:2px}
+  .hero-brand svg{width:20px;height:18px}
+}
+@media(max-width:480px){
+  .banner{height:160px}
+  .hero-set-name{font-size:22px}
+  .hero-cta{font-size:10px;padding:5px 12px}
+}
 @media(max-width:900px){.wubrg-headers{display:none}}
 .grid-hdr{display:flex;align-items:center;gap:8px;margin-bottom:10px}
 .grid-title{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;text-transform:uppercase}
@@ -771,8 +784,8 @@ body.art-mode .ci img{transform:scale(1.02)}
 }
 
 /* ── HERO BANNER ── */
-.hero-slides{position:absolute;inset:0;z-index:1;top:0;left:0;right:0;bottom:var(--nh)}
-.hero-slide{position:absolute;inset:0;bottom:0;opacity:0;transition:opacity .7s ease;overflow:hidden}
+.hero-slides{position:absolute;top:0;left:0;right:0;bottom:var(--nh);z-index:1}
+.hero-slide{position:absolute;inset:0;bottom:0;opacity:0;transition:opacity .7s ease;overflow:hidden;pointer-events:none}
 .hero-slide.active{opacity:1}
 .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center top;
   transform:scale(1.05);transition:transform 7s ease;filter:brightness(.5) saturate(1.5)}
@@ -780,10 +793,10 @@ body.art-mode .ci img{transform:scale(1.02)}
 .hero-overlay{position:absolute;inset:0;
   background:linear-gradient(to right,rgba(4,6,10,.92) 0%,rgba(4,6,10,.3) 60%,transparent 100%),
              linear-gradient(to top,rgba(4,6,10,.95) 0%,transparent 50%)}
-.hero-content{position:absolute;bottom:calc(var(--nh) + 16px);left:28px;z-index:2}
+.hero-content{position:absolute;bottom:20px;left:28px;z-index:2}
 .hero-set-code{font-family:'DM Mono',monospace;font-size:10px;font-weight:700;letter-spacing:4px;color:var(--gold);margin-bottom:3px}
 .hero-set-name{font-family:'Bebas Neue',sans-serif;font-size:46px;letter-spacing:2px;color:#fff;line-height:1;margin-bottom:12px;text-shadow:0 2px 20px rgba(0,0,0,.8)}
-.hero-cta{display:inline-block;background:var(--gold);color:#080400;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:.5px;padding:8px 20px;border-radius:3px;transition:background .15s}
+.hero-cta{display:inline-block;background:var(--gold);color:#080400;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:.5px;padding:8px 20px;border-radius:3px;transition:background .15s;pointer-events:all;cursor:pointer}
 .hero-slide:hover .hero-cta{background:var(--gold2)}
 .hero-brand{position:absolute;top:12px;left:14px;z-index:25;display:flex;align-items:center;gap:8px;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;color:var(--gold);text-shadow:0 1px 8px rgba(0,0,0,.9)}
 .hero-dots{position:absolute;bottom:calc(var(--nh) + 8px);left:50%;transform:translateX(-50%);z-index:20;display:flex;gap:5px}
@@ -1459,8 +1472,7 @@ function panelFocus(idx){
   // No flex changes — panels only expand on CSS :hover
 }
 function startRotation(){
-  // No auto-rotation — panels only respond to hover/click
-  // Dots still show which panel was last hovered
+  // Hero rotation handled by hero init script
 }
 
 // Close dropdowns outside
@@ -2216,12 +2228,12 @@ updateArtModeUI();
     {set:'TMT',name:'TMNT',bg:'https://cards.scryfall.io/art_crop/front/7/4/74c11ee3-19d1-4ad5-a727-1d74c565d6a5.jpg?1769005535'},
     {set:'ECL',name:'Lorwyn Eclipsed',bg:'https://cards.scryfall.io/art_crop/front/8/0/80ef0455-fbab-498d-81d8-2fc1d7e8c4f6.jpg?1736969785'},
   ];
-  let _hi = 0, _ht = null;
+  let _hi = 0; window._heroIdx = 0; let _ht = null;
 
   function heroGo(i){
     document.querySelectorAll('.hero-slide').forEach((s,j)=>s.classList.toggle('active',j===i));
     document.querySelectorAll('.hero-dot').forEach((d,j)=>d.classList.toggle('active',j===i));
-    _hi = i;
+    _hi = i; window._heroIdx = i;
   }
   window.heroGo = heroGo;
 
@@ -2235,8 +2247,8 @@ updateArtModeUI();
     SLIDES.forEach((s,i)=>{
       const slide = document.createElement('div');
       slide.className = 'hero-slide' + (i===0?' active':'');
-      slide.onclick = ()=>{ if(typeof fSet==='function') fSet(s.set); };
-      slide.style.cursor='pointer';
+      slide.querySelector && setTimeout(()=>{ const cta=slide.querySelector('.hero-cta'); if(cta) cta.onclick=(e)=>{e.stopPropagation();if(typeof fSet==='function')fSet(s.set);} }, 50);
+      slide.style.cursor='default';
       slide.innerHTML = `
         <div class="hero-bg" style="background-image:url('${s.bg}')"></div>
         <div class="hero-overlay"></div>
