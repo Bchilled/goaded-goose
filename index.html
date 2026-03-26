@@ -805,6 +805,48 @@ body.art-mode .ci img{transform:scale(1.02)}
 .hero-arr{position:absolute;top:50%;transform:translateY(-70%);z-index:20;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:24px;width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .hero-arr:hover{background:rgba(232,184,74,.3);border-color:var(--gold)}
 .hero-prev{left:10px}.hero-next{right:10px}
+
+/* ── MOBILE WUBRG ROWS ── */
+@media(max-width:900px){
+  .grid.wubrg-mode{
+    display:block !important;
+    background:none;
+    gap:0;
+  }
+  .wubrg-row{
+    margin-bottom:16px;
+  }
+  .wubrg-row-hdr{
+    display:flex;align-items:center;gap:8px;
+    padding:6px 12px;
+    font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;
+    color:var(--t0);
+    border-left:3px solid currentColor;
+    margin-bottom:6px;
+  }
+  .wubrg-row-hdr.wc-W{color:#f0ece0;border-color:#f0ece0}
+  .wubrg-row-hdr.wc-U{color:#aac2e0;border-color:#aac2e0}
+  .wubrg-row-hdr.wc-B{color:#b0a0b8;border-color:#b0a0b8}
+  .wubrg-row-hdr.wc-R{color:#e07050;border-color:#e07050}
+  .wubrg-row-hdr.wc-G{color:#60aa70;border-color:#60aa70}
+  .wubrg-row-hdr.wc-C{color:#c8b89a;border-color:#c8b89a}
+  .wubrg-row-hdr span{font-size:10px;color:var(--t2);font-family:'DM Mono',monospace;letter-spacing:1px;text-transform:uppercase}
+  .wubrg-row-scroll{
+    display:flex;
+    overflow-x:auto;
+    gap:6px;
+    padding:0 12px 8px;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .wubrg-row-scroll::-webkit-scrollbar{display:none}
+  .wubrg-row-scroll .crd{
+    flex-shrink:0;
+    width:140px;
+    scroll-snap-align:start;
+  }
+}
 </style>
 </head>
 <body>
@@ -1933,8 +1975,83 @@ function applyF(){
   document.getElementById('nr').style.display=fil.length?'none':'block';
   renderG(1);
 }
-function renderG(p){pg=p;const sl=fil.slice(0,p*PAGE);document.getElementById('grid').innerHTML=sl.map(cardHTML).join('');document.getElementById('lmW').style.display=fil.length>sl.length?'block':'none'}
+function renderG(p){
+  pg=p;
+  const sl=fil.slice(0,p*PAGE);
+  // Mobile WUBRG rows
+  if(window.innerWidth<=900 && flt.sort==='wubrg' && !flt.set && !flt.color && !(flt.colorIds&&flt.colorIds.length) && !flt.rarity && !flt.type && !srchQ){
+    renderMobileRows(sl);
+    document.getElementById('lmW').style.display='none';
+    return;
+  }
+  // Clear mobile rows if present
+  const rc=document.getElementById('wubrgRowContainer');
+  if(rc)rc.style.display='none';
+  document.getElementById('grid').style.display='';
+  document.getElementById('grid').innerHTML=sl.map(cardHTML).join('');
+  document.getElementById('lmW').style.display=fil.length>sl.length?'block':'none';
+}
 function loadMore(){renderG(pg+1)}
+}
+}
+
+function renderMobileRows(cards){
+  const grid = document.getElementById('grid');
+  const rowContainer = document.getElementById('wubrgRowContainer');
+  if(!cards){
+    // Clear mobile rows, show normal grid
+    if(rowContainer) rowContainer.style.display = 'none';
+    grid.style.display = '';
+    return;
+  }
+  // Show row container, hide flat grid
+  grid.style.display = 'none';
+  if(!rowContainer){
+    const rc = document.createElement('div');
+    rc.id = 'wubrgRowContainer';
+    grid.parentNode.insertBefore(rc, grid);
+  }
+  const rc = document.getElementById('wubrgRowContainer');
+  rc.style.display = 'block';
+
+  const COLOR_LABELS = {
+    W:{name:'White', icon:'⚪', cls:'wc-W'},
+    U:{name:'Blue',  icon:'🔵', cls:'wc-U'},
+    B:{name:'Black', icon:'⚫', cls:'wc-B'},
+    R:{name:'Red',   icon:'🔴', cls:'wc-R'},
+    G:{name:'Green', icon:'🟢', cls:'wc-G'},
+    C:{name:'Colorless', icon:'⬡', cls:'wc-C'},
+  };
+  const COLOR_ORDER = ['W','U','B','R','G','C'];
+
+  function primaryColor(c){
+    const cols=c.colors||[];
+    if(!cols.length||cols.length>1) return 'C';
+    return ['W','U','B','R','G'].includes(cols[0])?cols[0]:'C';
+  }
+
+  // Split cards into color buckets preserving WUBRG sort order
+  const buckets={W:[],U:[],B:[],R:[],G:[],C:[]};
+  cards.forEach(c=>buckets[primaryColor(c)].push(c));
+
+  rc.innerHTML = COLOR_ORDER
+    .filter(col=>buckets[col].length>0)
+    .map(col=>{
+      const lbl = COLOR_LABELS[col];
+      const cardHTMLs = buckets[col].map(c=>cardHTML(c)).join('');
+      return `<div class="wubrg-row">
+        <div class="wubrg-row-hdr ${lbl.cls}">
+          ${lbl.icon} ${lbl.name}
+          <span>${buckets[col].length} cards</span>
+        </div>
+        <div class="wubrg-row-scroll">${cardHTMLs}</div>
+      </div>`;
+    }).join('');
+
+  // Update count
+  document.getElementById('gridCount').textContent = cards.length.toLocaleString() + ' cards';
+}
+
 
 function cardHTML(c){
   const totalQty = c._totalQty !== undefined ? c._totalQty : (c.qty||0);
