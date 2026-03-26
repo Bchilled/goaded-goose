@@ -1657,7 +1657,7 @@ function applyF(){
   fil=cards;
   const title=flt.set?(SET_NAMES[flt.set]||flt.set):flt.sort==='wubrg'?'Cards by Color':flt.stock==='instock'?'In Stock':'All Cards';
   const wHdrs=document.getElementById('wubrgHdrs');
-  if(wHdrs)wHdrs.style.display=(!srchQ&&flt.sort==='wubrg')?'grid':'none';
+  if(wHdrs)wHdrs.style.display=(!srchQ&&flt.sort==='wubrg'&&!flt.color&&!flt.set&&!flt.rarity&&!flt.type&&!flt.format)?'grid':'none';
   document.getElementById('gridTitle').textContent=title;
   document.getElementById('gridCount').textContent=fil.length.toLocaleString()+' cards';
   document.getElementById('nr').style.display=fil.length?'none':'block';
