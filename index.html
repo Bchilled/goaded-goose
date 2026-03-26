@@ -194,6 +194,41 @@ body.art-mode .ci img{transform:scale(1.02)}
 
 /* Rarity/Color chips */
 .nav-chips{display:flex;gap:2px}
+.color-filter-wrap{position:relative;display:flex;flex-direction:column;gap:0}
+.col-expand-btn{
+  font-size:10px;padding:4px 7px;transition:all .15s;
+  background:var(--bg4) !important;
+}
+.col-expand-btn.open{color:var(--gold);border-color:var(--gold);transform:rotate(180deg)}
+.col-panel{
+  display:none;
+  position:absolute;top:calc(100% + 6px);left:0;
+  background:var(--bg2);border:1px solid var(--br2);border-radius:6px;
+  padding:12px 14px;z-index:9999;
+  box-shadow:0 20px 60px rgba(0,0,0,.9);
+  min-width:600px;
+}
+.col-panel.open{display:block}
+.col-panel-section{margin-bottom:12px}
+.col-panel-section:last-child{margin-bottom:0}
+.col-panel-lbl{
+  font-family:'DM Mono',monospace;font-size:8px;font-weight:600;
+  letter-spacing:2px;text-transform:uppercase;color:var(--t2);
+  display:block;margin-bottom:6px;padding-bottom:4px;
+  border-bottom:1px solid var(--br);
+}
+.col-panel-row{display:flex;flex-wrap:wrap;gap:4px}
+.col-pill{
+  display:flex;align-items:center;gap:3px;
+  background:var(--bg3);border:1px solid var(--br2);border-radius:4px;
+  padding:4px 8px;cursor:pointer;transition:all .12s;
+  font-family:'DM Sans',sans-serif;font-size:10px;color:var(--t1);
+}
+.col-pill:hover{background:var(--glow);border-color:var(--glowbr);color:var(--gold)}
+.col-pill.on{background:var(--glow);border-color:var(--gold);color:var(--gold)}
+.col-pill span{font-size:9px;font-weight:600;letter-spacing:.3px}
+.col-pill i{font-size:10px}
+.col-pill-5c{background:linear-gradient(135deg,rgba(249,250,244,.08),rgba(170,194,224,.08),rgba(50,50,50,.2),rgba(255,68,68,.08),rgba(85,170,100,.08))}
 .nchip{
   padding:4px 6px;font-size:9px;font-weight:600;
   border:1px solid var(--br);border-radius:3px;
@@ -856,15 +891,63 @@ body.art-mode .ci img{transform:scale(1.02)}
       <button class="nchip" style="color:var(--C)" onclick="fRar('common',this)">C</button>
     </div>
 
-    <!-- Color chips -->
-    <div class="nav-chips" id="colChips">
-      <button class="nchip on" onclick="fCol('',this)">All</button>
-      <button class="nchip" onclick="fCol('W',this)"><i class="ms ms-w ms-cost" style="font-size:11px"></i></button>
-      <button class="nchip" onclick="fCol('U',this)"><i class="ms ms-u ms-cost" style="font-size:11px"></i></button>
-      <button class="nchip" onclick="fCol('B',this)"><i class="ms ms-b ms-cost" style="font-size:11px"></i></button>
-      <button class="nchip" onclick="fCol('R',this)"><i class="ms ms-r ms-cost" style="font-size:11px"></i></button>
-      <button class="nchip" onclick="fCol('G',this)"><i class="ms ms-g ms-cost" style="font-size:11px"></i></button>
-      <button class="nchip" onclick="fCol('C',this)"><i class="ms ms-c ms-cost" style="font-size:11px"></i></button>
+    <!-- Color identity filter — expandable -->
+    <div class="color-filter-wrap" id="colorFilterWrap">
+      <!-- Single color row — always visible -->
+      <div class="nav-chips" id="colChips">
+        <button class="nchip on" onclick="fColId([],this)" id="colAll">All</button>
+        <button class="nchip" onclick="fColId(['W'],this)" title="White"><i class="ms ms-w ms-cost" style="font-size:11px"></i></button>
+        <button class="nchip" onclick="fColId(['U'],this)" title="Blue"><i class="ms ms-u ms-cost" style="font-size:11px"></i></button>
+        <button class="nchip" onclick="fColId(['B'],this)" title="Black"><i class="ms ms-b ms-cost" style="font-size:11px"></i></button>
+        <button class="nchip" onclick="fColId(['R'],this)" title="Red"><i class="ms ms-r ms-cost" style="font-size:11px"></i></button>
+        <button class="nchip" onclick="fColId(['G'],this)" title="Green"><i class="ms ms-g ms-cost" style="font-size:11px"></i></button>
+        <button class="nchip" onclick="fColId(['C'],this)" title="Colorless"><i class="ms ms-c ms-cost" style="font-size:11px"></i></button>
+        <button class="nchip col-expand-btn" id="colExpandBtn" onclick="toggleColorPanel()" title="Multi-color patterns">▾</button>
+      </div>
+      <!-- Expanded multi-color panel -->
+      <div class="col-panel" id="colPanel">
+        <div class="col-panel-section">
+          <span class="col-panel-lbl">Guilds (2-color)</span>
+          <div class="col-panel-row">
+            <button class="col-pill" onclick="fColId(['W','U'],this)" title="Azorius"><i class="ms ms-w ms-cost"></i><i class="ms ms-u ms-cost"></i><span>Azorius</span></button>
+            <button class="col-pill" onclick="fColId(['U','B'],this)" title="Dimir"><i class="ms ms-u ms-cost"></i><i class="ms ms-b ms-cost"></i><span>Dimir</span></button>
+            <button class="col-pill" onclick="fColId(['B','R'],this)" title="Rakdos"><i class="ms ms-b ms-cost"></i><i class="ms ms-r ms-cost"></i><span>Rakdos</span></button>
+            <button class="col-pill" onclick="fColId(['R','G'],this)" title="Gruul"><i class="ms ms-r ms-cost"></i><i class="ms ms-g ms-cost"></i><span>Gruul</span></button>
+            <button class="col-pill" onclick="fColId(['G','W'],this)" title="Selesnya"><i class="ms ms-g ms-cost"></i><i class="ms ms-w ms-cost"></i><span>Selesnya</span></button>
+            <button class="col-pill" onclick="fColId(['W','B'],this)" title="Orzhov"><i class="ms ms-w ms-cost"></i><i class="ms ms-b ms-cost"></i><span>Orzhov</span></button>
+            <button class="col-pill" onclick="fColId(['U','R'],this)" title="Izzet"><i class="ms ms-u ms-cost"></i><i class="ms ms-r ms-cost"></i><span>Izzet</span></button>
+            <button class="col-pill" onclick="fColId(['B','G'],this)" title="Golgari"><i class="ms ms-b ms-cost"></i><i class="ms ms-g ms-cost"></i><span>Golgari</span></button>
+            <button class="col-pill" onclick="fColId(['R','W'],this)" title="Boros"><i class="ms ms-r ms-cost"></i><i class="ms ms-w ms-cost"></i><span>Boros</span></button>
+            <button class="col-pill" onclick="fColId(['G','U'],this)" title="Simic"><i class="ms ms-g ms-cost"></i><i class="ms ms-u ms-cost"></i><span>Simic</span></button>
+          </div>
+        </div>
+        <div class="col-panel-section">
+          <span class="col-panel-lbl">Shards &amp; Wedges (3-color)</span>
+          <div class="col-panel-row">
+            <button class="col-pill" onclick="fColId(['W','U','B'],this)" title="Esper"><i class="ms ms-w ms-cost"></i><i class="ms ms-u ms-cost"></i><i class="ms ms-b ms-cost"></i><span>Esper</span></button>
+            <button class="col-pill" onclick="fColId(['U','B','R'],this)" title="Grixis"><i class="ms ms-u ms-cost"></i><i class="ms ms-b ms-cost"></i><i class="ms ms-r ms-cost"></i><span>Grixis</span></button>
+            <button class="col-pill" onclick="fColId(['B','R','G'],this)" title="Jund"><i class="ms ms-b ms-cost"></i><i class="ms ms-r ms-cost"></i><i class="ms ms-g ms-cost"></i><span>Jund</span></button>
+            <button class="col-pill" onclick="fColId(['R','G','W'],this)" title="Naya"><i class="ms ms-r ms-cost"></i><i class="ms ms-g ms-cost"></i><i class="ms ms-w ms-cost"></i><span>Naya</span></button>
+            <button class="col-pill" onclick="fColId(['G','W','U'],this)" title="Bant"><i class="ms ms-g ms-cost"></i><i class="ms ms-w ms-cost"></i><i class="ms ms-u ms-cost"></i><span>Bant</span></button>
+            <button class="col-pill" onclick="fColId(['R','W','B'],this)" title="Mardu"><i class="ms ms-r ms-cost"></i><i class="ms ms-w ms-cost"></i><i class="ms ms-b ms-cost"></i><span>Mardu</span></button>
+            <button class="col-pill" onclick="fColId(['G','U','R'],this)" title="Temur"><i class="ms ms-g ms-cost"></i><i class="ms ms-u ms-cost"></i><i class="ms ms-r ms-cost"></i><span>Temur</span></button>
+            <button class="col-pill" onclick="fColId(['W','B','G'],this)" title="Abzan"><i class="ms ms-w ms-cost"></i><i class="ms ms-b ms-cost"></i><i class="ms ms-g ms-cost"></i><span>Abzan</span></button>
+            <button class="col-pill" onclick="fColId(['U','R','W'],this)" title="Jeskai"><i class="ms ms-u ms-cost"></i><i class="ms ms-r ms-cost"></i><i class="ms ms-w ms-cost"></i><span>Jeskai</span></button>
+            <button class="col-pill" onclick="fColId(['B','G','U'],this)" title="Sultai"><i class="ms ms-b ms-cost"></i><i class="ms ms-g ms-cost"></i><i class="ms ms-u ms-cost"></i><span>Sultai</span></button>
+          </div>
+        </div>
+        <div class="col-panel-section">
+          <span class="col-panel-lbl">4-Color &amp; 5-Color</span>
+          <div class="col-panel-row">
+            <button class="col-pill" onclick="fColId(['W','U','B','R'],this)"><i class="ms ms-w ms-cost"></i><i class="ms ms-u ms-cost"></i><i class="ms ms-b ms-cost"></i><i class="ms ms-r ms-cost"></i><span>Non-Green</span></button>
+            <button class="col-pill" onclick="fColId(['U','B','R','G'],this)"><i class="ms ms-u ms-cost"></i><i class="ms ms-b ms-cost"></i><i class="ms ms-r ms-cost"></i><i class="ms ms-g ms-cost"></i><span>Non-White</span></button>
+            <button class="col-pill" onclick="fColId(['B','R','G','W'],this)"><i class="ms ms-b ms-cost"></i><i class="ms ms-r ms-cost"></i><i class="ms ms-g ms-cost"></i><i class="ms ms-w ms-cost"></i><span>Non-Blue</span></button>
+            <button class="col-pill" onclick="fColId(['R','G','W','U'],this)"><i class="ms ms-r ms-cost"></i><i class="ms ms-g ms-cost"></i><i class="ms ms-w ms-cost"></i><i class="ms ms-u ms-cost"></i><span>Non-Black</span></button>
+            <button class="col-pill" onclick="fColId(['G','W','U','B'],this)"><i class="ms ms-g ms-cost"></i><i class="ms ms-w ms-cost"></i><i class="ms ms-u ms-cost"></i><i class="ms ms-b ms-cost"></i><span>Non-Red</span></button>
+            <button class="col-pill col-pill-5c" onclick="fColId(['W','U','B','R','G'],this)"><i class="ms ms-w ms-cost"></i><i class="ms ms-u ms-cost"></i><i class="ms ms-b ms-cost"></i><i class="ms ms-r ms-cost"></i><i class="ms ms-g ms-cost"></i><span>5-Color</span></button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Filters dropdown -->
@@ -1171,7 +1254,7 @@ const FAMOUS=['Chatterfang','Kenrith','Tymna','Najeela','Edgar Markov','Atraxa',
 const PAGE=60;
 const rm={M:'rM',R:'rR',U:'rU',C:'rC'};
 let db=[],fil=[],pg=1,mCard=null,mQty=1,cart={},rv=[];
-let flt={stock:'instock',sort:'wubrg',set:'',color:'',rarity:'',type:'',format:'',foil:''};
+let flt={stock:'instock',sort:'wubrg',set:'',color:'',colorIds:[],rarity:'',type:'',format:'',foil:''};
 let srchQ='';
 let carPos={};
 
@@ -1674,7 +1757,7 @@ function selectAC(name){
 function goHome(){
   srchInput.value='';srchQ='';
   document.getElementById('acDrop').classList.remove('show');
-  flt={stock:'instock',sort:'wubrg',set:'',color:'',rarity:'',type:'',format:'',foil:''};
+  flt={stock:'instock',sort:'wubrg',set:'',color:'',colorIds:[],rarity:'',type:'',format:'',foil:''};
   document.querySelectorAll('#rarChips .nchip').forEach((b,i)=>b.classList.toggle('on',i===0));
   document.querySelectorAll('#colChips .nchip').forEach((b,i)=>b.classList.toggle('on',i===0));
   document.getElementById('sortSel').value='wubrg';
@@ -1682,7 +1765,34 @@ function goHome(){
 }
 function fSet(v){flt.set=v;closeAllDDs();applyF()}
 function fRar(v,el){flt.rarity=v;document.querySelectorAll('#rarChips .nchip').forEach(b=>b.classList.remove('on'));el.classList.add('on');applyF()}
-function fCol(v,el){flt.color=v;document.querySelectorAll('#colChips .nchip').forEach(b=>b.classList.remove('on'));el.classList.add('on');applyF()}
+function fCol(v,el){fColId(v?[v]:[],el)}
+let _activeColId=[];
+function fColId(cols,el){
+  _activeColId=cols;
+  // Update active state on all color buttons
+  document.querySelectorAll('#colChips .nchip, .col-pill').forEach(b=>b.classList.remove('on'));
+  if(el)el.classList.add('on');
+  if(!cols.length)document.getElementById('colAll')?.classList.add('on');
+  flt.color=cols.length===1?cols[0]:''; // keep single-color compat
+  flt.colorIds=cols; // store full array
+  applyF();
+  if(cols.length>1)closeColorPanel(); // close panel after multi-color selection
+}
+function toggleColorPanel(){
+  const panel=document.getElementById('colPanel');
+  const btn=document.getElementById('colExpandBtn');
+  const isOpen=panel.classList.contains('open');
+  panel.classList.toggle('open',!isOpen);
+  btn.classList.toggle('open',!isOpen);
+}
+function closeColorPanel(){
+  document.getElementById('colPanel')?.classList.remove('open');
+  document.getElementById('colExpandBtn')?.classList.remove('open');
+}
+// Close color panel when clicking outside
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.color-filter-wrap'))closeColorPanel();
+},{passive:true,capture:false});
 function fFmt(v){flt.format=v;closeAllDDs();applyF()}
 function fType(v){flt.type=v;closeAllDDs();applyF()}
 function fFoil(v){flt.foil=v;closeAllDDs();applyF()}
@@ -1694,7 +1804,23 @@ function applyF(){
   let cards=db.slice();
   if(flt.stock==='instock')cards=cards.filter(c=>(c.qty||0)>0);
   if(flt.set)cards=cards.filter(c=>c.set===flt.set);
-  if(flt.color)cards=cards.filter(c=>(c.colors||[]).includes(flt.color));
+  if(flt.colorIds&&flt.colorIds.length){
+    const cids=flt.colorIds;
+    if(cids.length===1&&cids[0]==='C'){
+      // Colorless: no colors OR empty colors
+      cards=cards.filter(c=>!(c.colors||[]).length||(c.colors||[]).includes('C'));
+    } else if(cids.length===1){
+      cards=cards.filter(c=>(c.colors||[]).includes(cids[0]));
+    } else {
+      // Multi-color: card must contain ALL selected colors (exact identity match)
+      cards=cards.filter(c=>{
+        const cc=c.colors||[];
+        return cids.every(col=>cc.includes(col))&&cc.every(col=>cids.includes(col));
+      });
+    }
+  } else if(flt.color){
+    cards=cards.filter(c=>(c.colors||[]).includes(flt.color));
+  }
   if(flt.rarity)cards=cards.filter(c=>c.rar===flt.rarity);
   if(flt.type)cards=cards.filter(c=>(c.type||'').includes(flt.type));
   if(flt.format)cards=cards.filter(c=>c.leg&&c.leg[flt.format]);
