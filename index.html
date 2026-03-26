@@ -676,7 +676,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
   .main{padding:10px 10px 72px}
   /* ── BANNER ── */
   .banner{height:120px}
-  .b-goose-wrap svg{width:140px;height:93px}
+  .b-goose-wrap svg{width:140px;height:93px;overflow:hidden}
   .b-brand{bottom:var(--nh)}
   /* ── NAV BAR — Logo | Search (wide) | Cart only ── */
   .bnav{gap:6px;padding:0 10px}
@@ -702,7 +702,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 }
 @media(max-width:480px){
   .banner{height:100px}
-  .b-goose-wrap svg{width:110px;height:73px}
+  .b-goose-wrap svg{width:110px;height:73px;overflow:hidden}
   .grid{grid-template-columns:repeat(2,1fr);gap:6px}
   .nav-logo{font-size:13px;letter-spacing:1px;opacity:1 !important}
   .nav-search input{font-size:15px}
@@ -769,7 +769,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
     <div class="b-goose-wrap">
       <!-- GOADED GOOSE banner SVG - compact, arcs tight around goose -->
       <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"
-           style="width:200px;height:133px;overflow:visible;display:block">
+           style="width:200px;height:133px;display:block;overflow:hidden">
         <defs>
           <filter id="gg">
             <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="b"/>
@@ -809,15 +809,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
       GOADED GOOSE
     </div>
 
-    <!-- Module quick-links -->
-    <div class="nav-chips" style="gap:2px;flex-shrink:0">
-      <button class="nchip mod-link-btn" onclick="scrollMod('cotd')" title="Card of the Day">COTD</button>
-      <button class="nchip mod-link-btn" onclick="scrollMod('recent')" title="Recently Added">New</button>
-      <button class="nchip mod-link-btn" onclick="scrollMod('hv')" title="High Value">💰</button>
-      <button class="nchip mod-link-btn" onclick="scrollMod('budget')" title="Budget Picks">Budget</button>
-      <button class="nchip mod-link-btn" onclick="scrollMod('sleep')" title="Sleepers">💤</button>
-      <button class="nchip mod-link-btn" onclick="scrollMod('fav')" title="Fan Favorites">⭐</button>
-    </div>
+
     <!-- Sets dropdown -->
     <div class="dd" id="ddSets">
       <button class="ddbtn" onclick="toggleDD('ddSets')">Sets <svg viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
@@ -904,100 +896,6 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 
 <!-- MAIN -->
 <div class="main">
-
-  <!-- ROW 1: COTD | Recently Added -->
-  <div class="mod-row">
-    <div class="module">
-      <div class="mod-hdr">
-        <span class="mod-title">🃏 Card of the Day</span>
-        <span class="mod-sub" id="cotdSub">From our newest sets</span>
-      </div>
-      <div class="cotd-body">
-        <img class="cotd-img" id="cotdImg" src="" alt="" onclick="openM(window._cotdCard?encC(window._cotdCard):'')">
-        <div class="cotd-content">
-          <div class="cotd-name" id="cotdName">Loading…</div>
-          <div class="cotd-type" id="cotdType"></div>
-          <div class="cotd-why" id="cotdWhy"></div>
-          <div class="cotd-row">
-            <span class="cotd-price" id="cotdPrice"></span>
-            <button class="cotd-btn" id="cotdBtn">Add to Cart</button>
-          </div>
-          <div class="cotd-fmts" id="cotdFmts"></div>
-        </div>
-      </div>
-    </div>
-    <div class="module">
-      <div class="mod-hdr">
-        <span class="mod-title">Recently Added</span>
-        <span class="mod-sub">Latest inventory</span>
-        <span class="mod-link" onclick="fSort('recent',true)">All →</span>
-      </div>
-      <div class="car-outer">
-        <button class="car-btn cl" onclick="carNav('ctRecent',-1)">‹</button>
-        <div class="car-wrap"><div class="car-track" id="ctRecent"></div></div>
-        <button class="car-btn cr" onclick="carNav('ctRecent',1)">›</button>
-      </div>
-      <div class="car-dots" id="cdRecent"></div>
-    </div>
-  </div>
-
-  <!-- ROW 2: High Value | Budget Picks -->
-  <div class="mod-row">
-    <div class="module">
-      <div class="mod-hdr">
-        <span class="mod-title">High Value</span>
-        <span class="mod-sub">Best cards — why they're worth it</span>
-        <span class="mod-link" onclick="fSort('price_desc',true)">All →</span>
-      </div>
-      <div class="car-outer">
-        <button class="car-btn cl" onclick="carNav('ctHV',-1)">‹</button>
-        <div class="car-wrap"><div class="car-track" id="ctHV"></div></div>
-        <button class="car-btn cr" onclick="carNav('ctHV',1)">›</button>
-      </div>
-      <div class="car-dots" id="cdHV"></div>
-    </div>
-    <div class="module">
-      <div class="mod-hdr">
-        <span class="mod-title">Budget Picks</span>
-        <span class="mod-sub">Under $1 CAD · Commander &amp; Modern legal</span>
-        <span class="mod-link" onclick="fSort('price_asc',true)">All →</span>
-      </div>
-      <div class="car-outer">
-        <button class="car-btn cl" onclick="carNav('ctBudget',-1)">‹</button>
-        <div class="car-wrap"><div class="car-track" id="ctBudget"></div></div>
-        <button class="car-btn cr" onclick="carNav('ctBudget',1)">›</button>
-      </div>
-      <div class="car-dots" id="cdBudget"></div>
-    </div>
-  </div>
-
-  <!-- ROW 3: Sleepers | Fan Favorites -->
-  <div class="mod-row">
-    <div class="module">
-      <div class="mod-hdr">
-        <span class="mod-title">💤 Sleepers</span>
-        <span class="mod-sub">Underplayed · Underpriced · Commander legal</span>
-      </div>
-      <div class="car-outer">
-        <button class="car-btn cl" onclick="carNav('ctSleep',-1)">‹</button>
-        <div class="car-wrap"><div class="car-track" id="ctSleep"></div></div>
-        <button class="car-btn cr" onclick="carNav('ctSleep',1)">›</button>
-      </div>
-      <div class="car-dots" id="cdSleep"></div>
-    </div>
-    <div class="module">
-      <div class="mod-hdr">
-        <span class="mod-title">⭐ Fan Favorites</span>
-        <span class="mod-sub">Famous commanders from our stock</span>
-      </div>
-      <div class="car-outer">
-        <button class="car-btn cl" onclick="carNav('ctFav',-1)">‹</button>
-        <div class="car-wrap"><div class="car-track" id="ctFav"></div></div>
-        <button class="car-btn cr" onclick="carNav('ctFav',1)">›</button>
-      </div>
-      <div class="car-dots" id="cdFav"></div>
-    </div>
-  </div>
 
   <!-- CARD GRID -->
   <div>
