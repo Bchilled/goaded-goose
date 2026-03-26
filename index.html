@@ -397,10 +397,27 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .car-dot.on{background:var(--gold);width:12px;border-radius:2px}
 
 /* ═══ CARD GRID ═══ */
+.wubrg-headers{
+  display:grid;grid-template-columns:repeat(6,1fr);gap:8px;
+  margin-bottom:6px;
+}
+.wubrg-hdr{
+  text-align:center;padding:5px 4px;border-radius:4px 4px 0 0;
+  font-family:'DM Mono',monospace;font-size:9px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;
+  border-bottom:2px solid currentColor;
+}
+.w-hdr{color:#f9faf4;background:rgba(249,250,244,.07)}
+.u-hdr{color:#aac2e0;background:rgba(170,194,224,.07)}
+.b-hdr{color:#9a9a9a;background:rgba(50,50,50,.3)}
+.r-hdr{color:#f44;background:rgba(255,68,68,.07)}
+.g-hdr{color:#5a9;background:rgba(85,170,100,.07)}
+.c-hdr{color:#c8b89a;background:rgba(200,184,154,.07)}
+@media(max-width:900px){.wubrg-headers{display:none}}
 .grid-hdr{display:flex;align-items:center;gap:8px;margin-bottom:10px}
 .grid-title{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;text-transform:uppercase}
 .grid-count{font-family:'DM Mono',monospace;font-size:9px;color:var(--t2);background:var(--bg2);border:1px solid var(--br);border-radius:2px;padding:2px 7px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:8px}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
 .crd{
   background:var(--bg2);border:1px solid var(--br);border-radius:var(--r);
   overflow:hidden;cursor:pointer;position:relative;
@@ -700,12 +717,12 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
   .mc.ctr{width:132px}
   .car-outer{padding:0 20px}
   /* ── GRID ── */
-  .grid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:8px}
+  .grid{grid-template-columns:repeat(3,1fr);gap:6px}
 }
 @media(max-width:480px){
   .banner{height:100px}
   .b-goose-wrap svg{width:110px;height:73px;overflow:hidden}
-  .grid{grid-template-columns:repeat(2,1fr);gap:6px}
+  .grid{grid-template-columns:repeat(3,1fr);gap:4px}
   .nav-logo{font-size:13px;letter-spacing:1px;opacity:1 !important}
   .nav-search input{font-size:15px}
 }
@@ -901,7 +918,15 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 
   <!-- CARD GRID -->
   <div>
-    <div class="grid-hdr">
+    <div class="wubrg-headers" id="wubrgHdrs" style="display:none">
+  <div class="wubrg-hdr w-hdr"><i class="ms ms-w ms-cost"></i> White</div>
+  <div class="wubrg-hdr u-hdr"><i class="ms ms-u ms-cost"></i> Blue</div>
+  <div class="wubrg-hdr b-hdr"><i class="ms ms-b ms-cost"></i> Black</div>
+  <div class="wubrg-hdr r-hdr"><i class="ms ms-r ms-cost"></i> Red</div>
+  <div class="wubrg-hdr g-hdr"><i class="ms ms-g ms-cost"></i> Green</div>
+  <div class="wubrg-hdr c-hdr"><i class="ms ms-c ms-cost"></i> Colorless</div>
+</div>
+<div class="grid-hdr">
       <span class="grid-title" id="gridTitle">In Stock</span>
       <span class="grid-count" id="gridCount">—</span>
     </div>
@@ -1132,70 +1157,91 @@ let srchQ='';
 let carPos={};
 
 function wubrgSort(cards){
-  // Assign each card a primary color bucket
-  function colorBucket(c){
-    const cols=c.colors||[];
-    if(cols.length===0)return 5; // Colorless
-    if(cols.length>1)return 5;   // Multi → Colorless column
-    const m={'W':0,'U':1,'B':2,'R':3,'G':4};
-    return m[cols[0]]!==undefined?m[cols[0]]:5;
+  // ── STRICT WUBRG COLUMNS ──
+  // 1. Split into exactly 6 color buckets: W U B R G C(olorless/multi)
+  // 2. Within each column: no repeat type going down, no repeat set going down
+  // 3. No duplicate card NAME anywhere visible at once (dedupe by name)
+  // 4. Grid is forced to exactly 6 columns
+
+  const COLOR_ORDER = ['W','U','B','R','G','C'];
+
+  function primaryColor(c){
+    const cols = c.colors || [];
+    if(cols.length === 0) return 'C';
+    if(cols.length > 1)   return 'C'; // multicolor → colorless column
+    if(COLOR_ORDER.includes(cols[0])) return cols[0];
+    return 'C';
   }
-  // Card type priority for sudoku interleave
+
   function typeKey(c){
-    const t=(c.type||'').toLowerCase();
-    if(t.includes('planeswalker'))return 0;
-    if(t.includes('creature'))return 1;
-    if(t.includes('instant'))return 2;
-    if(t.includes('sorcery'))return 3;
-    if(t.includes('enchantment'))return 4;
-    if(t.includes('artifact'))return 5;
-    if(t.includes('land'))return 6;
-    return 7;
+    const t = (c.type||'').toLowerCase();
+    if(t.includes('planeswalker')) return 'planeswalker';
+    if(t.includes('creature'))     return 'creature';
+    if(t.includes('instant'))      return 'instant';
+    if(t.includes('sorcery'))      return 'sorcery';
+    if(t.includes('enchantment'))  return 'enchantment';
+    if(t.includes('artifact'))     return 'artifact';
+    if(t.includes('land'))         return 'land';
+    return 'other';
   }
-  // Seeded shuffle — different every page load but consistent per session
-  const seed=Date.now()%100000;
-  function seededRand(i){return((seed*1664525+i*1013904223)&0x7fffffff)/0x7fffffff;}
-  
-  // Split into 6 color buckets
-  const buckets=[[],[],[],[],[],[]];
-  cards.forEach(c=>buckets[colorBucket(c)].push(c));
-  
-  // Within each bucket: sort by type then shuffle within type groups
-  buckets.forEach(bucket=>{
-    // Shuffle within each type group
-    const byType={};
-    bucket.forEach(c=>{
-      const k=typeKey(c);
-      if(!byType[k])byType[k]=[];
-      byType[k].push(c);
-    });
-    // Shuffle each type group
-    Object.values(byType).forEach(group=>{
-      for(let i=group.length-1;i>0;i--){
-        const j=Math.floor(seededRand(i)*( i+1));
-        [group[i],group[j]]=[group[j],group[i]];
-      }
-    });
-    // Interleave types sudoku-style: take one from each type in rotation
-    const typeGroups=Object.values(byType).filter(g=>g.length>0);
-    bucket.length=0;
-    let round=0;
-    while(typeGroups.some(g=>g.length>0)){
-      typeGroups.forEach(g=>{if(g.length>0)bucket.push(g.shift());});
-      round++;
-    }
+
+  // Dedupe by card name (keep highest qty version)
+  const byName = {};
+  cards.forEach(c => {
+    const n = c.name.toLowerCase();
+    if(!byName[n] || (c.qty||0) > (byName[n].qty||0)) byName[n] = c;
   });
-  
-  // Interleave the 6 color buckets: W U B R G C columns
-  // To display as columns in a CSS grid, we need to order cards
-  // so they flow column by column: all W first, then U, then B, R, G, C
-  // CSS grid with grid-auto-flow:column would do it but we use row flow
-  // Instead: interleave so row 1 = W,U,B,R,G,C row 2 = W,U,B,R,G,C etc
-  const maxLen=Math.max(...buckets.map(b=>b.length));
-  const result=[];
-  for(let row=0;row<maxLen;row++){
-    buckets.forEach(bucket=>{
-      if(row<bucket.length)result.push(bucket[row]);
+  const deduped = Object.values(byName);
+
+  // Split into 6 buckets
+  const buckets = {W:[],U:[],B:[],R:[],G:[],C:[]};
+  deduped.forEach(c => buckets[primaryColor(c)].push(c));
+
+  // Sort each bucket: maximize type AND set variety going down the column
+  function arrangeBucket(cards){
+    if(!cards.length) return [];
+    const result = [];
+    const remaining = [...cards];
+    let lastType = null;
+    let lastSet = null;
+
+    while(remaining.length){
+      // Pick best next card: different type AND different set preferred
+      let best = -1;
+      let bestScore = -1;
+
+      for(let i = 0; i < remaining.length; i++){
+        const c = remaining[i];
+        const t = typeKey(c);
+        const s = c.set;
+        let score = 0;
+        if(t !== lastType) score += 2;
+        if(s !== lastSet)  score += 1;
+        if(score > bestScore){ bestScore = score; best = i; }
+        if(bestScore === 3) break; // perfect match, stop looking
+      }
+
+      const picked = remaining.splice(best, 1)[0];
+      lastType = typeKey(picked);
+      lastSet = picked.set;
+      result.push(picked);
+    }
+    return result;
+  }
+
+  const arranged = {};
+  COLOR_ORDER.forEach(col => {
+    arranged[col] = arrangeBucket(buckets[col]);
+  });
+
+  // Interleave into row-major order for a 6-column grid
+  // Row 0: W[0], U[0], B[0], R[0], G[0], C[0]
+  // Row 1: W[1], U[1], B[1], R[1], G[1], C[1]  etc.
+  const maxRows = Math.max(...COLOR_ORDER.map(col => arranged[col].length));
+  const result = [];
+  for(let row = 0; row < maxRows; row++){
+    COLOR_ORDER.forEach(col => {
+      if(row < arranged[col].length) result.push(arranged[col][row]);
     });
   }
   return result;
@@ -1610,6 +1656,8 @@ function applyF(){
   else{cards=wubrgSort(cards);}  // default: WUBRG columns
   fil=cards;
   const title=flt.set?(SET_NAMES[flt.set]||flt.set):flt.sort==='wubrg'?'Cards by Color':flt.stock==='instock'?'In Stock':'All Cards';
+  const wHdrs=document.getElementById('wubrgHdrs');
+  if(wHdrs)wHdrs.style.display=(!srchQ&&flt.sort==='wubrg')?'grid':'none';
   document.getElementById('gridTitle').textContent=title;
   document.getElementById('gridCount').textContent=fil.length.toLocaleString()+' cards';
   document.getElementById('nr').style.display=fil.length?'none':'block';
