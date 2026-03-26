@@ -9,14 +9,14 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#06080c;
-  --bg2:#0b1018;
-  --bg3:#101620;
-  --bg4:#161e2c;
-  --bg5:#1c2638;
-  --br:#1e2a3c;
-  --br2:#2c3e58;
-  --br3:#3e5878;
+  --bg:#04060a;
+  --bg2:#090e16;
+  --bg3:#0e141e;
+  --bg4:#141c2a;
+  --bg5:#1a2436;
+  --br:#1a2638;
+  --br2:#283a54;
+  --br3:#3a5472;
   --t0:#eef3ff;
   --t1:#b8cce8;
   --t2:#7898b8;
@@ -126,6 +126,14 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 
 /* TITLE — arched/curved feel via letter-spacing variation */
 /* b-title replaced by SVG arch */
+/* Art mode — let the art breathe */
+body.art-mode .cb{
+  background:linear-gradient(to bottom,rgba(4,6,10,.95),rgba(4,6,10,.85));
+  backdrop-filter:blur(4px);
+}
+body.art-mode .cn2{font-size:10px}
+body.art-mode .ci img{transform:scale(1.02)}
+
 
 /* Auto-rotate dots */
 .b-dots{
@@ -280,8 +288,8 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 }
 /* Backlit top glow */
 .module::before{
-  content:'';position:absolute;top:0;left:15%;right:15%;height:1px;
-  background:linear-gradient(to right,transparent,var(--glowbr),transparent);
+  content:'';position:absolute;top:0;left:5%;right:5%;height:1px;
+  background:linear-gradient(to right,transparent,rgba(232,184,74,.5),transparent);
   z-index:1;
 }
 .mod-hdr{
@@ -417,17 +425,19 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .grid-hdr{display:flex;align-items:center;gap:8px;margin-bottom:10px}
 .grid-title{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;text-transform:uppercase}
 .grid-count{font-family:'DM Mono',monospace;font-size:9px;color:var(--t2);background:var(--bg2);border:1px solid var(--br);border-radius:2px;padding:2px 7px}
-.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
 .crd{
-  background:var(--bg2);border:1px solid var(--br);border-radius:var(--r);
+  background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:3px;
   overflow:hidden;cursor:pointer;position:relative;
   transition:border-color .15s,transform .12s,box-shadow .15s;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.5);
 }
 .crd:hover{
-  border-color:var(--br2);transform:translateY(-3px) scale(1.02);
-  box-shadow:0 8px 24px rgba(0,0,0,.5),0 0 12px rgba(232,184,74,.08);
+  border-color:rgba(232,184,74,.5);transform:translateY(-3px) scale(1.03);
+  box-shadow:0 8px 28px rgba(0,0,0,.7),0 0 18px rgba(232,184,74,.25);
+  z-index:2;
 }
-.crd.owned:hover{border-color:var(--glowbr);box-shadow:0 8px 24px rgba(0,0,0,.5),0 0 16px rgba(232,184,74,.18)}
+.crd.owned:hover{border-color:var(--gold);box-shadow:0 8px 28px rgba(0,0,0,.7),0 0 24px rgba(232,184,74,.4);z-index:2}
 .crd.oos{opacity:.42}.crd.oos:hover{opacity:.78}
 .ci{aspect-ratio:5/7;background:var(--bg3);position:relative;overflow:hidden}
 .ci img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
@@ -449,13 +459,13 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
   padding:4px 24px;white-space:nowrap;
   box-shadow:0 2px 8px rgba(0,0,0,.5);
 }
-.cb{padding:7px 9px 9px}
+.cb{padding:7px 9px 9px;background:linear-gradient(to bottom,var(--bg3),var(--bg2))}
 .cm{font-family:'DM Mono',monospace;font-size:7px;color:var(--t2);margin-bottom:2px}
-.cn2{font-size:11px;font-weight:600;color:var(--t0);line-height:1.2;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cn2{font-size:11px;font-weight:700;color:#ffffff;line-height:1.2;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.8)}
 .crd.oos .cn2{color:var(--t2)}
-.ct{font-size:9px;color:var(--t2);margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ct{font-size:9px;color:var(--t1);margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cf{display:flex;align-items:center;justify-content:space-between;gap:3px}
-.cp{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.5px;color:var(--gold);line-height:1}
+.cp{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.5px;color:var(--gold2);line-height:1;text-shadow:0 1px 4px rgba(0,0,0,.9)}
 .cp sup{font-size:7px;color:var(--t2);font-family:'DM Sans',sans-serif;font-weight:400}
 .cp.op{font-size:9px;font-family:'DM Mono',monospace;color:var(--t2)}
 .ab{background:var(--bg4);border:1px solid var(--br2);border-radius:2px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--t2);font-size:13px;transition:all .1s;flex-shrink:0}
@@ -482,8 +492,8 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .mclose:hover{color:var(--t0);border-color:var(--br3);background:var(--bg4)}
 .ml{background:var(--bg3);padding:14px 12px;border-right:1px solid var(--br);display:flex;flex-direction:column;gap:0;overflow-y:auto;max-height:92vh}
 .ml img{display:none}
-.mc-col{background:var(--bg4);border-right:1px solid var(--br);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:20px 14px;position:relative;overflow-y:auto;max-height:92vh}
-.mc-col img{width:100%;max-width:290px;border-radius:6px;display:block;box-shadow:0 8px 32px rgba(0,0,0,.7),0 0 20px rgba(232,184,74,.08);cursor:pointer;transition:transform .2s}
+.mc-col{background:var(--bg4);border-right:1px solid var(--br);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:10px;padding:16px 14px;position:relative;overflow-y:auto;max-height:92vh;min-height:500px}
+.mc-col img{width:100%;max-width:290px;border-radius:6px;display:block;box-shadow:0 8px 32px rgba(0,0,0,.7),0 0 20px rgba(232,184,74,.08);cursor:pointer;transition:all .3s ease;object-fit:contain}
 .mc-col img:hover{transform:scale(1.03)}
 .m-view-toggle{
   display:flex;gap:4px;margin-bottom:8px;background:var(--bg3);
@@ -1143,12 +1153,14 @@ function updateArtModeUI() {
   if (_artMode) {
     // In Art Mode — offer to switch to Card View (subtle)
     btn.classList.add('card-mode');
+    document.body.classList.add('art-mode');
     if(icon) icon.textContent = '🃏';
     if(lbl) lbl.textContent = 'Card View';
     btn.title = 'Switch to Card View';
   } else {
     // In Card Mode — offer Art View (bright gold, glowing)
     btn.classList.remove('card-mode');
+    document.body.classList.remove('art-mode');
     if(icon) icon.textContent = '🖼';
     if(lbl) lbl.textContent = '✦ Art View';
     btn.title = 'Switch to Art View';
