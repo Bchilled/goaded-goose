@@ -1175,93 +1175,100 @@ let srchQ='';
 let carPos={};
 
 function wubrgSort(cards){
-  // ── STRICT WUBRG COLUMNS ──
-  // 1. Split into exactly 6 color buckets: W U B R G C(olorless/multi)
-  // 2. Within each column: no repeat type going down, no repeat set going down
-  // 3. No duplicate card NAME anywhere visible at once (dedupe by name)
-  // 4. Grid is forced to exactly 6 columns
+  // ── TRUE SUDOKU WUBRG ──
+  // 6 columns: W U B R G C
+  // No repeat type in any column (down)
+  // No repeat type in any row (across)
+  // No repeat set in any column
+  // No duplicate card names anywhere
 
   const COLOR_ORDER = ['W','U','B','R','G','C'];
 
   function primaryColor(c){
-    const cols = c.colors || [];
-    if(cols.length === 0) return 'C';
-    if(cols.length > 1)   return 'C'; // multicolor → colorless column
-    if(COLOR_ORDER.includes(cols[0])) return cols[0];
-    return 'C';
+    const cols = c.colors||[];
+    if(!cols.length||cols.length>1) return 'C';
+    return COLOR_ORDER.includes(cols[0])?cols[0]:'C';
   }
-
   function typeKey(c){
-    const t = (c.type||'').toLowerCase();
-    if(t.includes('planeswalker')) return 'planeswalker';
-    if(t.includes('creature'))     return 'creature';
-    if(t.includes('instant'))      return 'instant';
-    if(t.includes('sorcery'))      return 'sorcery';
-    if(t.includes('enchantment'))  return 'enchantment';
-    if(t.includes('artifact'))     return 'artifact';
-    if(t.includes('land'))         return 'land';
-    return 'other';
+    const t=(c.type||'').toLowerCase();
+    if(t.includes('planeswalker')) return 'pw';
+    if(t.includes('creature'))     return 'cr';
+    if(t.includes('instant'))      return 'in';
+    if(t.includes('sorcery'))      return 'so';
+    if(t.includes('enchantment'))  return 'en';
+    if(t.includes('artifact'))     return 'ar';
+    if(t.includes('land'))         return 'la';
+    return 'ot';
   }
 
-  // Dedupe by card name (keep highest qty version)
-  const byName = {};
-  cards.forEach(c => {
-    const n = c.name.toLowerCase();
-    if(!byName[n] || (c.qty||0) > (byName[n].qty||0)) byName[n] = c;
+  // Dedupe by name — keep highest qty
+  const byName={};
+  cards.forEach(c=>{
+    const n=c.name.toLowerCase();
+    if(!byName[n]||(c.qty||0)>(byName[n].qty||0)) byName[n]=c;
   });
-  const deduped = Object.values(byName);
+  const deduped=Object.values(byName);
 
-  // Split into 6 buckets
-  const buckets = {W:[],U:[],B:[],R:[],G:[],C:[]};
-  deduped.forEach(c => buckets[primaryColor(c)].push(c));
+  // Split into 6 color buckets
+  const buckets={W:[],U:[],B:[],R:[],G:[],C:[]};
+  deduped.forEach(c=>buckets[primaryColor(c)].push(c));
 
-  // Sort each bucket: maximize type AND set variety going down the column
-  function arrangeBucket(cards){
-    if(!cards.length) return [];
-    const result = [];
-    const remaining = [...cards];
-    let lastType = null;
-    let lastSet = null;
+  // Shuffle each bucket for variety (seeded by session)
+  const seed=Math.floor(Date.now()/86400000); // changes daily
+  function seededRand(i,s){return((s*1664525+i*1013904223)&0x7fffffff)/0x7fffffff;}
+  Object.keys(buckets).forEach((col,ci)=>{
+    const b=buckets[col];
+    for(let i=b.length-1;i>0;i--){
+      const j=Math.floor(seededRand(i,seed+ci)*(i+1));
+      [b[i],b[j]]=[b[j],b[i]];
+    }
+  });
 
-    while(remaining.length){
-      // Pick best next card: different type AND different set preferred
-      let best = -1;
-      let bestScore = -1;
+  // Build rows one at a time, enforcing no-repeat type across AND down
+  const maxRows=Math.max(...Object.values(buckets).map(b=>b.length));
+  const grid=[]; // grid[row][col] = card or null
+  const colLastType={}; // last type used in each column
+  const colLastSet={};  // last set used in each column
+  COLOR_ORDER.forEach(c=>{colLastType[c]=null;colLastSet[c]=null;});
 
-      for(let i = 0; i < remaining.length; i++){
-        const c = remaining[i];
-        const t = typeKey(c);
-        const s = c.set;
-        let score = 0;
-        if(t !== lastType) score += 2;
-        if(s !== lastSet)  score += 1;
-        if(score > bestScore){ bestScore = score; best = i; }
-        if(bestScore === 3) break; // perfect match, stop looking
+  for(let row=0;row<maxRows;row++){
+    const rowCards=[];
+    const rowTypes=new Set(); // types already placed in this row
+
+    COLOR_ORDER.forEach((col,ci)=>{
+      const bucket=buckets[col];
+      if(!bucket.length){rowCards.push(null);return;}
+
+      // Find best card: different type from row + different type from above + different set from above
+      let bestIdx=-1;
+      let bestScore=-1;
+
+      for(let i=0;i<Math.min(bucket.length,20);i++){
+        const c=bucket[i];
+        const t=typeKey(c);
+        const s=c.set;
+        let score=0;
+        if(!rowTypes.has(t))         score+=4; // not in this row
+        if(t!==colLastType[col])     score+=2; // not same as above in column
+        if(s!==colLastSet[col])      score+=1; // different set from above
+        if(score>bestScore){bestScore=score;bestIdx=i;}
+        if(bestScore===7) break;
       }
 
-      const picked = remaining.splice(best, 1)[0];
-      lastType = typeKey(picked);
-      lastSet = picked.set;
-      result.push(picked);
-    }
-    return result;
-  }
-
-  const arranged = {};
-  COLOR_ORDER.forEach(col => {
-    arranged[col] = arrangeBucket(buckets[col]);
-  });
-
-  // Interleave into row-major order for a 6-column grid
-  // Row 0: W[0], U[0], B[0], R[0], G[0], C[0]
-  // Row 1: W[1], U[1], B[1], R[1], G[1], C[1]  etc.
-  const maxRows = Math.max(...COLOR_ORDER.map(col => arranged[col].length));
-  const result = [];
-  for(let row = 0; row < maxRows; row++){
-    COLOR_ORDER.forEach(col => {
-      if(row < arranged[col].length) result.push(arranged[col][row]);
+      if(bestIdx===-1) bestIdx=0;
+      const picked=bucket.splice(bestIdx,1)[0];
+      colLastType[col]=typeKey(picked);
+      colLastSet[col]=picked.set;
+      rowTypes.add(typeKey(picked));
+      rowCards.push(picked);
     });
+
+    grid.push(rowCards);
   }
+
+  // Flatten grid to array (row-major = left to right, top to bottom)
+  const result=[];
+  grid.forEach(row=>row.forEach(c=>{if(c)result.push(c);}));
   return result;
 }
 
