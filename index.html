@@ -474,7 +474,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .mdl{
   background:var(--bg2);border:1px solid var(--br2);border-radius:6px;
   max-width:900px;width:100%;max-height:92vh;overflow:hidden;position:relative;
-  display:grid;grid-template-columns:170px 260px 1fr;
+  display:grid;grid-template-columns:160px 320px 1fr;
   box-shadow:0 0 0 1px rgba(232,184,74,.1),0 40px 80px rgba(0,0,0,.9);
 }
 .mdl::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(to right,transparent,var(--glowbr),transparent);z-index:1}
@@ -483,7 +483,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .ml{background:var(--bg3);padding:14px 12px;border-right:1px solid var(--br);display:flex;flex-direction:column;gap:0;overflow-y:auto;max-height:92vh}
 .ml img{display:none}
 .mc-col{background:var(--bg4);border-right:1px solid var(--br);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:20px 14px;position:relative;overflow-y:auto;max-height:92vh}
-.mc-col img{width:100%;max-width:220px;border-radius:6px;display:block;box-shadow:0 8px 32px rgba(0,0,0,.7),0 0 20px rgba(232,184,74,.08);cursor:pointer;transition:transform .2s}
+.mc-col img{width:100%;max-width:290px;border-radius:6px;display:block;box-shadow:0 8px 32px rgba(0,0,0,.7),0 0 20px rgba(232,184,74,.08);cursor:pointer;transition:transform .2s}
 .mc-col img:hover{transform:scale(1.03)}
 .mflip{background:var(--bg3);border:1px solid var(--br2);border-radius:var(--r);padding:5px 12px;font-family:'DM Mono',monospace;font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--t1);cursor:pointer;transition:all .15s;display:none}
 .mflip.show{display:block}
@@ -590,6 +590,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .ctlbl{font-size:10px;color:var(--t2)}
 .ctamt{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:var(--gold)}
 .chkbtn{width:100%;background:var(--gold);color:#080400;border:none;border-radius:var(--r);padding:11px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;cursor:pointer}
+.checkout-notice{font-family:'DM Mono',monospace;font-size:8px;color:var(--t2);text-align:center;margin-top:6px;line-height:1.5}
 .chkbtn:hover{background:var(--gold2)}
 
 .toast{position:fixed;bottom:74px;right:14px;background:var(--bg4);border:1px solid var(--glowbr);border-left:3px solid var(--gold);border-radius:var(--r);padding:8px 14px;font-size:11px;color:var(--t0);z-index:700;transform:translateY(40px);opacity:0;transition:all .2s;pointer-events:none;font-weight:500}
@@ -1093,6 +1094,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
   <div class="cfoot" id="cfoot" style="display:none">
     <div class="ctrow"><span class="ctlbl">Subtotal (CAD)</span><span class="ctamt" id="ctot">$0.00</span></div>
     <button class="chkbtn" onclick="checkout()">Checkout →</button>
+      <div class="checkout-notice">Stripe processing fees + shipping apply at checkout.<br>We'll confirm availability before charging.</div>
   </div>
 </div>
 <div class="toast" id="toast"></div>
@@ -1249,14 +1251,26 @@ function wubrgSort(cards){
 
 function calcP(c){
   if(c.price)return c.price;
-  const u=parseFloat(c.usd||0.10);
-  let p=u*1.38*1.10;if(c.foil)p*=1.3;
-  if(p>=0.43)return Math.round(p*100)/100;
-  let h=0;const s=(c.set||'')+(c.num||'')+(c.foil?'f':'');
+  const u=parseFloat(c.usd||0);
+  const foil=c.foil||false;
+  // Base: USD market price × 1.38 CAD × 1.10 markup (10% above market)
+  let p=u*1.38*1.10;
+  if(foil)p*=1.3;
+  // Apply floors
+  const floor=foil?0.50:0.42;
+  if(p>=floor)return Math.round(p*100)/100;
+  // Bulk: seed between floor and floor+0.09 for variety
+  let h=0;const s=(c.set||'')+(c.num||'')+(foil?'f':'');
   for(let i=0;i<s.length;i++){h=(h*31+s.charCodeAt(i))&0xFFFFFFFF}
-  return 0.33+Math.round((h%100)/100*0.09*100)/100;
+  return Math.round((floor+(h%100)/100*0.09)*100)/100;
 }
 function fmt(p){return'$'+(p||0).toFixed(2)}
+function displayPrice(c){
+  // Enforce floors at display time regardless of what's stored
+  const floor=c.foil?0.50:0.42;
+  const stored=c.price||calcP(c);
+  return Math.max(stored,floor);
+}
 function encC(c){return btoa(unescape(encodeURIComponent(JSON.stringify(c))))}
 function decC(s){try{return JSON.parse(decodeURIComponent(escape(atob(s))))}catch(e){return null}}
 
@@ -1381,7 +1395,7 @@ function buildModules(){
     document.getElementById('cotdType').textContent=cotd.type||'';
     document.getElementById('cotdSub').textContent=(SET_NAMES[cotd.set]||cotd.set)+' · '+cotd.rar;
     document.getElementById('cotdWhy').textContent=getCOTDWhy(cotd);
-    document.getElementById('cotdPrice').textContent=fmt(cotd.price||0)+' CAD';
+    document.getElementById('cotdPrice').textContent=fmt(displayPrice(cotd))+' CAD';
     const leg=cotd.leg||{};
     const lf=FMTS.filter(f=>leg[f]===true||leg[f]===1);
     document.getElementById('cotdFmts').innerHTML=lf.map(f=>`<span class="cotd-fmt">${f}</span>`).join('');
@@ -1493,7 +1507,7 @@ ${!owned?'<div class="mc-oos"></div><div class="mc-oos-lbl">Out of Stock</div>':
 <div class="mc-set">${c.set}·#${c.num}</div>
 <div class="mc-name">${c.name}</div>
 ${pitch}
-${owned?`<div class="mc-price">${fmt(c.price||0)}</div>`:'<div class="mc-oos-p">Out of Stock</div>'}
+${owned?`<div class="mc-price">${fmt(displayPrice(c))}</div>`:'<div class="mc-oos-p">Out of Stock</div>'}
 </div></div>`;
   }).join('');
 
@@ -1679,7 +1693,7 @@ ${!owned?'<div class="oo"></div><div class="ol">Out of Stock</div>':''}
 <div class="cb"><div class="cm">${c.set}·#${c.num}</div>
 <div class="cn2">${c.name}</div><div class="ct">${c.type||''}</div>
 <div class="cf">
-${owned?`<div class="cp">${fmt(c.price||0)}<sup> cad</sup></div><button class="ab" onclick="event.stopPropagation();qAdd('${encC(c)}')">+</button>`:`<div class="cp op">Out of Stock</div>`}
+${owned?`<div class="cp">${fmt(displayPrice(c))}<sup> cad</sup></div><button class="ab" onclick="event.stopPropagation();qAdd('${encC(c)}')">+</button>`:`<div class="cp op">Out of Stock</div>`}
 </div></div></div>`;
 }
 
@@ -1696,7 +1710,7 @@ function openM(s){
   document.getElementById('mEye').textContent=(c.set||'')+'·#'+(c.num||'');
   document.getElementById('mName').textContent=c.name||'';
   document.getElementById('mType').textContent=c.type||'';
-  document.getElementById('mP').textContent=fmt(c.price||0)+' CAD';
+  document.getElementById('mP').textContent=fmt(displayPrice(c))+' CAD';
   document.getElementById('mSt').textContent=owned?c.qty+' available':'Out of Stock';
   document.getElementById('mCd').textContent=c.cond||(owned?'LP':'—');
   document.getElementById('mSet').textContent=SET_NAMES[c.set]||c.set||'';
