@@ -442,6 +442,17 @@ body.art-mode .ci img{transform:scale(1.02)}
 .rp{position:absolute;bottom:5px;left:5px;width:7px;height:7px;border-radius:50%;border:1px solid rgba(0,0,0,.4)}
 .rM{background:var(--M)}.rR{background:var(--R)}.rU{background:var(--U)}.rC{background:var(--C)}
 .fb{position:absolute;top:0;left:0;background:linear-gradient(135deg,#907018,#e8c040,#907018);color:#1a0800;font-size:6px;font-weight:700;padding:2px 6px 2px 4px;letter-spacing:.8px;font-family:'DM Mono',monospace;clip-path:polygon(0 0,100% 0,84% 100%,0 100%)}
+.var-badge{
+  position:absolute;bottom:4px;left:4px;
+  background:rgba(232,184,74,.85);color:#080400;
+  font-family:'DM Mono',monospace;font-size:6px;font-weight:700;
+  letter-spacing:.5px;padding:2px 5px;border-radius:2px;
+  pointer-events:none;
+}
+.has-variants .ci::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,var(--gold),transparent);
+}
 .qb{position:absolute;top:4px;right:4px;background:rgba(6,8,12,.9);border:1px solid var(--br2);color:var(--t2);font-size:8px;padding:1px 4px;border-radius:2px;font-family:'DM Mono',monospace}
 .qb.hi{border-color:var(--gold);color:var(--gold)}
 .oo{position:absolute;inset:0;background:rgba(6,8,12,.22)}
@@ -1233,17 +1244,35 @@ function wubrgSort(cards){
     const n=c.name.toLowerCase();
     if(!byName[n]||(c.qty||0)>(byName[n].qty||0)) byName[n]=c;
   });
-  // Remove basic lands only — keep non-basics (duals, fetches, utility lands)
+  // Remove basic lands only
   const BASICS=new Set(['plains','island','swamp','mountain','forest']);
-  const noBasics=Object.values(byName).filter(c=>{
+  
+  // Group all versions of same card name together
+  // Show ONE representative card with combined qty + variants list
+  const nameGroups={};
+  cards.forEach(c=>{
+    const n=c.name.toLowerCase();
     const t=(c.type||'').toLowerCase();
-    const n=(c.name||'').toLowerCase();
-    if(!t.includes('land')) return true; // not a land, keep
-    if(t.includes('basic')) return false; // basic land type, remove
-    if(BASICS.has(n)) return false; // named Plains/Island/etc, remove
-    return true; // non-basic land, keep
+    // Skip basic lands
+    if(t.includes('basic')||BASICS.has(n)) return;
+    if(!nameGroups[n]) nameGroups[n]=[];
+    nameGroups[n].push(c);
   });
-  const deduped=noBasics;
+  
+  // Build representative card for each name group
+  const deduped=Object.values(nameGroups).map(group=>{
+    // Pick best representative: non-foil with highest qty, or highest value
+    const rep = group.sort((a,b)=>{
+      if(a.foil!==b.foil) return a.foil?1:-1; // prefer non-foil as rep
+      return (b.qty||0)-(a.qty||0);
+    })[0];
+    // Combine qty across all versions
+    const totalQty = group.reduce((s,c)=>s+(c.qty||0),0);
+    const hasVariants = group.length > 1;
+    const variantCount = group.length;
+    // Return rep with enriched data
+    return {...rep, _totalQty:totalQty, _hasVariants:hasVariants, _variantCount:variantCount, _variants:group};
+  });
 
   // Split into 6 color buckets
   const buckets={W:[],U:[],B:[],R:[],G:[],C:[]};
@@ -1735,7 +1764,7 @@ async function doSearch(q){
   const nl = parseNLQuery(q);
   const ql = nl.nameQ.toLowerCase();
   
-  // Filter DB cards using NL parameters
+  // Filter DB cards using NL parameters — show all variants individually in search
   let owned = db.filter(c=>{
     // Name/type/set match
     if(ql && !c.name.toLowerCase().includes(ql) && 
@@ -1859,13 +1888,18 @@ function renderG(p){pg=p;const sl=fil.slice(0,p*PAGE);document.getElementById('g
 function loadMore(){renderG(pg+1)}
 
 function cardHTML(c){
-  const owned=(c.qty||0)>0;const rar=(c.rar||'common')[0].toUpperCase();
+  const totalQty = c._totalQty !== undefined ? c._totalQty : (c.qty||0);
+  const owned = totalQty > 0;
+  const rar=(c.rar||'common')[0].toUpperCase();
   const safe=`'${encC(c)}'`;
-  return`<div class="crd ${owned?'owned':'oos'}" onclick="openM(${safe})">
+  const hasVariants = c._hasVariants;
+  const variantCount = c._variantCount||1;
+  return`<div class="crd ${owned?'owned':'oos'}${hasVariants?' has-variants':''}" onclick="openM(${safe})">
 <div class="ci">${c.img?`<img src="${getCardImg(c)}" alt="" loading="lazy" style="${_artMode ? 'object-position:center 30%;object-fit:cover' : 'object-fit:contain;background:var(--bg4)'}">`:'<div class="ci-ph">🃏</div>'}
 <div class="rp ${rm[rar]||'rC'}"></div>
 ${c.foil?'<span class="fb">Foil</span>':''}
-${owned?`<span class="qb ${(c.qty||0)>=4?'hi':''}">×${c.qty}</span>`:''}
+${owned?`<span class="qb ${totalQty>=4?'hi':''}">×${totalQty}</span>`:''}
+${hasVariants?`<span class="var-badge">${variantCount} versions</span>`:''}
 ${!owned?'<div class="oo"></div><div class="ol">Out of Stock</div>':''}
 </div>
 <div class="cb"><div class="cm">${c.set}·#${c.num}</div>
@@ -1905,7 +1939,8 @@ function openM(s){
   window._mFace = 0;
   // Other printings — search DB for same card name, different set
   const name = (c.name||'').toLowerCase();
-  const prints = db.filter(x=>x.name.toLowerCase()===name && !(x.set===c.set&&x.num===c.num));
+  // Show ALL variants: other sets AND foil/non-foil of same card
+  const prints = (c._variants || db.filter(x=>x.name.toLowerCase()===name)).filter(x=>!(x.set===c.set&&x.num===c.num&&x.foil===c.foil));
   const printsEl = document.getElementById('mPrints');
   const printsList = document.getElementById('mPrintsList');
   if(prints.length && printsEl && printsList) {
