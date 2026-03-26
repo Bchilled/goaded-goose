@@ -769,6 +769,29 @@ body.art-mode .ci img{transform:scale(1.02)}
   .b-goose-wrap svg{width:130px;height:87px}
   .nav-logo span{display:none} /* hide "GOADED GOOSE" text, keep mini goose icon */
 }
+
+/* ── HERO BANNER ── */
+.hero-slides{position:absolute;inset:0;z-index:1;top:0;left:0;right:0;bottom:var(--nh)}
+.hero-slide{position:absolute;inset:0;bottom:0;opacity:0;transition:opacity .7s ease;overflow:hidden}
+.hero-slide.active{opacity:1}
+.hero-bg{position:absolute;inset:0;background-size:cover;background-position:center top;
+  transform:scale(1.05);transition:transform 7s ease;filter:brightness(.5) saturate(1.5)}
+.hero-slide.active .hero-bg{transform:scale(1.0)}
+.hero-overlay{position:absolute;inset:0;
+  background:linear-gradient(to right,rgba(4,6,10,.92) 0%,rgba(4,6,10,.3) 60%,transparent 100%),
+             linear-gradient(to top,rgba(4,6,10,.95) 0%,transparent 50%)}
+.hero-content{position:absolute;bottom:calc(var(--nh) + 16px);left:28px;z-index:2}
+.hero-set-code{font-family:'DM Mono',monospace;font-size:10px;font-weight:700;letter-spacing:4px;color:var(--gold);margin-bottom:3px}
+.hero-set-name{font-family:'Bebas Neue',sans-serif;font-size:46px;letter-spacing:2px;color:#fff;line-height:1;margin-bottom:12px;text-shadow:0 2px 20px rgba(0,0,0,.8)}
+.hero-cta{display:inline-block;background:var(--gold);color:#080400;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:.5px;padding:8px 20px;border-radius:3px;transition:background .15s}
+.hero-slide:hover .hero-cta{background:var(--gold2)}
+.hero-brand{position:absolute;top:12px;left:14px;z-index:25;display:flex;align-items:center;gap:8px;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;color:var(--gold);text-shadow:0 1px 8px rgba(0,0,0,.9)}
+.hero-dots{position:absolute;bottom:calc(var(--nh) + 8px);left:50%;transform:translateX(-50%);z-index:20;display:flex;gap:5px}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .2s;border:none}
+.hero-dot.active{background:var(--gold);width:18px;border-radius:3px}
+.hero-arr{position:absolute;top:50%;transform:translateY(-70%);z-index:20;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:24px;width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.hero-arr:hover{background:rgba(232,184,74,.3);border-color:var(--gold)}
+.hero-prev{left:10px}.hero-next{right:10px}
 </style>
 </head>
 <body>
@@ -851,10 +874,10 @@ body.art-mode .ci img{transform:scale(1.02)}
     <!-- Rarity chips -->
     <div class="nav-chips" id="rarChips">
       <button class="nchip on" onclick="fRar('',this)">All</button>
-      <button class="nchip" style="color:var(--M)" onclick="fRar('mythic',this)">M</button>
-      <button class="nchip" style="color:var(--R)" onclick="fRar('rare',this)">R</button>
-      <button class="nchip" style="color:var(--U)" onclick="fRar('uncommon',this)">U</button>
-      <button class="nchip" style="color:var(--C)" onclick="fRar('common',this)">C</button>
+      <button class="nchip" style="color:var(--M)" onclick="fRar('mythic',this)">Mythic</button>
+      <button class="nchip" style="color:var(--R)" onclick="fRar('rare',this)">Rare</button>
+      <button class="nchip" style="color:var(--U)" onclick="fRar('uncommon',this)">Uncommon</button>
+      <button class="nchip" style="color:var(--C)" onclick="fRar('common',this)">Common</button>
     </div>
 
     <!-- Type filter chips -->
@@ -903,6 +926,29 @@ body.art-mode .ci img{transform:scale(1.02)}
           <button class="dditem" onclick="fType('Planeswalker')">Planeswalker</button>
           <button class="dditem" onclick="fType('Land')">Land</button>
           <button class="dditem" onclick="fType('Legendary')">Legendary</button>
+        </div>
+        <div class="ddsec"><span class="ddttl">Color Identity</span>
+          <button class="dditem" onclick="fColId([])">All Colors</button>
+          <button class="dditem" onclick="fColId(['W','U'])"><i class="ms ms-w ms-cost"></i><i class="ms ms-u ms-cost"></i> Azorius</button>
+          <button class="dditem" onclick="fColId(['U','B'])"><i class="ms ms-u ms-cost"></i><i class="ms ms-b ms-cost"></i> Dimir</button>
+          <button class="dditem" onclick="fColId(['B','R'])"><i class="ms ms-b ms-cost"></i><i class="ms ms-r ms-cost"></i> Rakdos</button>
+          <button class="dditem" onclick="fColId(['R','G'])"><i class="ms ms-r ms-cost"></i><i class="ms ms-g ms-cost"></i> Gruul</button>
+          <button class="dditem" onclick="fColId(['G','W'])"><i class="ms ms-g ms-cost"></i><i class="ms ms-w ms-cost"></i> Selesnya</button>
+          <button class="dditem" onclick="fColId(['W','B'])"><i class="ms ms-w ms-cost"></i><i class="ms ms-b ms-cost"></i> Orzhov</button>
+          <button class="dditem" onclick="fColId(['U','R'])"><i class="ms ms-u ms-cost"></i><i class="ms ms-r ms-cost"></i> Izzet</button>
+          <button class="dditem" onclick="fColId(['B','G'])"><i class="ms ms-b ms-cost"></i><i class="ms ms-g ms-cost"></i> Golgari</button>
+          <button class="dditem" onclick="fColId(['R','W'])"><i class="ms ms-r ms-cost"></i><i class="ms ms-w ms-cost"></i> Boros</button>
+          <button class="dditem" onclick="fColId(['G','U'])"><i class="ms ms-g ms-cost"></i><i class="ms ms-u ms-cost"></i> Simic</button>
+          <button class="dditem" onclick="fColId(['W','U','B'])"><i class="ms ms-w ms-cost"></i><i class="ms ms-u ms-cost"></i><i class="ms ms-b ms-cost"></i> Esper</button>
+          <button class="dditem" onclick="fColId(['U','B','R'])"><i class="ms ms-u ms-cost"></i><i class="ms ms-b ms-cost"></i><i class="ms ms-r ms-cost"></i> Grixis</button>
+          <button class="dditem" onclick="fColId(['B','R','G'])"><i class="ms ms-b ms-cost"></i><i class="ms ms-r ms-cost"></i><i class="ms ms-g ms-cost"></i> Jund</button>
+          <button class="dditem" onclick="fColId(['R','G','W'])"><i class="ms ms-r ms-cost"></i><i class="ms ms-g ms-cost"></i><i class="ms ms-w ms-cost"></i> Naya</button>
+          <button class="dditem" onclick="fColId(['G','W','U'])"><i class="ms ms-g ms-cost"></i><i class="ms ms-w ms-cost"></i><i class="ms ms-u ms-cost"></i> Bant</button>
+          <button class="dditem" onclick="fColId(['R','W','B'])"><i class="ms ms-r ms-cost"></i><i class="ms ms-w ms-cost"></i><i class="ms ms-b ms-cost"></i> Mardu</button>
+          <button class="dditem" onclick="fColId(['G','U','R'])"><i class="ms ms-g ms-cost"></i><i class="ms ms-u ms-cost"></i><i class="ms ms-r ms-cost"></i> Temur</button>
+          <button class="dditem" onclick="fColId(['W','B','G'])"><i class="ms ms-w ms-cost"></i><i class="ms ms-b ms-cost"></i><i class="ms ms-g ms-cost"></i> Abzan</button>
+          <button class="dditem" onclick="fColId(['U','R','W'])"><i class="ms ms-u ms-cost"></i><i class="ms ms-r ms-cost"></i><i class="ms ms-w ms-cost"></i> Jeskai</button>
+          <button class="dditem" onclick="fColId(['B','G','U'])"><i class="ms ms-b ms-cost"></i><i class="ms ms-g ms-cost"></i><i class="ms ms-u ms-cost"></i> Sultai</button>
         </div>
         <div class="ddsec"><span class="ddttl">Foil</span>
           <button class="dditem" onclick="fFoil('')">All</button>
@@ -956,14 +1002,7 @@ body.art-mode .ci img{transform:scale(1.02)}
 
   <!-- CARD GRID -->
   <div>
-    <div class="wubrg-headers" id="wubrgHdrs" style="display:none">
-  <div class="wubrg-hdr w-hdr"><i class="ms ms-w ms-cost"></i> White</div>
-  <div class="wubrg-hdr u-hdr"><i class="ms ms-u ms-cost"></i> Blue</div>
-  <div class="wubrg-hdr b-hdr"><i class="ms ms-b ms-cost"></i> Black</div>
-  <div class="wubrg-hdr r-hdr"><i class="ms ms-r ms-cost"></i> Red</div>
-  <div class="wubrg-hdr g-hdr"><i class="ms ms-g ms-cost"></i> Green</div>
-  <div class="wubrg-hdr c-hdr"><i class="ms ms-c ms-cost"></i> Colorless</div>
-</div>
+    
 <div class="grid-hdr">
       <span class="grid-title" id="gridTitle">In Stock</span>
       <span class="grid-count" id="gridCount">—</span>
@@ -1830,7 +1869,8 @@ function goHome(){
 }
 function fSet(v){flt.set=v;closeAllDDs();applyF()}
 function fRar(v,el){flt.rarity=v;document.querySelectorAll('#rarChips .nchip').forEach(b=>b.classList.remove('on'));el.classList.add('on');applyF()}
-function fCol(v,el){flt.color=v;flt.colorIds=[];document.querySelectorAll('#colChips .nchip').forEach(b=>b.classList.remove('on'));el.classList.add('on');applyF()}
+function fCol(v,el){flt.color=v;flt.colorIds=[];document.querySelectorAll('#colChips .nchip').forEach(b=>b.classList.remove('on'));if(el)el.classList.add('on');applyF()}
+function fColId(cols){flt.colorIds=cols;flt.color='';document.querySelectorAll('#colChips .nchip').forEach(b=>b.classList.remove('on'));closeAllDDs();applyF()}
 
 function applyF(){
   if(srchQ)return;
@@ -1876,8 +1916,6 @@ function applyF(){
   }
   fil=cards;
   const title=flt.set?(SET_NAMES[flt.set]||flt.set):flt.sort==='wubrg'?'Cards by Color':flt.stock==='instock'?'In Stock':'All Cards';
-  const wHdrs=document.getElementById('wubrgHdrs');
-  if(wHdrs)wHdrs.style.display=(!srchQ&&flt.sort==='wubrg'&&!flt.color&&!flt.set&&!flt.rarity&&!flt.type&&!flt.format)?'grid':'none';
   document.getElementById('gridTitle').textContent=title;
   document.getElementById('gridCount').textContent=fil.length.toLocaleString()+' cards';
   document.getElementById('nr').style.display=fil.length?'none':'block';
@@ -2167,5 +2205,84 @@ function scrollMod(id){
 init();
 updateArtModeUI();
 </script>
-</body>
+
+<script>
+// ── HERO BANNER INIT ──
+(function(){
+  const SLIDES = [
+    {set:'EOE',name:'Edge of Eternities',bg:'https://cards.scryfall.io/art_crop/front/1/2/1226e575-aa78-4c68-be1d-6e5c2dc6315b.jpg?1752946696'},
+    {set:'TDM',name:'Tarkir: Dragonstorm',bg:'https://cards.scryfall.io/art_crop/front/6/4/64a5d494-efa1-446b-bebe-2ad36e154376.jpg?1761770162'},
+    {set:'FIN',name:'Final Fantasy',bg:'https://cards.scryfall.io/art_crop/front/9/5/95318d85-4a08-47ac-a43d-ea83c0bea81c.jpg?1748705758'},
+    {set:'TMT',name:'TMNT',bg:'https://cards.scryfall.io/art_crop/front/7/4/74c11ee3-19d1-4ad5-a727-1d74c565d6a5.jpg?1769005535'},
+    {set:'ECL',name:'Lorwyn Eclipsed',bg:'https://cards.scryfall.io/art_crop/front/8/0/80ef0455-fbab-498d-81d8-2fc1d7e8c4f6.jpg?1736969785'},
+  ];
+  let _hi = 0, _ht = null;
+
+  function heroGo(i){
+    document.querySelectorAll('.hero-slide').forEach((s,j)=>s.classList.toggle('active',j===i));
+    document.querySelectorAll('.hero-dot').forEach((d,j)=>d.classList.toggle('active',j===i));
+    _hi = i;
+  }
+  window.heroGo = heroGo;
+
+  document.addEventListener('DOMContentLoaded', function(){
+    const banner = document.getElementById('banner');
+    if(!banner) return;
+
+    // Build slides container
+    const wrap = document.createElement('div');
+    wrap.className = 'hero-slides';
+    SLIDES.forEach((s,i)=>{
+      const slide = document.createElement('div');
+      slide.className = 'hero-slide' + (i===0?' active':'');
+      slide.onclick = ()=>{ if(typeof fSet==='function') fSet(s.set); };
+      slide.style.cursor='pointer';
+      slide.innerHTML = `
+        <div class="hero-bg" style="background-image:url('${s.bg}')"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-set-code">${s.set}</div>
+          <div class="hero-set-name">${s.name}</div>
+          <div class="hero-cta">Shop Singles →</div>
+        </div>`;
+      wrap.appendChild(slide);
+    });
+    banner.insertBefore(wrap, banner.firstChild);
+
+    // Branding
+    const brand = document.createElement('div');
+    brand.className = 'hero-brand';
+    brand.onclick = ()=>{ if(typeof goHome==='function') goHome(); };
+    brand.innerHTML = `<svg viewBox="0 0 220 200" style="width:26px;height:24px;flex-shrink:0"><path d="M 55,155 Q 25,145 22,118 Q 18,88 40,78 Q 68,60 80,52 Q 92,44 122,52 Q 138,68 134,90 Q 152,118 138,155 Q 88,168 55,155 Z" fill="#f5f5f5"/><path d="M 80,78 Q 76,44 92,28 Q 110,26 104,62 Q 98,72 92,80 Z" fill="#f5f5f5"/><ellipse cx="95" cy="30" rx="22" ry="20" fill="#f5f5f5"/><circle cx="105" cy="24" r="5" fill="#111"/><path d="M 114,28 L 138,22 L 140,28 L 120,36 Z" fill="#e87820"/></svg><span>GOADED GOOSE</span>`;
+    banner.appendChild(brand);
+
+    // Dots
+    const dots = document.createElement('div');
+    dots.className = 'hero-dots';
+    SLIDES.forEach((_,i)=>{
+      const d=document.createElement('button');
+      d.className='hero-dot'+(i===0?' active':'');
+      d.onclick=()=>heroGo(i);
+      dots.appendChild(d);
+    });
+    banner.appendChild(dots);
+
+    // Arrows
+    const prev=document.createElement('button');
+    prev.className='hero-arr hero-prev';prev.innerHTML='&#8249;';
+    prev.onclick=()=>heroGo((_hi-1+SLIDES.length)%SLIDES.length);
+    const next=document.createElement('button');
+    next.className='hero-arr hero-next';next.innerHTML='&#8250;';
+    next.onclick=()=>heroGo((_hi+1)%SLIDES.length);
+    banner.appendChild(prev);banner.appendChild(next);
+
+    // Auto-rotate
+    _ht = setInterval(()=>heroGo((_hi+1)%SLIDES.length), 5500);
+  });
+})();
+</script>
+
+<style>
+.b-panels,.b-brand,.b-goose-wrap,.b-grad,.b-dots{display:none!important}
+</style></body>
 </html>
