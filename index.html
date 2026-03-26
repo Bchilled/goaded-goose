@@ -242,10 +242,12 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
   padding:5px 12px;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;
   letter-spacing:1px;text-transform:uppercase;cursor:pointer;
   color:#080400;transition:all .15s;flex-shrink:0;
-  box-shadow:0 0 12px rgba(232,184,74,.4);
+  box-shadow:0 0 14px rgba(232,184,74,.45);
+  animation:artglow 2s ease-in-out infinite;
 }
-.art-toggle:hover{background:var(--gold2);box-shadow:0 0 20px rgba(232,184,74,.55)}
-.art-toggle.card-mode{background:var(--bg3);border-color:var(--br2);color:var(--t1);box-shadow:none;border-width:1px}
+@keyframes artglow{0%,100%{box-shadow:0 0 14px rgba(232,184,74,.45)}50%{box-shadow:0 0 22px rgba(232,184,74,.75)}}
+.art-toggle:hover{background:var(--gold2);box-shadow:0 0 24px rgba(232,184,74,.7)}
+.art-toggle.card-mode{background:var(--bg3);border-color:var(--br2);color:var(--t1);box-shadow:none;border-width:1px;animation:none}
 .art-toggle.card-mode:hover{border-color:var(--gold);color:var(--gold);background:var(--glow)}
 .art-toggle.card-mode:hover{border-color:var(--gold);color:var(--gold)}
 .nav-cart{
@@ -1096,15 +1098,17 @@ function updateArtModeUI() {
   const lbl = document.getElementById('artToggleLbl');
   if (!btn) return;
   if (_artMode) {
-    btn.classList.remove('card-mode');
-    if(icon) icon.textContent = '🖼';
-    if(lbl) lbl.textContent = 'Art View';
-    btn.title = 'Art View active — click for Card View';
-  } else {
+    // In Art Mode — offer to switch to Card View (subtle)
     btn.classList.add('card-mode');
     if(icon) icon.textContent = '🃏';
     if(lbl) lbl.textContent = 'Card View';
-    btn.title = 'Card View active — click for Art View';
+    btn.title = 'Switch to Card View';
+  } else {
+    // In Card Mode — offer Art View (bright gold, glowing)
+    btn.classList.remove('card-mode');
+    if(icon) icon.textContent = '🖼';
+    if(lbl) lbl.textContent = '✦ Art View';
+    btn.title = 'Switch to Art View';
   }
 }
 
@@ -1323,7 +1327,7 @@ function buildModules(){
   const recent=['TMT','EOE','TDM','FIN','ECL'];
   let pool=[];
   recent.forEach(s=>pool.push(...ins.filter(c=>c.set===s&&parseFloat(c.usd||0)>1).sort((a,b)=>parseFloat(b.usd||0)-parseFloat(a.usd||0)).slice(0,4)));
-  if(pool.length){
+  if(pool.length && document.getElementById('cotdImg')){
     const cotd=pool[new Date().getDate()%pool.length];
     window._cotdCard=cotd;
     document.getElementById('cotdImg').src=getCardImg(cotd)||'';
@@ -1341,12 +1345,12 @@ function buildModules(){
     btn.onclick=()=>owned?addCart(cotd,1):doWaitForCard(cotd);
   }
 
-  buildCar('ctRecent','cdRecent',[...ins].sort((a,b)=>(b.added||'').localeCompare(a.added||'')).slice(0,30),false);
-  buildCar('ctHV','cdHV',[...ins].filter(c=>parseFloat(c.usd||0)>=1.5).sort((a,b)=>parseFloat(b.usd||0)-parseFloat(a.usd||0)).slice(0,30),true);
-  buildCar('ctBudget','cdBudget',[...ins].filter(c=>(c.price||0)<=1.00).sort((a,b)=>{const al=a.leg&&(a.leg.commander||a.leg.modern)?1:0;const bl=b.leg&&(b.leg.commander||b.leg.modern)?1:0;return bl-al}).slice(0,30),false);
-  buildCar('ctSleep','cdSleep',[...ins].filter(c=>parseFloat(c.usd||0)>0.5&&parseFloat(c.usd||0)<=2&&c.leg&&(c.leg.commander||c.leg.legacy)).sort((a,b)=>parseFloat(b.usd||0)-parseFloat(a.usd||0)).slice(0,30),false);
+  if(document.getElementById('ctRecent'))buildCar('ctRecent','cdRecent',[...ins].sort((a,b)=>(b.added||'').localeCompare(a.added||'')).slice(0,30),false);
+  if(document.getElementById('ctHV'))buildCar('ctHV','cdHV',[...ins].filter(c=>parseFloat(c.usd||0)>=1.5).sort((a,b)=>parseFloat(b.usd||0)-parseFloat(a.usd||0)).slice(0,30),true);
+  if(document.getElementById('ctBudget'))buildCar('ctBudget','cdBudget',[...ins].filter(c=>(c.price||0)<=1.00).sort((a,b)=>{const al=a.leg&&(a.leg.commander||a.leg.modern)?1:0;const bl=b.leg&&(b.leg.commander||b.leg.modern)?1:0;return bl-al}).slice(0,30),false);
+  if(document.getElementById('ctSleep'))buildCar('ctSleep','cdSleep',[...ins].filter(c=>parseFloat(c.usd||0)>0.5&&parseFloat(c.usd||0)<=2&&c.leg&&(c.leg.commander||c.leg.legacy)).sort((a,b)=>parseFloat(b.usd||0)-parseFloat(a.usd||0)).slice(0,30),false);
   const fav=ins.filter(c=>FAMOUS.some(f=>c.name.toLowerCase().includes(f.toLowerCase()))).slice(0,30);
-  buildCar('ctFav','cdFav',fav.length?fav:[...ins].sort((a,b)=>parseFloat(b.usd||0)-parseFloat(a.usd||0)).slice(0,30),true);
+  if(document.getElementById('ctFav'))buildCar('ctFav','cdFav',fav.length?fav:[...ins].sort((a,b)=>parseFloat(b.usd||0)-parseFloat(a.usd||0)).slice(0,30),true);
 }
 
 function buildCar(trackId,dotsId,cards,showPitch){
