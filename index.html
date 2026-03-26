@@ -1208,9 +1208,17 @@ function wubrgSort(cards){
     const n=c.name.toLowerCase();
     if(!byName[n]||(c.qty||0)>(byName[n].qty||0)) byName[n]=c;
   });
-  // Remove lands — don't show as a card type
-  const noLands=Object.values(byName).filter(c=>!((c.type||'').toLowerCase().includes('land')));
-  const deduped=noLands;
+  // Remove basic lands only — keep non-basics (duals, fetches, utility lands)
+  const BASICS=new Set(['plains','island','swamp','mountain','forest']);
+  const noBasics=Object.values(byName).filter(c=>{
+    const t=(c.type||'').toLowerCase();
+    const n=(c.name||'').toLowerCase();
+    if(!t.includes('land')) return true; // not a land, keep
+    if(t.includes('basic')) return false; // basic land type, remove
+    if(BASICS.has(n)) return false; // named Plains/Island/etc, remove
+    return true; // non-basic land, keep
+  });
+  const deduped=noBasics;
 
   // Split into 6 color buckets
   const buckets={W:[],U:[],B:[],R:[],G:[],C:[]};
