@@ -485,6 +485,18 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
 .mc-col{background:var(--bg4);border-right:1px solid var(--br);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:20px 14px;position:relative;overflow-y:auto;max-height:92vh}
 .mc-col img{width:100%;max-width:290px;border-radius:6px;display:block;box-shadow:0 8px 32px rgba(0,0,0,.7),0 0 20px rgba(232,184,74,.08);cursor:pointer;transition:transform .2s}
 .mc-col img:hover{transform:scale(1.03)}
+.m-view-toggle{
+  display:flex;gap:4px;margin-bottom:8px;background:var(--bg3);
+  border:1px solid var(--br2);border-radius:var(--r);padding:3px;
+}
+.m-vtbtn{
+  flex:1;padding:5px 8px;background:none;border:none;
+  font-family:'DM Mono',monospace;font-size:9px;font-weight:600;
+  letter-spacing:1px;text-transform:uppercase;color:var(--t2);
+  cursor:pointer;border-radius:3px;transition:all .15s;
+}
+.m-vtbtn.active{background:var(--gold);color:#080400;font-weight:700}
+.m-vtbtn:hover:not(.active){color:var(--gold)}
 .mflip{background:var(--bg3);border:1px solid var(--br2);border-radius:var(--r);padding:5px 12px;font-family:'DM Mono',monospace;font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--t1);cursor:pointer;transition:all .15s;display:none}
 .mflip.show{display:block}
 .mflip:hover{border-color:var(--gold);color:var(--gold)}
@@ -949,6 +961,10 @@ html,body{min-height:100%;background:var(--bg);color:var(--t0);font-family:'DM S
       <div id="mLeg"></div>
     </div>
     <div class="mc-col">
+      <div class="m-view-toggle">
+        <button class="m-vtbtn active" id="mVtCard" onclick="mSetView('card')">🃏 Card</button>
+        <button class="m-vtbtn" id="mVtArt" onclick="mSetView('art')">🖼 Art</button>
+      </div>
       <img id="mImg" src="" alt="" onclick="mImgClick()">
       <button class="mflip" id="mFlip" onclick="flipCard()">↺ Flip Card</button>
       <div class="m-prints" id="mPrints" style="display:none">
@@ -1746,19 +1762,48 @@ function openM(s){
   const leg=c.leg||{};
   document.getElementById('mLeg').innerHTML=FMTS.map(f=>{const v=leg[f];const legal=v===true||v===1;const banned=v===2;return`<div class="lr"><span class="lf">${f[0].toUpperCase()+f.slice(1)}</span><span class="ltag ${legal?'ly':banned?'lb':'ln'}">${legal?'Legal':banned?'Banned':'Not Legal'}</span></div>`;}).join('');
   document.getElementById('modal').classList.add('open');document.body.style.overflow='hidden';
+  // Reset view to card on each open
+  _mView='card';
+  const vtCard=document.getElementById('mVtCard');
+  const vtArt=document.getElementById('mVtArt');
+  if(vtCard)vtCard.classList.add('active');
+  if(vtArt)vtArt.classList.remove('active');
   updateFooter();
 }
 function closeM(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
 function dq(d){mQty=Math.max(1,mQty+d);document.getElementById('mQ').textContent=mQty}
 function addFromM(){if(mCard&&(mCard.qty||0)>0){addCart(mCard,mQty);closeM();}}
 function qAdd(s){const c=decC(s);if(c&&(c.qty||0)>0)addCart(c,1)}
+let _mView='card'; // 'card' or 'art'
+function mSetView(v){
+  _mView=v;
+  document.getElementById('mVtCard').classList.toggle('active',v==='card');
+  document.getElementById('mVtArt').classList.toggle('active',v==='art');
+  if(!mCard)return;
+  const img=document.getElementById('mImg');
+  if(v==='art'){
+    // Use art_crop URL
+    const face=window._mFace||0;
+    const src=face===0?(mCard.img||''):(mCard.img2||mCard.img||'');
+    img.src=src.replace('/normal/','/art_crop/');
+    img.style.objectFit='cover';
+    img.style.borderRadius='4px';
+  } else {
+    // Full card face
+    const face=window._mFace||0;
+    img.src=face===0?(mCard.img||''):(mCard.img2||mCard.img||'');
+    img.style.objectFit='contain';
+    img.style.borderRadius='6px';
+  }
+}
 function flipCard(){
   if(!mCard||!mCard.img2)return;
   window._mFace=(window._mFace||0)===0?1:0;
   document.getElementById('mImg').src=window._mFace===0?mCard.img:mCard.img2;
 }
 function mImgClick(){
-  if(mCard&&mCard.img2)flipCard();
+  if(mCard&&mCard.img2) flipCard();
+  // Double-click toggles art/card
 }
 function doWait(){if(!mCard)return;doWaitForCard(mCard)}
 function doWaitForCard(c){
