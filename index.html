@@ -1287,34 +1287,43 @@ function wubrgSort(cards){
   const colSetCounts={}; // how many times each set used per column
   COLOR_ORDER.forEach(c=>{colLastType[c]=null;colLastSet[c]=null;colSetCounts[c]={};});
 
+  const MAX_SET_PER_ROW = 2; // max cards from same set in one row
+
   for(let row=0;row<maxRows;row++){
     const rowCards=[];
-    const rowTypes=new Set(); // types already placed in this row
-    const rowSets=new Set(); // sets already placed in this row
+    const rowTypes=new Set();
+    const rowSetCount={}; // how many times each set appears in this row
 
     COLOR_ORDER.forEach((col,ci)=>{
       const bucket=buckets[col];
       if(!bucket.length){rowCards.push(null);return;}
 
-      // Find best card: different type from row + different type from above + different set from above
       let bestIdx=-1;
       let bestScore=-1;
 
-      for(let i=0;i<Math.min(bucket.length,20);i++){
+      for(let i=0;i<Math.min(bucket.length,40);i++){
         const c=bucket[i];
         const t=typeKey(c);
         const s=c.set;
+        const setInRow=rowSetCount[s]||0;
+
         let score=0;
-        if(!rowTypes.has(t))         score+=4; // not in this row
-        if(!rowSets.has(s))          score+=4; // not in this row (set) — equal priority
-        if(t!==colLastType[col])     score+=2; // not same as above in column
-        if(s!==colLastSet[col])      score+=2; // different set from above in column
-        // Extra penalty for sets already overrepresented in this column
-        const colSetCount=colSetCounts[col]||{};
-        const timesUsed=colSetCount[s]||0;
-        score-=timesUsed*2; // penalize overused sets heavily
+        // Row constraints
+        if(!rowTypes.has(t))           score+=4; // new type in this row
+        if(setInRow===0)               score+=6; // set not yet in this row — top priority
+        else if(setInRow===1)          score+=1; // set seen once — minor penalty
+        else                           score-=20; // set seen twice — hard block
+
+        // Column constraints
+        if(t!==colLastType[col])       score+=2; // different type from above
+        if(s!==colLastSet[col])        score+=2; // different set from above
+
+        // Global column set overuse penalty
+        const timesInCol=colSetCounts[col][s]||0;
+        score-=timesInCol*3;
+
         if(score>bestScore){bestScore=score;bestIdx=i;}
-        if(bestScore>=7) break;
+        if(bestScore>=11) break; // perfect score, stop looking
       }
 
       if(bestIdx===-1) bestIdx=0;
@@ -1323,7 +1332,7 @@ function wubrgSort(cards){
       colLastSet[col]=picked.set;
       colSetCounts[col][picked.set]=(colSetCounts[col][picked.set]||0)+1;
       rowTypes.add(typeKey(picked));
-      rowSets.add(picked.set);
+      rowSetCount[picked.set]=(rowSetCount[picked.set]||0)+1;
       rowCards.push(picked);
     });
 
