@@ -1208,7 +1208,9 @@ function wubrgSort(cards){
     const n=c.name.toLowerCase();
     if(!byName[n]||(c.qty||0)>(byName[n].qty||0)) byName[n]=c;
   });
-  const deduped=Object.values(byName);
+  // Remove lands — don't show as a card type
+  const noLands=Object.values(byName).filter(c=>!((c.type||'').toLowerCase().includes('land')));
+  const deduped=noLands;
 
   // Split into 6 color buckets
   const buckets={W:[],U:[],B:[],R:[],G:[],C:[]};
@@ -1236,6 +1238,7 @@ function wubrgSort(cards){
   for(let row=0;row<maxRows;row++){
     const rowCards=[];
     const rowTypes=new Set(); // types already placed in this row
+    const rowSets=new Set(); // sets already placed in this row
 
     COLOR_ORDER.forEach((col,ci)=>{
       const bucket=buckets[col];
@@ -1251,8 +1254,9 @@ function wubrgSort(cards){
         const s=c.set;
         let score=0;
         if(!rowTypes.has(t))         score+=4; // not in this row
+        if(!rowSets.has(s))          score+=4; // not in this row (set) — equal priority
         if(t!==colLastType[col])     score+=2; // not same as above in column
-        if(s!==colLastSet[col])      score+=2; // different set from above — doubled
+        if(s!==colLastSet[col])      score+=2; // different set from above in column
         // Extra penalty for sets already overrepresented in this column
         const colSetCount=colSetCounts[col]||{};
         const timesUsed=colSetCount[s]||0;
@@ -1267,6 +1271,7 @@ function wubrgSort(cards){
       colLastSet[col]=picked.set;
       colSetCounts[col][picked.set]=(colSetCounts[col][picked.set]||0)+1;
       rowTypes.add(typeKey(picked));
+      rowSets.add(picked.set);
       rowCards.push(picked);
     });
 
