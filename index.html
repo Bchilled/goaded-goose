@@ -759,7 +759,7 @@ body.art-mode .ci img{transform:scale(1.02)}
   /* ── MAIN ── */
   .main{padding:10px 10px 72px}
   /* ── BANNER ── */
-  .banner{height:120px}
+  .banner{height:200px}
   .b-goose-img{width:80px}
   .b-brand{bottom:var(--nh)}
   /* ── NAV BAR — Logo | Search (wide) | Cart only ── */
@@ -785,13 +785,13 @@ body.art-mode .ci img{transform:scale(1.02)}
   .grid{grid-template-columns:repeat(3,1fr);gap:6px}
 }
 @media(max-width:480px){
-  .banner{height:100px}
+  .banner{height:160px}
   .b-goose-img{width:65px}
   .grid{grid-template-columns:repeat(3,1fr);gap:4px}
   .nav-logo{font-size:13px;letter-spacing:1px;opacity:1 !important}
   .nav-search input{font-size:15px}
 }
-  .banner{height:110px}
+  .banner{height:160px}
   .b-goose-wrap svg{width:130px;height:87px}
   .nav-logo span{display:none} /* hide "GOADED GOOSE" text, keep mini goose icon */
 }
@@ -801,17 +801,17 @@ body.art-mode .ci img{transform:scale(1.02)}
 .hero-slide{position:absolute;inset:0;bottom:0;opacity:0;transition:opacity .7s ease;overflow:hidden;pointer-events:none}
 .hero-slide.active{opacity:1}
 .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center top;
-  transform:scale(1.05);transition:transform 7s ease;filter:brightness(.5) saturate(1.5)}
+  transform:scale(1.05);transition:transform 7s ease;filter:brightness(.6) saturate(1.4)}
 .hero-slide.active .hero-bg{transform:scale(1.0)}
 .hero-overlay{position:absolute;inset:0;
-  background:linear-gradient(to right,rgba(4,6,10,.92) 0%,rgba(4,6,10,.3) 60%,transparent 100%),
-             linear-gradient(to top,rgba(4,6,10,.95) 0%,transparent 50%)}
-.hero-content{position:absolute;bottom:20px;left:28px;z-index:2}
-.hero-set-code{font-family:'DM Mono',monospace;font-size:10px;font-weight:700;letter-spacing:4px;color:var(--gold);margin-bottom:3px}
-.hero-set-name{font-family:'Bebas Neue',sans-serif;font-size:46px;letter-spacing:2px;color:#fff;line-height:1;margin-bottom:12px;text-shadow:0 2px 20px rgba(0,0,0,.8)}
-.hero-cta{display:inline-block;background:var(--gold);color:#080400;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:.5px;padding:8px 20px;border-radius:3px;transition:background .15s;pointer-events:all;cursor:pointer}
+  background:linear-gradient(to right,rgba(4,6,10,.85) 0%,rgba(4,6,10,.2) 50%,transparent 100%),
+             linear-gradient(to top,rgba(4,6,10,.85) 0%,transparent 40%)}
+.hero-content{position:absolute;bottom:30px;left:28px;z-index:2}
+.hero-set-code{font-family:'DM Mono',monospace;font-size:12px;font-weight:700;letter-spacing:5px;color:var(--gold);margin-bottom:3px}
+.hero-set-name{font-family:'Bebas Neue',sans-serif;font-size:56px;letter-spacing:2px;color:#fff;line-height:1;margin-bottom:12px;text-shadow:0 2px 20px rgba(0,0,0,.8)}
+.hero-cta{display:inline-block;background:var(--gold);color:#080400;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;letter-spacing:.5px;padding:10px 24px;border-radius:3px;transition:background .15s;pointer-events:all;cursor:pointer}
 .hero-slide:hover .hero-cta{background:var(--gold2)}
-.hero-brand{position:absolute;top:12px;left:14px;z-index:25;display:flex;align-items:center;gap:8px;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;color:var(--gold);text-shadow:0 1px 8px rgba(0,0,0,.9)}
+.hero-brand{position:absolute;top:16px;left:20px;z-index:25;display:flex;align-items:center;gap:10px;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:5px;color:var(--gold);text-shadow:0 2px 12px rgba(0,0,0,.9)}
 .hero-dots{position:absolute;bottom:calc(var(--nh) + 8px);left:50%;transform:translateX(-50%);z-index:20;display:flex;gap:5px}
 .hero-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .2s;border:none}
 .hero-dot.active{background:var(--gold);width:18px;border-radius:3px}
@@ -1321,8 +1321,6 @@ const rm={M:'rM',R:'rR',U:'rU',C:'rC'};
 let db=[],fil=[],pg=1,mCard=null,mQty=1,cart={},rv=[];
 let flt={stock:'instock',sort:'wubrg',set:'',color:'',colorIds:[],rarity:'',type:'',format:'',foil:''};
 let srchQ='';
-let fil=[];
-let pg=1;
 let carPos={};
 
 function wubrgSort(cards){
@@ -2400,7 +2398,7 @@ updateArtModeUI();
     const brand = document.createElement('div');
     brand.className = 'hero-brand';
     brand.onclick = ()=>{ if(typeof goHome==='function') goHome(); };
-    brand.innerHTML = `<svg viewBox="0 0 220 200" style="width:26px;height:24px;flex-shrink:0"><path d="M 55,155 Q 25,145 22,118 Q 18,88 40,78 Q 68,60 80,52 Q 92,44 122,52 Q 138,68 134,90 Q 152,118 138,155 Q 88,168 55,155 Z" fill="#f5f5f5"/><path d="M 80,78 Q 76,44 92,28 Q 110,26 104,62 Q 98,72 92,80 Z" fill="#f5f5f5"/><ellipse cx="95" cy="30" rx="22" ry="20" fill="#f5f5f5"/><circle cx="105" cy="24" r="5" fill="#111"/><path d="M 114,28 L 138,22 L 140,28 L 120,36 Z" fill="#e87820"/></svg><span>GOADED GOOSE</span>`;
+    brand.innerHTML = `<svg viewBox="0 0 220 200" style="width:42px;height:38px;flex-shrink:0"><path d="M 55,155 Q 25,145 22,118 Q 18,88 40,78 Q 68,60 80,52 Q 92,44 122,52 Q 138,68 134,90 Q 152,118 138,155 Q 88,168 55,155 Z" fill="#f5f5f5"/><path d="M 80,78 Q 76,44 92,28 Q 110,26 104,62 Q 98,72 92,80 Z" fill="#f5f5f5"/><ellipse cx="95" cy="30" rx="22" ry="20" fill="#f5f5f5"/><circle cx="105" cy="24" r="5" fill="#111"/><path d="M 114,28 L 138,22 L 140,28 L 120,36 Z" fill="#e87820"/></svg><span>GOADED GOOSE</span>`;
     banner.appendChild(brand);
 
     // Dots
