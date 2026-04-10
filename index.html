@@ -1,37 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script>
-(function(){
-  if(sessionStorage.getItem("gg_auth")==="1") return;
-  var style = document.createElement("style");
-  style.textContent = "body{display:none!important}";
-  document.head && document.head.appendChild(style) || document.documentElement.appendChild(style);
-  window.addEventListener("DOMContentLoaded", function() {
-    var overlay = document.createElement("div");
-    overlay.style.cssText = "position:fixed;inset:0;background:#06080c;display:flex;align-items:center;justify-content:center;z-index:99999";
-    var inp = document.createElement("input");
-    inp.type = "password";
-    inp.placeholder = "·····";
-    inp.style.cssText = "background:transparent;border:1px solid #e8b84a;color:#e8b84a;padding:.7rem 1.2rem;font-size:1.2rem;text-align:center;outline:none;letter-spacing:.3em";
-    inp.addEventListener("keydown", function(e) {
-      if (e.key !== "Enter") return;
-      if (inp.value === "BEN") {
-        sessionStorage.setItem("gg_auth","1");
-        overlay.remove();
-        style.remove();
-        document.body.style.display = "";
-      } else {
-        inp.value = "";
-        inp.style.borderColor = "#f00";
-        setTimeout(function(){ inp.style.borderColor = "#e8b84a"; }, 800);
-      }
-    });
-    overlay.appendChild(inp);
-    document.body.appendChild(overlay);
-    inp.focus();
-  });
-})();
-</script>
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>The Goaded Goose — MTG Singles</title>
