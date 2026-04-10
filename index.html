@@ -16,6 +16,7 @@
     .overlay{display:none;position:fixed;inset:0;background:#06080c;align-items:center;justify-content:center;z-index:999}
     .overlay.show{display:flex}
     .pw-input{background:transparent;border:1px solid #e8b84a;color:#e8b84a;padding:0.7rem 1.2rem;font-size:1.2rem;text-align:center;outline:none;letter-spacing:0.3em;font-family:Georgia,serif}
+    .pw-input.error{border-color:#f00}
   </style>
 </head>
 <body>
@@ -23,15 +24,20 @@
   <div class="sub">MTG Singles</div>
   <div class="divider"></div>
   <div class="coming">Coming Soon</div>
-  <button class="dev-btn" onclick="document.getElementById('o').classList.add('show');setTimeout(()=>document.getElementById('pw').focus(),50)">Dev</button>
-  <div class="overlay" id="o">
+  <button class="dev-btn" onclick="document.getElementById('overlay').classList.add('show');setTimeout(()=>document.getElementById('pw').focus(),50)">Dev</button>
+  <div class="overlay" id="overlay">
     <input class="pw-input" id="pw" type="password" placeholder="&middot;&middot;&middot;&middot;&middot;">
   </div>
   <script>
-    document.getElementById('pw').addEventListener('keydown',function(e){
-      if(e.key!=='Enter')return;
-      if(this.value==='BEN'){window.location.href='/store.html';}
-      else{this.value='';this.style.borderColor='#f00';setTimeout(()=>this.style.borderColor='#e8b84a',800);}
+    document.getElementById('pw').addEventListener('keydown', function(e) {
+      if (e.key !== 'Enter') return;
+      if (this.value === 'BEN') {
+        window.location.href = '/store.html';
+      } else {
+        this.value = '';
+        this.classList.add('error');
+        setTimeout(() => this.classList.remove('error'), 800);
+      }
     });
   </script>
 </body>
