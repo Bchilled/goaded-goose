@@ -1,35 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-<head><script>
-(function() {
-  if (sessionStorage.getItem('gg_auth') !== '1') {
-    document.addEventListener('DOMContentLoaded', function() {
-      var div = document.createElement('div');
-      div.style.cssText = 'min-height:100vh;background:#06080c;display:flex;align-items:center;justify-content:center';
-      var inp = document.createElement('input');
-      inp.type = 'password';
-      inp.placeholder = 'Enter password';
-      inp.style.cssText = 'background:transparent;border:1px solid #3a3020;color:#e8b84a;padding:.6rem 1rem;font-size:1rem;text-align:center;outline:none;letter-spacing:.2em';
-      inp.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-          if (this.value === 'BEN') {
-            sessionStorage.setItem('gg_auth', '1');
-            location.reload();
-          } else {
-            this.value = '';
-            this.style.borderColor = '#f00';
-            setTimeout(function() { inp.style.borderColor = '#3a3020'; }, 1000);
-          }
-        }
-      });
-      div.appendChild(inp);
-      document.body.innerHTML = '';
-      document.body.appendChild(div);
-      inp.focus();
-    });
-  }
-})();
+<script>
+if(sessionStorage.getItem('gg_auth')!=='1'){
+  document.documentElement.innerHTML='<html><head><style>*{margin:0;padding:0;box-sizing:border-box}body{min-height:100vh;background:#06080c;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif}input{background:transparent;border:1px solid #3a3020;color:#e8b84a;padding:.6rem 1rem;font-size:1rem;text-align:center;outline:none;letter-spacing:.2em}</style></head><body><input id="pw" type="password" placeholder="·····" autofocus><script>document.getElementById("pw").addEventListener("keydown",function(e){if(e.key==="Enter"){if(this.value==="BEN"){sessionStorage.setItem("gg_auth","1");location.reload();}else{this.value="";this.style.borderColor="#f00";setTimeout(()=>this.style.borderColor="#3a3020",1000);}}});<\/script></body></html>';
+}
 </script>
+<html lang="en">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>The Goaded Goose — MTG Singles</title>
