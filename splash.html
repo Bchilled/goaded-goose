@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Goaded Goose</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{min-height:100vh;background:#06080c;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem 2rem;font-family:'Cinzel',Georgia,serif}
+    .logo{font-size:2.6rem;font-weight:700;color:#e8b84a;letter-spacing:0.2em;margin-bottom:0.6rem}
+    .sub{font-size:1rem;color:#c9a84a;letter-spacing:0.3em;margin-bottom:2rem}
+    .divider{width:200px;height:1px;background:#e8b84a;margin:0 auto 2rem;opacity:0.5}
+    .coming{font-size:0.85rem;letter-spacing:0.4em;color:#e8b84a;text-transform:uppercase;margin-bottom:3rem}
+    .dev-btn{font-size:0.75rem;letter-spacing:0.2em;color:#e8b84a;text-transform:uppercase;border:1px solid #e8b84a;padding:0.5rem 1.5rem;background:transparent;cursor:pointer;font-family:'Cinzel',Georgia,serif}
+    .overlay{display:none;position:fixed;inset:0;background:#06080c;align-items:center;justify-content:center;z-index:999}
+    .overlay.show{display:flex}
+    .pw-input{background:transparent;border:1px solid #e8b84a;color:#e8b84a;padding:0.7rem 1.2rem;font-size:1.2rem;text-align:center;outline:none;letter-spacing:0.3em;font-family:Georgia,serif}
+    .pw-input.error{border-color:#f00}
+  </style>
+</head>
+<body>
+  <div class="logo">GOADED GOOSE</div>
+  <div class="sub">MTG Singles</div>
+  <div class="divider"></div>
+  <div class="coming">Coming Soon</div>
+  <button class="dev-btn" onclick="document.getElementById('overlay').classList.add('show');setTimeout(()=>document.getElementById('pw').focus(),50)">Dev</button>
+  <div class="overlay" id="overlay">
+    <input class="pw-input" id="pw" type="password" placeholder="&middot;&middot;&middot;&middot;&middot;">
+  </div>
+  <script>
+    document.getElementById('pw').addEventListener('keydown', function(e) {
+      if (e.key !== 'Enter') return;
+      if (this.value === 'BEN') {
+        window.location.href = 'https://bchilled.github.io/goaded-goose';
+      } else {
+        this.value = '';
+        this.classList.add('error');
+        setTimeout(() => this.classList.remove('error'), 800);
+      }
+    });
+  </script>
+</body>
+</html>
