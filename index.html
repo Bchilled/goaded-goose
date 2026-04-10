@@ -15,7 +15,7 @@
     .dev-btn{font-size:0.75rem;letter-spacing:0.2em;color:#e8b84a;text-transform:uppercase;border:1px solid #e8b84a;padding:0.5rem 1.5rem;background:transparent;cursor:pointer;font-family:'Cinzel',Georgia,serif}
     .overlay{display:none;position:fixed;inset:0;background:#06080c;align-items:center;justify-content:center;z-index:999}
     .overlay.show{display:flex}
-    .pw{background:transparent;border:1px solid #e8b84a;color:#e8b84a;padding:0.7rem 1.2rem;font-size:1.2rem;text-align:center;outline:none;letter-spacing:0.3em;font-family:Georgia,serif}
+    .pw-input{background:transparent;border:1px solid #e8b84a;color:#e8b84a;padding:0.7rem 1.2rem;font-size:1.2rem;text-align:center;outline:none;letter-spacing:0.3em;font-family:Georgia,serif}
   </style>
 </head>
 <body>
@@ -23,9 +23,9 @@
   <div class="sub">MTG Singles</div>
   <div class="divider"></div>
   <div class="coming">Coming Soon</div>
-  <button class="dev-btn" onclick="document.getElementById('ov').classList.add('show');setTimeout(()=>document.getElementById('pw').focus(),50)">Dev</button>
-  <div class="overlay" id="ov">
-    <input class="pw" id="pw" type="password" placeholder="&middot;&middot;&middot;&middot;&middot;">
+  <button class="dev-btn" onclick="document.getElementById('o').classList.add('show');setTimeout(()=>document.getElementById('pw').focus(),50)">Dev</button>
+  <div class="overlay" id="o">
+    <input class="pw-input" id="pw" type="password" placeholder="&middot;&middot;&middot;&middot;&middot;">
   </div>
   <script>
     document.getElementById('pw').addEventListener('keydown',function(e){
