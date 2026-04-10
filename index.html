@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><script>
+(function(){
+  if(sessionStorage.getItem('gg_auth')!=='1'){
+    document.addEventListener('DOMContentLoaded',function(){
+      document.body.innerHTML='<div style="min-height:100vh;background:#06080c;display:flex;align-items:center;justify-content:center"><input id=pw type=password placeholder=\'·····\' style=\'background:transparent;border:1px solid #3a3020;color:#e8b84a;padding:.6rem 1rem;font-size:1rem;text-align:center;outline:none;letter-spacing:.2em\' autofocus></div>';
+      document.getElementById(\'pw\').addEventListener(\'keydown\',function(e){
+        if(e.key===\'Enter\'){
+          if(this.value===\'BEN\'){sessionStorage.setItem(\'gg_auth\',\'1\');location.reload();}
+          else{this.value=\'\';this.style.borderColor=\'#f00\';setTimeout(()=>this.style.borderColor=\'#3a3020\',1000);}
+        }
+      });
+    });
+  }
+})();
+</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Goaded Goose</title>
