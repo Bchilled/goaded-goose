@@ -1,6 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><script>
+(function(){
+  if(sessionStorage.getItem("gg_auth")==="1") return;
+  var style = document.createElement("style");
+  style.textContent = "body{display:none!important}";
+  document.head && document.head.appendChild(style) || document.documentElement.appendChild(style);
+  window.addEventListener("DOMContentLoaded", function() {
+    var overlay = document.createElement("div");
+    overlay.style.cssText = "position:fixed;inset:0;background:#06080c;display:flex;align-items:center;justify-content:center;z-index:99999";
+    var inp = document.createElement("input");
+    inp.type = "password";
+    inp.placeholder = "·····";
+    inp.style.cssText = "background:transparent;border:1px solid #e8b84a;color:#e8b84a;padding:.7rem 1.2rem;font-size:1.2rem;text-align:center;outline:none;letter-spacing:.3em";
+    inp.addEventListener("keydown", function(e) {
+      if (e.key !== "Enter") return;
+      if (inp.value === "BEN") {
+        sessionStorage.setItem("gg_auth","1");
+        overlay.remove();
+        style.remove();
+        document.body.style.display = "";
+      } else {
+        inp.value = "";
+        inp.style.borderColor = "#f00";
+        setTimeout(function(){ inp.style.borderColor = "#e8b84a"; }, 800);
+      }
+    });
+    overlay.appendChild(inp);
+    document.body.appendChild(overlay);
+    inp.focus();
+  });
+})();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>The Goaded Goose — MTG Singles</title>
@@ -858,35 +889,7 @@ body.art-mode .ci img{transform:scale(1.02)}
   }
 }
 </style>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  if (sessionStorage.getItem("gg_auth") !== "1") {
-    document.body.style.display = "none";
-    var overlay = document.createElement("div");
-    overlay.style.cssText = "position:fixed;inset:0;background:#06080c;display:flex;align-items:center;justify-content:center;z-index:99999";
-    var input = document.createElement("input");
-    input.type = "password";
-    input.placeholder = "·····";
-    input.style.cssText = "background:transparent;border:1px solid #e8b84a;color:#e8b84a;padding:.6rem 1rem;font-size:1.2rem;text-align:center;outline:none;letter-spacing:.3em;font-family:Georgia,serif";
-    input.addEventListener("keydown", function(e) {
-      if (e.key === "Enter") {
-        if (this.value === "BEN") {
-          sessionStorage.setItem("gg_auth", "1");
-          document.body.style.display = "";
-          overlay.remove();
-        } else {
-          this.value = "";
-          this.style.borderColor = "#ff0000";
-          setTimeout(function() { input.style.borderColor = "#e8b84a"; }, 1000);
-        }
-      }
-    });
-    overlay.appendChild(input);
-    document.body.appendChild(overlay);
-    setTimeout(function() { input.focus(); }, 50);
-  }
-});
-</script></head>
+</head>
 <body>
 
 <!-- BANNER -->
