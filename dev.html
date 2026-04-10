@@ -5,40 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Goaded Goose</title>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      min-height: 100vh;
-      background: #06080c;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: Georgia, serif;
-    }
-    input {
-      background: transparent;
-      border: 1px solid #3a3020;
-      color: #e8b84a;
-      padding: 0.6rem 1rem;
-      font-size: 1rem;
-      text-align: center;
-      outline: none;
-      letter-spacing: 0.2em;
-    }
-    input:focus { border-color: #e8b84a; }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{min-height:100vh;background:#06080c;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif}
+    input{background:transparent;border:1px solid #e8b84a;color:#e8b84a;padding:.7rem 1.2rem;font-size:1.2rem;text-align:center;outline:none;letter-spacing:.3em}
   </style>
 </head>
 <body>
   <input type="password" id="pw" placeholder="·····" autofocus>
   <script>
     document.getElementById('pw').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') {
-        if (this.value === 'BEN') {
-          window.location.href = 'https://bchilled.github.io/goaded-goose';
-        } else {
-          this.value = '';
-          this.style.borderColor = '#ff0000';
-          setTimeout(() => this.style.borderColor = '#3a3020', 1000);
-        }
+      if (e.key !== 'Enter') return;
+      if (this.value === 'BEN') {
+        window.location.href = 'https://bchilled.github.io/goaded-goose';
+      } else {
+        this.value = '';
+        this.style.borderColor = '#f00';
+        setTimeout(() => this.style.borderColor = '#e8b84a', 800);
       }
     });
   </script>
