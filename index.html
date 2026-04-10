@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<script>
-if(sessionStorage.getItem('gg_auth')!=='1'){
-  document.documentElement.innerHTML='<html><head><style>*{margin:0;padding:0;box-sizing:border-box}body{min-height:100vh;background:#06080c;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif}input{background:transparent;border:1px solid #3a3020;color:#e8b84a;padding:.6rem 1rem;font-size:1rem;text-align:center;outline:none;letter-spacing:.2em}</style></head><body><input id="pw" type="password" placeholder="·····" autofocus><script>document.getElementById("pw").addEventListener("keydown",function(e){if(e.key==="Enter"){if(this.value==="BEN"){sessionStorage.setItem("gg_auth","1");location.reload();}else{this.value="";this.style.borderColor="#f00";setTimeout(()=>this.style.borderColor="#3a3020",1000);}}});<\/script></body></html>';
-}
-</script>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -863,7 +858,35 @@ body.art-mode .ci img{transform:scale(1.02)}
   }
 }
 </style>
-</head>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  if (sessionStorage.getItem("gg_auth") !== "1") {
+    document.body.style.display = "none";
+    var overlay = document.createElement("div");
+    overlay.style.cssText = "position:fixed;inset:0;background:#06080c;display:flex;align-items:center;justify-content:center;z-index:99999";
+    var input = document.createElement("input");
+    input.type = "password";
+    input.placeholder = "·····";
+    input.style.cssText = "background:transparent;border:1px solid #e8b84a;color:#e8b84a;padding:.6rem 1rem;font-size:1.2rem;text-align:center;outline:none;letter-spacing:.3em;font-family:Georgia,serif";
+    input.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        if (this.value === "BEN") {
+          sessionStorage.setItem("gg_auth", "1");
+          document.body.style.display = "";
+          overlay.remove();
+        } else {
+          this.value = "";
+          this.style.borderColor = "#ff0000";
+          setTimeout(function() { input.style.borderColor = "#e8b84a"; }, 1000);
+        }
+      }
+    });
+    overlay.appendChild(input);
+    document.body.appendChild(overlay);
+    setTimeout(function() { input.focus(); }, 50);
+  }
+});
+</script></head>
 <body>
 
 <!-- BANNER -->
